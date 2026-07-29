@@ -2,6 +2,10 @@
 
 namespace ACF_Repeater\Admin;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use ACF_Repeater\Helpers\Validator;
 use ACF_Repeater\Helpers\Sanitizer;
 

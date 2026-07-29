@@ -8,6 +8,10 @@
 
 namespace ACF_Repeater\Core;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Autoloader
  *

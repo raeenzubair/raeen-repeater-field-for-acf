@@ -7,6 +7,10 @@
 
 namespace ACF_Repeater\Core;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use ACF_Repeater\Admin\Settings;
 use ACF_Repeater\Admin\Asset_Manager;
 use ACF_Repeater\Admin\Ajax_Handler;

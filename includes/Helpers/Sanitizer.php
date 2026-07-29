@@ -7,6 +7,10 @@
 
 namespace ACF_Repeater\Helpers;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Sanitizer
  *

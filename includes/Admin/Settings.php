@@ -10,6 +10,10 @@
 
 namespace ACF_Repeater\Admin;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Settings
  */

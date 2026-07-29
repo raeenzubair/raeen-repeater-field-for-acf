@@ -1,1 +1,22 @@
-node_modules
+# Dependencies
+/node_modules/
+/vendor/
+
+# Release archives & build artifacts
+*.zip
+*.tar.gz
+*.tgz
+*.log
+.phpunit.result.cache
+
+# Operating System & IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary & Editor files
+*.tmp
+*.bak

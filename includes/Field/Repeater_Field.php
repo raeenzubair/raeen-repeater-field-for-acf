@@ -14,6 +14,10 @@
  * @package ACF_Repeater\Field
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if (!class_exists('acf_field_repeater')):
 
 	/**

@@ -7,6 +7,10 @@
 
 namespace ACF_Repeater\Admin;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Asset Manager class.
  * Handles enqueueing and managing CSS/JS assets for admin and frontend.
