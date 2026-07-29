@@ -1,6 +1,6 @@
-=== ACF Repeater ===
+=== Repeater Field for ACF ===
 Contributors: acf-repeater
-Donate link: https://wordpress.org/plugins/acf-repeater/
+Donate link: https://wordpress.org/plugins/repeater-field-for-acf/
 Tags: acf, advanced-custom-fields, repeater, custom-fields, flexible-content
 Requires at least: 5.8
 Tested up to: 7.0

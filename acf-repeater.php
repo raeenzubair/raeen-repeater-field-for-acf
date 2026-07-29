@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: ACF Repeater
- * Plugin URI: https://wordpress.org/plugins/acf-repeater/
+ * Plugin Name: Repeater Field for ACF
+ * Plugin URI: https://wordpress.org/plugins/repeater-field-for-acf/
  * Description: Adds a fully functional Repeater field type to the free version of Advanced Custom Fields. Supports table/block/row layouts, drag-and-drop sorting, nested repeaters, and full ACF JSON sync.
  * Version: 1.0.0
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Requires Plugins: advanced-custom-fields
- * Author: ACF Repeater Contributors
- * Author URI: https://wordpress.org/plugins/acf-repeater/
+ * Author: Repeater Field for ACF Contributors
+ * Author URI: https://wordpress.org/plugins/repeater-field-for-acf/
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: acf-repeater

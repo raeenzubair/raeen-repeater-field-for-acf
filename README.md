@@ -1,4 +1,4 @@
-# ACF Repeater
+# Repeater Field for ACF
 
 A powerful, performant Repeater field type for the free version of Advanced Custom Fields (ACF). Supports table/block layouts, drag-and-drop sorting, nested repeaters, REST API, and ACF JSON sync.
 
