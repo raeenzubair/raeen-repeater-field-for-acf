@@ -28,7 +28,7 @@ ACF Repeater adds a native-feeling Repeater field type to the **free** version o
 * **REST API Support**: Exposes repeater data through the WordPress REST API
 * **Gutenberg & Classic Editor**: Works in both editors
 * **Multisite Compatible**: Network activatable
-* **Internationalization Ready**: Full translation support (text domain: `acf-repeater`)
+* **Internationalization Ready**: Full translation support (text domain: `repeater-field-for-acf`)
 * **Accessibility Ready**: Proper ARIA labels and keyboard support
 
 **Data Storage (ACF Pro-compatible):**

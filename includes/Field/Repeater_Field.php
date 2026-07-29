@@ -48,9 +48,9 @@ if (!class_exists('acf_field_repeater')):
 		public function initialize()
 		{
 			$this->name = 'repeater';
-			$this->label = __('Repeater', 'acf-repeater');
+			$this->label = __('Repeater', 'repeater-field-for-acf');
 			$this->category = 'layout';
-			$this->description = __('The Repeater field allows you to create a set of sub fields which can be repeated again and again whilst editing content.', 'acf-repeater');
+			$this->description = __('The Repeater field allows you to create a set of sub fields which can be repeated again and again whilst editing content.', 'repeater-field-for-acf');
 			$this->doc_url = 'https://www.advancedcustomfields.com/resources/repeater/';
 			$this->pro = false; // This is NOT a PRO-only field when this plugin is active.
 			$this->defaults = array(
@@ -67,8 +67,8 @@ if (!class_exists('acf_field_repeater')):
 				'delete_confirm' => 1,
 			);
 			$this->l10n = array(
-				'min_rows' => __('minimum rows required', 'acf-repeater'),
-				'max_rows' => __('maximum rows allowed', 'acf-repeater'),
+				'min_rows' => __('minimum rows required', 'repeater-field-for-acf'),
+				'max_rows' => __('maximum rows allowed', 'repeater-field-for-acf'),
 			);
 
 			// Preserve pre-loaded sub-field values inside repeater rows during render.
@@ -150,7 +150,7 @@ if (!class_exists('acf_field_repeater')):
 
 			$min_rows = (int) ($field['min'] > 0 ? $field['min'] : ($field['min_rows'] ?? 0));
 			$max_rows = (int) ($field['max'] > 0 ? $field['max'] : ($field['max_rows'] ?? 0));
-			$button_label = !empty($field['button_label']) ? $field['button_label'] : __('Add Row', 'acf-repeater');
+			$button_label = !empty($field['button_label']) ? $field['button_label'] : __('Add Row', 'repeater-field-for-acf');
 			$sortable = !empty($field['sortable']);
 			$duplicate = !empty($field['duplicate']);
 			$delete_confirm = !empty($field['delete_confirm']);
@@ -178,7 +178,7 @@ if (!class_exists('acf_field_repeater')):
 			echo '<div class="acf-repeater acf-repeater-' . esc_attr($layout) . '"' . rtrim($attrs_str) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			if (empty($sub_fields)) {
-				echo '<p class="acf-no-fields acf-cf"><span>' . esc_html__('Click the "+ Add Row" button below to start creating your content', 'acf-repeater') . '</span></p>';
+				echo '<p class="acf-no-fields acf-cf"><span>' . esc_html__('Click the "+ Add Row" button below to start creating your content', 'repeater-field-for-acf') . '</span></p>';
 			} else {
 				// All layouts now use the same clean stacked-row HTML.
 				echo '<div class="acf-repeater-rows">';
@@ -197,7 +197,7 @@ if (!class_exists('acf_field_repeater')):
 			if ($min_rows > 0) {
 				echo '<span class="acf-min-rows" data-min="' . esc_attr($min_rows) . '">';
 				/* translators: %d = minimum number of rows */
-				printf(esc_html__('Minimum %d row(s) required', 'acf-repeater'), (int) $min_rows);
+				printf(esc_html__('Minimum %d row(s) required', 'repeater-field-for-acf'), (int) $min_rows);
 				echo '</span>';
 			}
 			echo '</div>';
@@ -262,11 +262,11 @@ if (!class_exists('acf_field_repeater')):
 
 				<!-- Left: drag handle + row number + optional collapse icon -->
 				<div class="acf-row-handle order"
-					title="<?php echo $collapsed_key ? esc_attr__('Click to toggle collapse / Drag to reorder', 'acf-repeater') : esc_attr__('Drag to reorder', 'acf-repeater'); ?>">
-					<span class="acf-sortable-handle" title="<?php esc_attr_e('Drag to reorder', 'acf-repeater'); ?>"></span>
+					title="<?php echo $collapsed_key ? esc_attr__('Click to toggle collapse / Drag to reorder', 'repeater-field-for-acf') : esc_attr__('Drag to reorder', 'repeater-field-for-acf'); ?>">
+					<span class="acf-sortable-handle" title="<?php esc_attr_e('Drag to reorder', 'repeater-field-for-acf'); ?>"></span>
 					<span class="acf-row-number"><?php echo esc_html($row_num); ?></span>
 					<?php if ($collapsed_key): ?>
-						<a class="acf-icon -collapse small" href="#" title="<?php esc_attr_e('Click to toggle row', 'acf-repeater'); ?>"
+						<a class="acf-icon -collapse small" href="#" title="<?php esc_attr_e('Click to toggle row', 'repeater-field-for-acf'); ?>"
 							data-event="collapse-row">
 						</a>
 						<span class="acf-row-compact-title"><?php echo esc_html($collapsed_title); ?></span>
@@ -285,13 +285,13 @@ if (!class_exists('acf_field_repeater')):
 
 				<!-- Right: remove / duplicate buttons -->
 				<div class="acf-row-handle remove">
-					<a class="acf-remove-row" href="#" title="<?php esc_attr_e('Remove row', 'acf-repeater'); ?>"
-						aria-label="<?php esc_attr_e('Remove row', 'acf-repeater'); ?>">
+					<a class="acf-remove-row" href="#" title="<?php esc_attr_e('Remove row', 'repeater-field-for-acf'); ?>"
+						aria-label="<?php esc_attr_e('Remove row', 'repeater-field-for-acf'); ?>">
 						<span class="dashicons dashicons-minus" aria-hidden="true"></span>
 					</a>
 					<?php if (!$is_clone && !empty($field['duplicate'])): ?>
-						<a class="acf-duplicate-row" href="#" title="<?php esc_attr_e('Duplicate row', 'acf-repeater'); ?>"
-							aria-label="<?php esc_attr_e('Duplicate row', 'acf-repeater'); ?>">
+						<a class="acf-duplicate-row" href="#" title="<?php esc_attr_e('Duplicate row', 'repeater-field-for-acf'); ?>"
+							aria-label="<?php esc_attr_e('Duplicate row', 'repeater-field-for-acf'); ?>">
 							<span class="dashicons dashicons-admin-page" aria-hidden="true"></span>
 						</a>
 					<?php endif; ?>
@@ -392,7 +392,7 @@ if (!class_exists('acf_field_repeater')):
 			?>
 			<div class="acf-field acf-field-setting-sub_fields" data-setting="repeater" data-name="sub_fields">
 				<div class="acf-label">
-					<label><?php esc_html_e('Sub Fields', 'acf-repeater'); ?></label>
+					<label><?php esc_html_e('Sub Fields', 'repeater-field-for-acf'); ?></label>
 				</div>
 				<div class="acf-input">
 					<?php acf_get_view('acf-field-group/fields', $args); ?>
@@ -404,8 +404,8 @@ if (!class_exists('acf_field_repeater')):
 			acf_render_field_setting(
 				$field,
 				array(
-					'label' => __('Minimum Rows', 'acf-repeater'),
-					'instructions' => __('Minimum number of rows required. Leave blank for no minimum.', 'acf-repeater'),
+					'label' => __('Minimum Rows', 'repeater-field-for-acf'),
+					'instructions' => __('Minimum number of rows required. Leave blank for no minimum.', 'repeater-field-for-acf'),
 					'type' => 'number',
 					'name' => 'min',
 					'ui' => 0,
@@ -417,8 +417,8 @@ if (!class_exists('acf_field_repeater')):
 			acf_render_field_setting(
 				$field,
 				array(
-					'label' => __('Maximum Rows', 'acf-repeater'),
-					'instructions' => __('Maximum number of rows allowed. Leave blank for no maximum.', 'acf-repeater'),
+					'label' => __('Maximum Rows', 'repeater-field-for-acf'),
+					'instructions' => __('Maximum number of rows allowed. Leave blank for no maximum.', 'repeater-field-for-acf'),
 					'type' => 'number',
 					'name' => 'max',
 					'ui' => 0,
@@ -430,14 +430,14 @@ if (!class_exists('acf_field_repeater')):
 			acf_render_field_setting(
 				$field,
 				array(
-					'label' => __('Layout', 'acf-repeater'),
-					'instructions' => __('Select the style used to display the repeater rows.', 'acf-repeater'),
+					'label' => __('Layout', 'repeater-field-for-acf'),
+					'instructions' => __('Select the style used to display the repeater rows.', 'repeater-field-for-acf'),
 					'type' => 'radio',
 					'name' => 'layout',
 					'choices' => array(
-						'table' => __('Table', 'acf-repeater'),
-						'block' => __('Block', 'acf-repeater'),
-						'row' => __('Row', 'acf-repeater'),
+						'table' => __('Table', 'repeater-field-for-acf'),
+						'block' => __('Block', 'repeater-field-for-acf'),
+						'row' => __('Row', 'repeater-field-for-acf'),
 					),
 					'layout' => 'horizontal',
 				)
@@ -447,15 +447,15 @@ if (!class_exists('acf_field_repeater')):
 			acf_render_field_setting(
 				$field,
 				array(
-					'label' => __('Add Row Button Label', 'acf-repeater'),
-					'instructions' => __('Text shown on the "Add Row" button.', 'acf-repeater'),
+					'label' => __('Add Row Button Label', 'repeater-field-for-acf'),
+					'instructions' => __('Text shown on the "Add Row" button.', 'repeater-field-for-acf'),
 					'type' => 'text',
 					'name' => 'button_label',
 				)
 			);
 
 			// Collapsed.
-			$choices = array('' => '— ' . __('None', 'acf-repeater') . ' —');
+			$choices = array('' => '— ' . __('None', 'repeater-field-for-acf') . ' —');
 			if (!empty($field['sub_fields'])) {
 				foreach ($field['sub_fields'] as $sf) {
 					$choices[$sf['key']] = $sf['label'];
@@ -464,8 +464,8 @@ if (!class_exists('acf_field_repeater')):
 			acf_render_field_setting(
 				$field,
 				array(
-					'label' => __('Collapsed', 'acf-repeater'),
-					'instructions' => __('Select a sub field to show when the row is collapsed.', 'acf-repeater'),
+					'label' => __('Collapsed', 'repeater-field-for-acf'),
+					'instructions' => __('Select a sub field to show when the row is collapsed.', 'repeater-field-for-acf'),
 					'type' => 'select',
 					'name' => 'collapsed',
 					'choices' => $choices,
@@ -797,7 +797,7 @@ if (!class_exists('acf_field_repeater')):
 			if ($min > 0 && $count < $min) {
 				return sprintf(
 					/* translators: 1: label, 2: minimum */
-					__('%1$s requires a minimum of %2$s rows', 'acf-repeater'),
+					__('%1$s requires a minimum of %2$s rows', 'repeater-field-for-acf'),
 					'<strong>' . esc_html($field['label']) . '</strong>',
 					'<strong>' . $min . '</strong>'
 				);
@@ -806,7 +806,7 @@ if (!class_exists('acf_field_repeater')):
 			if ($max > 0 && $count > $max) {
 				return sprintf(
 					/* translators: 1: label, 2: maximum */
-					__('%1$s requires a maximum of %2$s rows', 'acf-repeater'),
+					__('%1$s requires a maximum of %2$s rows', 'repeater-field-for-acf'),
 					'<strong>' . esc_html($field['label']) . '</strong>',
 					'<strong>' . $max . '</strong>'
 				);
@@ -815,7 +815,7 @@ if (!class_exists('acf_field_repeater')):
 			if (!empty($field['required']) && 0 === $count) {
 				return sprintf(
 					/* translators: %s: label */
-					__('%s value is required', 'acf-repeater'),
+					__('%s value is required', 'repeater-field-for-acf'),
 					'<strong>' . esc_html($field['label']) . '</strong>'
 				);
 			}
@@ -920,7 +920,7 @@ if (!class_exists('acf_field_repeater')):
 		public function prepare_field($field)
 		{
 			if (empty($field['button_label'])) {
-				$field['button_label'] = __('Add Row', 'acf-repeater');
+				$field['button_label'] = __('Add Row', 'repeater-field-for-acf');
 			}
 			if (empty($field['min'])) {
 				$field['min'] = 0;

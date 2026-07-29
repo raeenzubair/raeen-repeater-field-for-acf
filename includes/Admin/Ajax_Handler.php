@@ -128,7 +128,7 @@ class Ajax_Handler {
 	 */
 	public function ajax_sort_rows(): void {
 		if ( ! $this->verify_request() ) {
-			$this->send_error( __( 'Invalid request.', 'acf-repeater' ), 403 );
+			$this->send_error( __( 'Invalid request.', 'repeater-field-for-acf' ), 403 );
 			return;
 		}
 
@@ -144,7 +144,7 @@ class Ajax_Handler {
 		}
 
 		if ( empty( $field_key ) || empty( $new_order ) ) {
-			$this->send_error( __( 'Invalid parameters.', 'acf-repeater' ) );
+			$this->send_error( __( 'Invalid parameters.', 'repeater-field-for-acf' ) );
 			return;
 		}
 

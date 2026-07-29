@@ -1,24 +1,15 @@
 <?php return array(
     'root' => array(
-        'name' => 'acf-repeater/acf-repeater',
+        'name' => 'repeater-field-for-acf/repeater-field-for-acf',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1c9058e579e3a0c098b8dc1257eece1f68455670',
+        'reference' => '787a3a48eda856215461c02553023b6a59648d4a',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'acf-repeater/acf-repeater' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '1c9058e579e3a0c098b8dc1257eece1f68455670',
-            'type' => 'wordpress-plugin',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'composer/installers' => array(
             'pretty_version' => 'v2.3.0',
             'version' => '2.3.0.0',
@@ -153,6 +144,15 @@
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'repeater-field-for-acf/repeater-field-for-acf' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '787a3a48eda856215461c02553023b6a59648d4a',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'sebastian/cli-parser' => array(
             'pretty_version' => '2.0.1',
