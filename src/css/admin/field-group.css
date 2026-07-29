@@ -1,0 +1,221 @@
+/**
+ * Advanced Repeater for ACF - Field Group Editor Styles
+ *
+ * @package ACF_Repeater
+ */
+
+.acf-field-setting-repeater {
+	margin-bottom: 16px;
+}
+
+.acf-field-setting-repeater .acf-label {
+	font-weight: 500;
+}
+
+.acf-field-setting-repeater .description {
+	margin-top: 4px;
+	color: var(--acf-repeater-text-muted, #646970);
+	font-size: 12px;
+}
+
+/* Sub-fields table in field settings */
+.acf-field-setting-repeater .acf-repeater-table {
+	margin-top: 8px;
+}
+
+.acf-field-setting-repeater .acf-repeater-table thead th {
+	font-size: 11px;
+}
+
+/* Default rows editor */
+.acf-field-setting-default_rows .acf-repeater {
+	border: 1px solid var(--acf-repeater-border-color, #ddd);
+	border-radius: var(--acf-repeater-radius, 4px);
+	background: var(--acf-repeater-bg, #fff);
+}
+
+/* Collapsed field select */
+.acf-field-setting-collapsed .acf-select {
+	min-width: 200px;
+}
+
+/* Layout radio buttons */
+.acf-field-setting-layout .acf-radio-list {
+	margin: 0;
+}
+
+.acf-field-setting-layout .acf-radio-list li {
+	margin-right: 16px;
+}
+
+/* Button label input */
+.acf-field-setting-button_label input {
+	max-width: 300px;
+}
+
+/* Min/Max rows inputs */
+.acf-field-setting-min_rows input,
+.acf-field-setting-max_rows input {
+	width: 80px;
+}
+
+/* Toggle switches */
+.acf-field-setting-sortable .acf-toggle,
+.acf-field-setting-duplicate .acf-toggle,
+.acf-field-setting-delete_confirm .acf-toggle {
+	margin-top: 4px;
+}
+
+/* Help text for settings */
+.acf-field-setting-repeater .acf-help {
+	display: inline-block;
+	margin-left: 6px;
+	cursor: help;
+	color: var(--acf-repeater-text-muted, #646970);
+}
+
+.acf-field-setting-repeater .acf-help:hover {
+	color: var(--acf-repeater-primary, #0073aa);
+}
+
+/* Sub-field badge in collapsed dropdown */
+.acf-field-setting-collapsed .acf-select option {
+	padding: 4px 8px;
+}
+
+/* Validation error state */
+.acf-repeater-validation-error .acf-repeater-row {
+	border-color: var(--acf-repeater-danger, #d63638);
+	background: #fff0f0;
+}
+
+.acf-repeater-validation-error .acf-field {
+	border-color: var(--acf-repeater-danger, #d63638) !important;
+}
+
+/* Settings page */
+.wrap.acf-repeater-settings {
+	max-width: 800px;
+}
+
+.wrap.acf-repeater-settings h1 {
+	margin-bottom: 16px;
+}
+
+.wrap.acf-repeater-settings .description {
+	margin-bottom: 24px;
+}
+
+.wrap.acf-repeater-settings table.form-table th {
+	width: 200px;
+}
+
+.wrap.acf-repeater-settings table.form-table td {
+	padding: 16px 10px;
+}
+
+.wrap.acf-repeater-settings .submit-wrap {
+	margin-top: 30px;
+}
+
+/* Help tabs */
+.acf-repeater-help-tab {
+	padding: 20px 0;
+}
+
+.acf-repeater-help-tab h3 {
+	margin-top: 24px;
+	margin-bottom: 12px;
+	border-bottom: 1px solid var(--acf-repeater-border-color, #ddd);
+	padding-bottom: 8px;
+}
+
+.acf-repeater-help-tab h3:first-child {
+	margin-top: 0;
+}
+
+.acf-repeater-help-tab code {
+	background: var(--acf-repeater-header-bg, #f6f7f7);
+	padding: 2px 6px;
+	border-radius: 3px;
+	font-size: 13px;
+}
+
+.acf-repeater-help-tab pre {
+	background: #1d1d1d;
+	color: #f1f1f1;
+	padding: 16px;
+	border-radius: var(--acf-repeater-radius, 4px);
+	overflow-x: auto;
+}
+
+.acf-repeater-help-tab pre code {
+	background: transparent;
+	padding: 0;
+	color: inherit;
+}
+
+/* Filter hooks documentation */
+.acf-repeater-hook-list {
+	margin: 0;
+	padding-left: 20px;
+}
+
+.acf-repeater-hook-list li {
+	margin-bottom: 8px;
+}
+
+.acf-repeater-hook-list code {
+	font-size: 13px;
+}
+
+/* Compatibility notices */
+.acf-repeater-compat-notice {
+	background: #fff3cd;
+	border-color: #ffeeba;
+	color: #856404;
+	padding: 12px 16px;
+	border-radius: var(--acf-repeater-radius, 4px);
+	margin-bottom: 16px;
+}
+
+.acf-repeater-compat-notice strong {
+	display: block;
+	margin-bottom: 4px;
+}
+
+/* Field group export/import */
+.acf-repeater-export-notice {
+	background: #d4edda;
+	border-color: #c3e6cb;
+	color: #155724;
+	padding: 12px 16px;
+	border-radius: var(--acf-repeater-radius, 4px);
+	margin: 16px 0;
+}
+
+/* RTL Support */
+.rtl .acf-repeater-table td,
+.rtl .acf-repeater-table th {
+	text-align: right;
+}
+
+.rtl .acf-repeater-row-actions {
+	flex-direction: row-reverse;
+}
+
+.rtl .acf-repeater-block-header {
+	flex-direction: row-reverse;
+}
+
+.rtl .acf-repeater-block-actions {
+	flex-direction: row-reverse;
+}
+
+.rtl .acf-repeater-add-row {
+	flex-direction: row-reverse;
+}
+
+.rtl .acf-repeater-modal-footer {
+	flex-direction: row-reverse;
+}

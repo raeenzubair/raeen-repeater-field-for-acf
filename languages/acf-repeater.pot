@@ -1,0 +1,471 @@
+# ACF Repeater - Translation Template
+# Copyright (C) 2024 ACF Repeater Contributors
+# This file is distributed under the same license as the ACF Repeater plugin.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Repeater 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-repeater/\n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4\n"
+"X-Domain: acf-repeater\n"
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Add Row"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Row %d"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "No rows added yet. Click \"Add Row\" to get started."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "No sub fields found. Please add sub fields in the field group editor."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Row Order"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Actions"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Drag to reorder"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Toggle row"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Duplicate row"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Delete row"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Are you sure you want to delete this row?"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Minimum %d rows required."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Maximum %d rows allowed."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "This field is required"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Loading..."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Select"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Remove"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Change Image"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Change File"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:150
+msgid "Open in new tab"
+msgstr ""
+
+#: includes/Admin/Settings.php:120
+msgid "Repeater Settings"
+msgstr ""
+
+#: includes/Admin/Settings.php:121
+msgid "Repeater Settings"
+msgstr ""
+
+#: includes/Admin/Settings.php:120
+msgid "Configure default settings for Repeater fields across your site."
+msgstr ""
+
+#: includes/Admin/Settings.php:145
+msgid "Default settings applied to new Repeater fields. Individual fields can override these."
+msgstr ""
+
+#: includes/Admin/Settings.php:150
+msgid "Default Layout"
+msgstr ""
+
+#: includes/Admin/Settings.php:150
+msgid "Table"
+msgstr ""
+
+#: includes/Admin/Settings.php:150
+msgid "Block"
+msgstr ""
+
+#: includes/Admin/Settings.php:150
+msgid "Default layout style for new Repeater fields."
+msgstr ""
+
+#: includes/Admin/Settings.php:160
+msgid "Default \"Add Row\" Button Label"
+msgstr ""
+
+#: includes/Admin/Settings.php:160
+msgid "Default text for the \"Add Row\" button."
+msgstr ""
+
+#: includes/Admin/Settings.php:165
+msgid "Default Collapsed Field"
+msgstr ""
+
+#: includes/Admin/Settings.php:165
+msgid "Enter sub-field key to use as collapsed title"
+msgstr ""
+
+#: includes/Admin/Settings.php:165
+msgid "Sub-field name/key to use as the collapsed row title. Leave empty to use row number."
+msgstr ""
+
+#: includes/Admin/Settings.php:175
+msgid "Enable Row Sorting by Default"
+msgstr ""
+
+#: includes/Admin/Settings.php:175
+msgid "Enable drag-and-drop row sorting by default"
+msgstr ""
+
+#: includes/Admin/Settings.php:185
+msgid "Enable Row Duplication by Default"
+msgstr ""
+
+#: includes/Admin/Settings.php:185
+msgid "Allow rows to be duplicated by default"
+msgstr ""
+
+#: includes/Admin/Settings.php:190
+msgid "Show Delete Confirmation by Default"
+msgstr ""
+
+#: includes/Admin/Settings.php:190
+msgid "Show confirmation dialog before deleting rows"
+msgstr ""
+
+#: includes/Admin/Settings.php:195
+msgid "Default Minimum Rows"
+msgstr ""
+
+#: includes/Admin/Settings.php:195
+msgid "Minimum number of rows required. 0 = no minimum."
+msgstr ""
+
+#: includes/Admin/Settings.php:200
+msgid "Default Maximum Rows (0 = unlimited)"
+msgstr ""
+
+#: includes/Admin/Settings.php:200
+msgid "Maximum number of rows allowed. 0 = unlimited."
+msgstr ""
+
+#: includes/Admin/Settings.php:210
+msgid "REST API"
+msgstr ""
+
+#: includes/Admin/Settings.php:210
+msgid "Configure REST API exposure for Repeater field data."
+msgstr ""
+
+#: includes/Admin/Settings.php:215
+msgid "Enable REST API Support"
+msgstr ""
+
+#: includes/Admin/Settings.php:215
+msgid "Expose Repeater field data via WordPress REST API"
+msgstr ""
+
+#: includes/Admin/Settings.php:215
+msgid "When enabled, Repeater field values will be included in REST API responses for posts."
+msgstr ""
+
+#: includes/Admin/Settings.php:225
+msgid "ACF JSON Sync"
+msgstr ""
+
+#: includes/Admin/Settings.php:225
+msgid "Configure ACF JSON synchronization for Repeater fields."
+msgstr ""
+
+#: includes/Admin/Settings.php:230
+msgid "Enable JSON Sync"
+msgstr ""
+
+#: includes/Admin/Settings.php:230
+msgid "Enable ACF JSON sync for Repeater fields"
+msgstr ""
+
+#: includes/Admin/Settings.php:235
+msgid "Custom Save Path"
+msgstr ""
+
+#: includes/Admin/Settings.php:235
+msgid "Custom directory path for saving ACF JSON files. Leave empty for default."
+msgstr ""
+
+#: includes/Admin/Settings.php:240
+msgid "Field Group"
+msgstr ""
+
+#: includes/Admin/Settings.php:240
+msgid "Field Group"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:180
+msgid "Repeater"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:180
+msgid "Repeater field allows you to create a set of sub fields which can be repeated again and again whilst editing content."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:185
+msgid "Minimum Rows"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:185
+msgid "Minimum number of rows required. 0 = no minimum."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:188
+msgid "Maximum Rows"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:188
+msgid "Maximum number of rows allowed. 0 = unlimited."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:191
+msgid "Add Row Button Label"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:191
+msgid "Text for the \"Add Row\" button."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:194
+msgid "Layout"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:194
+msgid "Choose how rows are displayed."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:197
+msgid "Collapsed Field"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:197
+msgid "Select a sub field to display as the row title when collapsed."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:200
+msgid "Enable Row Sorting"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:200
+msgid "Allow rows to be reordered via drag and drop."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:203
+msgid "Enable Row Duplication"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:203
+msgid "Allow rows to be duplicated."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:206
+msgid "Delete Confirmation"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:206
+msgid "Show confirmation dialog before deleting rows."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:209
+msgid "Default Rows"
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:209
+msgid "Pre-populate the repeater with default rows when creating new posts."
+msgstr ""
+
+#: includes/Field/Repeater_Field.php:212
+msgid "Add Default Row"
+msgstr ""
+
+#: includes/Admin/Ajax_Handler.php:200
+msgid "Field key is required."
+msgstr ""
+
+#: includes/Admin/Ajax_Handler.php:200
+msgid "Invalid repeater field."
+msgstr ""
+
+#: includes/Admin/Ajax_Handler.php:200
+msgid "Maximum number of rows (%d) reached."
+msgstr ""
+
+#: includes/Admin/Ajax_Handler.php:200
+msgid "Invalid parameters."
+msgstr ""
+
+#: includes/Admin/Ajax_Handler.php:200
+msgid "Minimum number of rows (%d) required."
+msgstr ""
+
+#: includes/Admin/Ajax_Handler.php:200
+msgid "Row not found."
+msgstr ""
+
+#: includes/Admin/Ajax_Handler.php:200
+msgid "Failed to save row."
+msgstr ""
+
+#: includes/Admin/Ajax_Handler.php:200
+msgid "Failed to delete row."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Field key and post ID are required."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Repeater field not found."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Row not found."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Field key, post ID, and row index are required."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Field key, post ID, and row data are required."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Maximum number of rows (%d) reached."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Failed to save row."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Failed to update row."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Minimum number of rows (%d) required."
+msgstr ""
+
+#: includes/Admin/Rest_API.php:200
+msgid "Failed to delete row."
+msgstr ""
+
+#: acf-repeater.php:150
+msgid "ACF Repeater"
+msgstr ""
+
+#: acf-repeater.php:150
+msgid "%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated."
+msgstr ""
+
+#: acf-repeater.php:150
+msgid "Advanced Custom Fields version %s is installed. Version 5.8 or higher is required."
+msgstr ""
+
+#: acf-repeater.php:150
+msgid "PHP version %s or higher is required. You are running %s."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid email address."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid URL."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Must be a number."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Minimum value is %s."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Maximum value is %s."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Value must be a multiple of %s."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid choice."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid date format."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid time format."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid date/time format."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid color format."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid attachment."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "One or more invalid attachments."
+msgstr ""
+
+#: includes/Helpers/Validator.php:200
+msgid "Invalid link URL."
+msgstr ""
