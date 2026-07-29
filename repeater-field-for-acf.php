@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Repeater Field for ACF
- * Plugin URI: https://github.com/raeenzubair/acf-repeater
+ * Plugin URI: https://github.com/raeenzubair/repeater-field-for-acf
  * Description: Adds a fully functional Repeater field type to the free version of Advanced Custom Fields. Supports table/block/row layouts, drag-and-drop sorting, nested repeaters, and full ACF JSON sync.
  * Version: 1.0.0
  * Requires at least: 5.8
