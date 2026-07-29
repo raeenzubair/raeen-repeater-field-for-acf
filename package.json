@@ -1,5 +1,5 @@
 {
-  "name": "acf-repeater",
+  "name": "repeater-field-for-acf",
   "version": "1.0.0",
   "description": "Advanced Repeater field for Advanced Custom Fields (Free version)",
   "type": "module",
@@ -14,7 +14,7 @@
   "keywords": [
     "wordpress",
     "acf",
-    "acf-repeater",
+    "repeater-field-for-acf",
     "advanced-custom-fields",
     "wordpress-plugin"
   ],

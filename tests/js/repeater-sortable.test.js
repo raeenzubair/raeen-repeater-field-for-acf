@@ -15,40 +15,40 @@ describe( 'ACFRepeaterSortable', () => {
 	beforeEach( () => {
 		// Create a repeater field with rows.
 		document.body.innerHTML = `
-			<div class="acf-repeater acf-repeater-table" data-field-key="field_123" data-field-name="repeater_field" data-max-rows="0" data-min-rows="0" data-button-label="Add Row" data-collapsed-field="" data-duplicate-enabled="true" data-delete-confirm="true" data-sortable-enabled="true">
-				<table class="acf-repeater-table">
+			<div class="repeater-field-for-acf repeater-field-for-acf-table" data-field-key="field_123" data-field-name="repeater_field" data-max-rows="0" data-min-rows="0" data-button-label="Add Row" data-collapsed-field="" data-duplicate-enabled="true" data-delete-confirm="true" data-sortable-enabled="true">
+				<table class="repeater-field-for-acf-table">
 					<thead>
 						<tr>
-							<th class="acf-repeater-col-handle"></th>
-							<th class="acf-repeater-col-text_field">Text Field</th>
-							<th class="acf-repeater-col-actions"></th>
+							<th class="repeater-field-for-acf-col-handle"></th>
+							<th class="repeater-field-for-acf-col-text_field">Text Field</th>
+							<th class="repeater-field-for-acf-col-actions"></th>
 						</tr>
 					</thead>
-					<tbody class="acf-repeater-rows">
-						<tr class="acf-repeater-row" data-row-id="row_1" data-row-index="0">
-							<td class="acf-repeater-col-handle"><button class="acf-repeater-drag-handle"></button></td>
-							<td class="acf-repeater-field-cell"></td>
-							<td class="acf-repeater-col-actions"></td>
+					<tbody class="repeater-field-for-acf-rows">
+						<tr class="repeater-field-for-acf-row" data-row-id="row_1" data-row-index="0">
+							<td class="repeater-field-for-acf-col-handle"><button class="repeater-field-for-acf-drag-handle"></button></td>
+							<td class="repeater-field-for-acf-field-cell"></td>
+							<td class="repeater-field-for-acf-col-actions"></td>
 						</tr>
-						<tr class="acf-repeater-row" data-row-id="row_2" data-row-index="1">
-							<td class="acf-repeater-col-handle"><button class="acf-repeater-drag-handle"></button></td>
-							<td class="acf-repeater-field-cell"></td>
-							<td class="acf-repeater-col-actions"></td>
+						<tr class="repeater-field-for-acf-row" data-row-id="row_2" data-row-index="1">
+							<td class="repeater-field-for-acf-col-handle"><button class="repeater-field-for-acf-drag-handle"></button></td>
+							<td class="repeater-field-for-acf-field-cell"></td>
+							<td class="repeater-field-for-acf-col-actions"></td>
 						</tr>
-						<tr class="acf-repeater-row" data-row-id="row_3" data-row-index="2">
-							<td class="acf-repeater-col-handle"><button class="acf-repeater-drag-handle"></button></td>
-							<td class="acf-repeater-field-cell"></td>
-							<td class="acf-repeater-col-actions"></td>
+						<tr class="repeater-field-for-acf-row" data-row-id="row_3" data-row-index="2">
+							<td class="repeater-field-for-acf-col-handle"><button class="repeater-field-for-acf-drag-handle"></button></td>
+							<td class="repeater-field-for-acf-field-cell"></td>
+							<td class="repeater-field-for-acf-col-actions"></td>
 						</tr>
 					</tbody>
 				</table>
-				<div class="acf-repeater-footer">
-					<button type="button" class="button button-primary acf-repeater-add-row">Add Row</button>
+				<div class="repeater-field-for-acf-footer">
+					<button type="button" class="button button-primary repeater-field-for-acf-add-row">Add Row</button>
 				</div>
 			</div>
 		`;
 
-		fieldElement = document.querySelector( '.acf-repeater' );
+		fieldElement = document.querySelector( '.repeater-field-for-acf' );
 		fieldController = new ACFRepeaterField( fieldElement );
 		sortable = new ACFRepeaterSortable( fieldController );
 		sortable.init();
@@ -96,7 +96,7 @@ describe( 'ACFRepeaterSortable', () => {
 		sortable.createPlaceholder( row );
 
 		expect( sortable.placeholder ).toBeTruthy();
-		expect( sortable.placeholder.classList.contains( 'acf-repeater-sortable-placeholder' ) ).toBe( true );
+		expect( sortable.placeholder.classList.contains( 'repeater-field-for-acf-sortable-placeholder' ) ).toBe( true );
 		expect( sortable.placeholder.style.opacity ).toBe( '0.5' );
 	} );
 
@@ -116,8 +116,8 @@ describe( 'ACFRepeaterSortable', () => {
 		sortable.moveRow( 0, 2 );
 		sortable.reorderDOM();
 
-		const container = fieldElement.querySelector( '.acf-repeater-rows' );
-		const rows = container.querySelectorAll( '.acf-repeater-row' );
+		const container = fieldElement.querySelector( '.repeater-field-for-acf-rows' );
+		const rows = container.querySelectorAll( '.repeater-field-for-acf-row' );
 
 		expect( rows[0].dataset.rowIndex ).toBe( '0' );
 		expect( rows[1].dataset.rowIndex ).toBe( '1' );
@@ -127,8 +127,8 @@ describe( 'ACFRepeaterSortable', () => {
 	} );
 
 	test( 'destroy cleans up event listeners', () => {
-		const container = fieldElement.querySelector( '.acf-repeater-rows' );
-		const rows = container.querySelectorAll( '.acf-repeater-row' );
+		const container = fieldElement.querySelector( '.repeater-field-for-acf-rows' );
+		const rows = container.querySelectorAll( '.repeater-field-for-acf-row' );
 
 		// Check draggable attribute was added.
 		expect( rows[0].hasAttribute( 'draggable' ) ).toBe( true );

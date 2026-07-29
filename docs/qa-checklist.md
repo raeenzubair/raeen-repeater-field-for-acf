@@ -116,11 +116,11 @@ Test each field type as sub-field:
 ### REST API
 - [ ] REST API enabled in settings
 - [ ] GET /posts/{id} includes acf_repeater
-- [ ] GET /acf-repeater/v1/repeater/{field_key} works
-- [ ] GET /acf-repeater/v1/repeater/{field_key}/rows/{index} works
-- [ ] POST /acf-repeater/v1/repeater/{field_key}/rows adds row
-- [ ] PUT /acf-repeater/v1/repeater/{field_key}/rows/{index} updates row
-- [ ] DELETE /acf-repeater/v1/repeater/{field_key}/rows/{index} removes row
+- [ ] GET /repeater-field-for-acf/v1/repeater/{field_key} works
+- [ ] GET /repeater-field-for-acf/v1/repeater/{field_key}/rows/{index} works
+- [ ] POST /repeater-field-for-acf/v1/repeater/{field_key}/rows adds row
+- [ ] PUT /repeater-field-for-acf/v1/repeater/{field_key}/rows/{index} updates row
+- [ ] DELETE /repeater-field-for-acf/v1/repeater/{field_key}/rows/{index} removes row
 - [ ] Permission checks (read/edit)
 - [ ] Validation on write endpoints
 - [ ] Schema exposed correctly
@@ -169,7 +169,7 @@ Test each field type as sub-field:
 ### Translations
 - [ ] All strings wrapped in translation functions
 - [ ] POT file generated and complete
-- [ ] Text domain correct: acf-repeater
+- [ ] Text domain correct: repeater-field-for-acf
 - [ ] Language files load correctly
 
 ### Accessibility (WCAG 2.1 AA)

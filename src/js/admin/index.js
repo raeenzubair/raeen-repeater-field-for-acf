@@ -17,12 +17,12 @@ import ACFRepeaterField from './repeater-field';
 // ─── Initialization ─────────────────────────────────────────────────────────
 
 /**
- * Initialize any .acf-repeater elements that haven't been set up yet.
+ * Initialize any .repeater-field-for-acf elements that haven't been set up yet.
  *
  * The guard `el._acfRepeater` prevents double-initialization.
  */
 function initRepeaters() {
-	document.querySelectorAll( '.acf-repeater' ).forEach( ( el ) => {
+	document.querySelectorAll( '.repeater-field-for-acf' ).forEach( ( el ) => {
 		if ( ! el._acfRepeater ) {
 			el._acfRepeater = new ACFRepeaterField( el );
 		}
@@ -46,7 +46,7 @@ if ( typeof acf !== 'undefined' ) {
 	 * $el is a jQuery object containing the newly added content.
 	 */
 	acf.addAction( 'append', ( $el ) => {
-		$el.find( '.acf-repeater' ).each( function () {
+		$el.find( '.repeater-field-for-acf' ).each( function () {
 			if ( ! this._acfRepeater ) {
 				this._acfRepeater = new ACFRepeaterField( this );
 			}
@@ -58,7 +58,7 @@ if ( typeof acf !== 'undefined' ) {
 	 * Clean up the controller to avoid memory leaks.
 	 */
 	acf.addAction( 'remove', ( $el ) => {
-		$el.find( '.acf-repeater' ).each( function () {
+		$el.find( '.repeater-field-for-acf' ).each( function () {
 			if ( this._acfRepeater ) {
 				this._acfRepeater.destroy();
 				this._acfRepeater = null;
@@ -70,7 +70,7 @@ if ( typeof acf !== 'undefined' ) {
 // ─── MutationObserver Fallback ───────────────────────────────────────────────
 
 /**
- * Watch for .acf-repeater elements added dynamically.
+ * Watch for .repeater-field-for-acf elements added dynamically.
  * This handles cases where ACF's 'append' action is not fired,
  * such as Gutenberg's async meta box loading.
  */
@@ -85,8 +85,8 @@ const observer = new MutationObserver( ( mutations ) => {
 			if ( node.nodeType !== 1 ) continue; // Only element nodes.
 
 			if (
-				( node.classList && node.classList.contains( 'acf-repeater' ) ) ||
-				( node.querySelector && node.querySelector( '.acf-repeater' ) )
+				( node.classList && node.classList.contains( 'repeater-field-for-acf' ) ) ||
+				( node.querySelector && node.querySelector( '.repeater-field-for-acf' ) )
 			) {
 				needsInit = true;
 				break;

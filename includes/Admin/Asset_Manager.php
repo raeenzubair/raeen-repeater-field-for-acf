@@ -7,7 +7,7 @@
 
 namespace ACF_Repeater\Admin;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Asset Manager class.
  * Handles enqueueing and managing CSS/JS assets for admin and frontend.
  */
-class Asset_Manager {
+class Asset_Manager
+{
 
 	/**
 	 * Plugin version.
@@ -55,9 +56,10 @@ class Asset_Manager {
 	/**
 	 * Constructor.
 	 */
-	public function __construct() {
-		$this->version     = ACF_REPEATER_VERSION;
-		$this->plugin_url  = ACF_REPEATER_PLUGIN_URL;
+	public function __construct()
+	{
+		$this->version = ACF_REPEATER_VERSION;
+		$this->plugin_url = ACF_REPEATER_PLUGIN_URL;
 		$this->plugin_path = ACF_REPEATER_PLUGIN_DIR;
 
 		// Only populate the definition arrays — do NOT call wp_register_* here.
@@ -72,36 +74,37 @@ class Asset_Manager {
 	 *
 	 * @return void
 	 */
-	private function define_assets(): void {
+	private function define_assets(): void
+	{
 		// Admin script (bundled via Vite).
-		$this->scripts['acf-repeater-admin'] = array(
-			'src'       => 'assets/dist/js/admin/index.js',
-			'deps'      => array( 'jquery', 'acf-input', 'wp-util', 'jquery-ui-sortable' ),
-			'version'   => $this->version,
+		$this->scripts['repeater-field-for-acf-admin'] = array(
+			'src' => 'assets/dist/js/admin/index.js',
+			'deps' => array('jquery', 'acf-input', 'wp-util', 'jquery-ui-sortable'),
+			'version' => $this->version,
 			'in_footer' => true,
 		);
 
 		// Frontend script (for acf_form() on the frontend).
-		$this->scripts['acf-repeater-frontend'] = array(
-			'src'       => 'assets/dist/js/public/index.js',
-			'deps'      => array( 'jquery', 'acf-input' ),
-			'version'   => $this->version,
+		$this->scripts['repeater-field-for-acf-frontend'] = array(
+			'src' => 'assets/dist/js/public/index.js',
+			'deps' => array('jquery', 'acf-input'),
+			'version' => $this->version,
 			'in_footer' => true,
 		);
 
 		// Admin stylesheet.
-		$this->styles['acf-repeater-admin'] = array(
-			'src'     => 'assets/dist/css/index.css',
-			'deps'    => array( 'acf-global' ),
+		$this->styles['repeater-field-for-acf-admin'] = array(
+			'src' => 'assets/dist/css/index.css',
+			'deps' => array('acf-global'),
 			'version' => $this->version,
-			'media'   => 'all',
+			'media' => 'all',
 		);
 
-		$this->styles['acf-repeater-admin-2'] = array(
-			'src'     => 'assets/dist/css/index2.css',
-			'deps'    => array( 'acf-repeater-admin' ),
+		$this->styles['repeater-field-for-acf-admin-2'] = array(
+			'src' => 'assets/dist/css/index2.css',
+			'deps' => array('repeater-field-for-acf-admin'),
 			'version' => $this->version,
-			'media'   => 'all',
+			'media' => 'all',
 		);
 	}
 
@@ -117,13 +120,14 @@ class Asset_Manager {
 	 *
 	 * @return void
 	 */
-	public function register_with_wordpress(): void {
-		foreach ( $this->scripts as $handle => $args ) {
-			if ( wp_script_is( $handle, 'registered' ) ) {
+	public function register_with_wordpress(): void
+	{
+		foreach ($this->scripts as $handle => $args) {
+			if (wp_script_is($handle, 'registered')) {
 				continue;
 			}
 			$src = $this->plugin_url . $args['src'];
-			if ( file_exists( $this->plugin_path . $args['src'] ) ) {
+			if (file_exists($this->plugin_path . $args['src'])) {
 				wp_register_script(
 					$handle,
 					$src,
@@ -134,12 +138,12 @@ class Asset_Manager {
 			}
 		}
 
-		foreach ( $this->styles as $handle => $args ) {
-			if ( wp_style_is( $handle, 'registered' ) ) {
+		foreach ($this->styles as $handle => $args) {
+			if (wp_style_is($handle, 'registered')) {
 				continue;
 			}
 			$src = $this->plugin_url . $args['src'];
-			if ( file_exists( $this->plugin_path . $args['src'] ) ) {
+			if (file_exists($this->plugin_path . $args['src'])) {
 				wp_register_style(
 					$handle,
 					$src,
@@ -160,7 +164,8 @@ class Asset_Manager {
 	 * @param string $hook Current admin page hook.
 	 * @return void
 	 */
-	public function enqueue_admin_assets( string $hook = '' ): void {
+	public function enqueue_admin_assets(string $hook = ''): void
+	{
 		// Register handles now that we are inside a valid enqueue hook.
 		$this->register_with_wordpress();
 
@@ -175,16 +180,16 @@ class Asset_Manager {
 			'toplevel_page_acf-field-groups',
 		);
 
-		$is_allowed = in_array( $hook, $allowed_hooks, true )
-			|| strpos( $hook, 'acf' ) !== false;
+		$is_allowed = in_array($hook, $allowed_hooks, true)
+			|| strpos($hook, 'acf') !== false;
 
-		if ( ! $is_allowed ) {
+		if (!$is_allowed) {
 			return;
 		}
 
-		wp_enqueue_script( 'acf-repeater-admin' );
-		wp_enqueue_style( 'acf-repeater-admin' );
-		wp_enqueue_style( 'acf-repeater-admin-2' );
+		wp_enqueue_script('repeater-field-for-acf-admin');
+		wp_enqueue_style('repeater-field-for-acf-admin');
+		wp_enqueue_style('repeater-field-for-acf-admin-2');
 
 		$this->localize_admin_script();
 	}
@@ -194,11 +199,12 @@ class Asset_Manager {
 	 *
 	 * @return void
 	 */
-	public function enqueue_field_group_assets(): void {
+	public function enqueue_field_group_assets(): void
+	{
 		$this->register_with_wordpress();
-		wp_enqueue_script( 'acf-repeater-admin' );
-		wp_enqueue_style( 'acf-repeater-admin' );
-		wp_enqueue_style( 'acf-repeater-admin-2' );
+		wp_enqueue_script('repeater-field-for-acf-admin');
+		wp_enqueue_style('repeater-field-for-acf-admin');
+		wp_enqueue_style('repeater-field-for-acf-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -207,11 +213,12 @@ class Asset_Manager {
 	 *
 	 * @return void
 	 */
-	public function enqueue_input_assets(): void {
+	public function enqueue_input_assets(): void
+	{
 		$this->register_with_wordpress();
-		wp_enqueue_script( 'acf-repeater-admin' );
-		wp_enqueue_style( 'acf-repeater-admin' );
-		wp_enqueue_style( 'acf-repeater-admin-2' );
+		wp_enqueue_script('repeater-field-for-acf-admin');
+		wp_enqueue_style('repeater-field-for-acf-admin');
+		wp_enqueue_style('repeater-field-for-acf-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -220,11 +227,12 @@ class Asset_Manager {
 	 *
 	 * @return void
 	 */
-	public function enqueue_block_editor_assets(): void {
+	public function enqueue_block_editor_assets(): void
+	{
 		$this->register_with_wordpress();
-		wp_enqueue_script( 'acf-repeater-admin' );
-		wp_enqueue_style( 'acf-repeater-admin' );
-		wp_enqueue_style( 'acf-repeater-admin-2' );
+		wp_enqueue_script('repeater-field-for-acf-admin');
+		wp_enqueue_style('repeater-field-for-acf-admin');
+		wp_enqueue_style('repeater-field-for-acf-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -233,14 +241,15 @@ class Asset_Manager {
 	 *
 	 * @return void
 	 */
-	public function enqueue_frontend_assets(): void {
+	public function enqueue_frontend_assets(): void
+	{
 		// Register handles on the wp_enqueue_scripts hook (this is safe here).
 		$this->register_with_wordpress();
 
 		// Only enqueue if ACF frontend form is being used on this page.
-		if ( function_exists( 'acf_form_head' ) && did_action( 'acf_form_head' ) ) {
+		if (function_exists('acf_form_head') && did_action('acf_form_head')) {
 			// Only enqueue script — no standalone frontend CSS bundle is registered.
-			wp_enqueue_script( 'acf-repeater-frontend' );
+			wp_enqueue_script('repeater-field-for-acf-frontend');
 		}
 	}
 
@@ -249,37 +258,38 @@ class Asset_Manager {
 	 *
 	 * @return void
 	 */
-	private function localize_admin_script(): void {
-		$nonce = wp_create_nonce( 'acf_repeater_nonce' );
+	private function localize_admin_script(): void
+	{
+		$nonce = wp_create_nonce('acf_repeater_nonce');
 
 		$data = array(
-			'ajax_url'   => admin_url( 'admin-ajax.php' ),
-			'nonce'      => $nonce,
-			'version'    => $this->version,
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'nonce' => $nonce,
+			'version' => $this->version,
 			'plugin_url' => $this->plugin_url,
-			'i18n'       => array(
-				'add_row'         => __( 'Add Row', 'repeater-field-for-acf' ),
-				'delete_row'      => __( 'Delete Row', 'repeater-field-for-acf' ),
-				'duplicate_row'   => __( 'Duplicate Row', 'repeater-field-for-acf' ),
-				'collapse_row'    => __( 'Collapse Row', 'repeater-field-for-acf' ),
-				'expand_row'      => __( 'Expand Row', 'repeater-field-for-acf' ),
-				'sort_rows'       => __( 'Sort Rows', 'repeater-field-for-acf' ),
-				'confirm_delete'  => __( 'Are you sure you want to delete this row?', 'repeater-field-for-acf' ),
+			'i18n' => array(
+				'add_row' => __('Add Row', 'repeater-field-for-acf'),
+				'delete_row' => __('Delete Row', 'repeater-field-for-acf'),
+				'duplicate_row' => __('Duplicate Row', 'repeater-field-for-acf'),
+				'collapse_row' => __('Collapse Row', 'repeater-field-for-acf'),
+				'expand_row' => __('Expand Row', 'repeater-field-for-acf'),
+				'sort_rows' => __('Sort Rows', 'repeater-field-for-acf'),
+				'confirm_delete' => __('Are you sure you want to delete this row?', 'repeater-field-for-acf'),
 				/* translators: %d: minimum number of rows */
-				'min_rows_error'  => __( 'Minimum number of rows required: %d', 'repeater-field-for-acf' ),
+				'min_rows_error' => __('Minimum number of rows required: %d', 'repeater-field-for-acf'),
 				/* translators: %d: maximum number of rows */
-				'max_rows_error'  => __( 'Maximum number of rows exceeded: %d', 'repeater-field-for-acf' ),
-				'required_field'  => __( 'This field is required', 'repeater-field-for-acf' ),
-				'loading'         => __( 'Loading...', 'repeater-field-for-acf' ),
-				'no_rows'         => __( 'No rows added yet. Click "Add Row" to get started.', 'repeater-field-for-acf' ),
-				'row_collapsed'   => __( 'Row collapsed', 'repeater-field-for-acf' ),
-				'row_expanded'    => __( 'Row expanded', 'repeater-field-for-acf' ),
-				'drag_to_reorder' => __( 'Drag to reorder', 'repeater-field-for-acf' ),
+				'max_rows_error' => __('Maximum number of rows exceeded: %d', 'repeater-field-for-acf'),
+				'required_field' => __('This field is required', 'repeater-field-for-acf'),
+				'loading' => __('Loading...', 'repeater-field-for-acf'),
+				'no_rows' => __('No rows added yet. Click "Add Row" to get started.', 'repeater-field-for-acf'),
+				'row_collapsed' => __('Row collapsed', 'repeater-field-for-acf'),
+				'row_expanded' => __('Row expanded', 'repeater-field-for-acf'),
+				'drag_to_reorder' => __('Drag to reorder', 'repeater-field-for-acf'),
 			),
-			'settings'   => get_option( 'acf_repeater_settings', array() ),
+			'settings' => get_option('acf_repeater_settings', array()),
 		);
 
-		wp_localize_script( 'acf-repeater-admin', 'acfRepeater', $data );
+		wp_localize_script('repeater-field-for-acf-admin', 'acfRepeater', $data);
 	}
 
 	/**
@@ -288,7 +298,8 @@ class Asset_Manager {
 	 * @param string $hook Admin page hook.
 	 * @return bool
 	 */
-	private function is_acf_page( string $hook ): bool {
+	private function is_acf_page(string $hook): bool
+	{
 		$acf_pages = array(
 			'toplevel_page_acf-field-groups',
 			'acf-field-group_page_acf-field-groups',
@@ -302,7 +313,7 @@ class Asset_Manager {
 			'customize.php',
 		);
 
-		return in_array( $hook, $acf_pages, true ) || strpos( $hook, 'acf' ) !== false;
+		return in_array($hook, $acf_pages, true) || strpos($hook, 'acf') !== false;
 	}
 
 	/**
@@ -311,9 +322,10 @@ class Asset_Manager {
 	 * @param string $hook Admin page hook.
 	 * @return bool
 	 */
-	private function is_field_group_page( string $hook ): bool {
-		return in_array( $hook, array( 'post.php', 'post-new.php' ), true )
-			&& isset( $_GET['post_type'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	private function is_field_group_page(string $hook): bool
+	{
+		return in_array($hook, array('post.php', 'post-new.php'), true)
+			&& isset($_GET['post_type']) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			&& 'acf-field-group' === $_GET['post_type']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
@@ -323,8 +335,9 @@ class Asset_Manager {
 	 * @param string $hook Admin page hook.
 	 * @return bool
 	 */
-	private function is_post_edit_page( string $hook ): bool {
-		return in_array( $hook, array( 'post.php', 'post-new.php', 'term.php', 'user-edit.php', 'profile.php' ), true );
+	private function is_post_edit_page(string $hook): bool
+	{
+		return in_array($hook, array('post.php', 'post-new.php', 'term.php', 'user-edit.php', 'profile.php'), true);
 	}
 
 	/**
@@ -334,16 +347,17 @@ class Asset_Manager {
 	 * @param array  $args Script arguments.
 	 * @return void
 	 */
-	public function register_script( string $handle, array $args ): void {
+	public function register_script(string $handle, array $args): void
+	{
 		$defaults = array(
-			'src'       => '',
-			'deps'      => array(),
-			'version'   => $this->version,
+			'src' => '',
+			'deps' => array(),
+			'version' => $this->version,
 			'in_footer' => true,
 		);
 
-		$args                     = wp_parse_args( $args, $defaults );
-		$this->scripts[ $handle ] = $args;
+		$args = wp_parse_args($args, $defaults);
+		$this->scripts[$handle] = $args;
 
 		wp_register_script(
 			$handle,
@@ -361,16 +375,17 @@ class Asset_Manager {
 	 * @param array  $args Style arguments.
 	 * @return void
 	 */
-	public function register_style( string $handle, array $args ): void {
+	public function register_style(string $handle, array $args): void
+	{
 		$defaults = array(
-			'src'     => '',
-			'deps'    => array(),
+			'src' => '',
+			'deps' => array(),
 			'version' => $this->version,
-			'media'   => 'all',
+			'media' => 'all',
 		);
 
-		$args                    = wp_parse_args( $args, $defaults );
-		$this->styles[ $handle ] = $args;
+		$args = wp_parse_args($args, $defaults);
+		$this->styles[$handle] = $args;
 
 		wp_register_style(
 			$handle,
@@ -387,9 +402,10 @@ class Asset_Manager {
 	 * @param string $handle Script handle.
 	 * @return void
 	 */
-	public function enqueue_script( string $handle ): void {
-		if ( isset( $this->scripts[ $handle ] ) ) {
-			wp_enqueue_script( $handle );
+	public function enqueue_script(string $handle): void
+	{
+		if (isset($this->scripts[$handle])) {
+			wp_enqueue_script($handle);
 		}
 	}
 
@@ -399,9 +415,10 @@ class Asset_Manager {
 	 * @param string $handle Style handle.
 	 * @return void
 	 */
-	public function enqueue_style( string $handle ): void {
-		if ( isset( $this->styles[ $handle ] ) ) {
-			wp_enqueue_style( $handle );
+	public function enqueue_style(string $handle): void
+	{
+		if (isset($this->styles[$handle])) {
+			wp_enqueue_style($handle);
 		}
 	}
 
@@ -411,9 +428,10 @@ class Asset_Manager {
 	 * @param string $handle Script handle.
 	 * @return string|null
 	 */
-	public function get_script_url( string $handle ): ?string {
-		if ( isset( $this->scripts[ $handle ] ) ) {
-			return $this->plugin_url . $this->scripts[ $handle ]['src'];
+	public function get_script_url(string $handle): ?string
+	{
+		if (isset($this->scripts[$handle])) {
+			return $this->plugin_url . $this->scripts[$handle]['src'];
 		}
 		return null;
 	}
@@ -424,9 +442,10 @@ class Asset_Manager {
 	 * @param string $handle Style handle.
 	 * @return string|null
 	 */
-	public function get_style_url( string $handle ): ?string {
-		if ( isset( $this->styles[ $handle ] ) ) {
-			return $this->plugin_url . $this->styles[ $handle ]['src'];
+	public function get_style_url(string $handle): ?string
+	{
+		if (isset($this->styles[$handle])) {
+			return $this->plugin_url . $this->styles[$handle]['src'];
 		}
 		return null;
 	}
@@ -436,7 +455,8 @@ class Asset_Manager {
 	 *
 	 * @return string
 	 */
-	public function get_version(): string {
+	public function get_version(): string
+	{
 		return $this->version;
 	}
 
@@ -445,7 +465,8 @@ class Asset_Manager {
 	 *
 	 * @return string
 	 */
-	public function get_plugin_url(): string {
+	public function get_plugin_url(): string
+	{
 		return $this->plugin_url;
 	}
 
@@ -454,7 +475,8 @@ class Asset_Manager {
 	 *
 	 * @return string
 	 */
-	public function get_plugin_path(): string {
+	public function get_plugin_path(): string
+	{
 		return $this->plugin_path;
 	}
 }

@@ -14,7 +14,7 @@
  * @package ACF_Repeater\Field
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -175,13 +175,13 @@ if (!class_exists('acf_field_repeater')):
 				$attrs_str .= ' ' . $k . '="' . $v . '"';
 			}
 
-			echo '<div class="acf-repeater acf-repeater-' . esc_attr($layout) . '"' . rtrim($attrs_str) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<div class="repeater-field-for-acf repeater-field-for-acf-' . esc_attr($layout) . '"' . rtrim($attrs_str) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			if (empty($sub_fields)) {
 				echo '<p class="acf-no-fields acf-cf"><span>' . esc_html__('Click the "+ Add Row" button below to start creating your content', 'repeater-field-for-acf') . '</span></p>';
 			} else {
 				// All layouts now use the same clean stacked-row HTML.
-				echo '<div class="acf-repeater-rows">';
+				echo '<div class="repeater-field-for-acf-rows">';
 				foreach ($value as $row_index => $row) {
 					$this->render_row($field, $row, $row_index, $sub_fields);
 				}
@@ -189,8 +189,8 @@ if (!class_exists('acf_field_repeater')):
 			}
 
 			// Add Row button footer.
-			echo '<div class="acf-repeater-add-row">';
-			echo '<a href="#" class="button acf-button blue acf-repeater-add-row-btn">';
+			echo '<div class="repeater-field-for-acf-add-row">';
+			echo '<a href="#" class="button acf-button blue repeater-field-for-acf-add-row-btn">';
 			echo '<span class="dashicons dashicons-plus-alt2" aria-hidden="true"></span>';
 			echo esc_html($button_label);
 			echo '</a>';
@@ -263,11 +263,12 @@ if (!class_exists('acf_field_repeater')):
 				<!-- Left: drag handle + row number + optional collapse icon -->
 				<div class="acf-row-handle order"
 					title="<?php echo $collapsed_key ? esc_attr__('Click to toggle collapse / Drag to reorder', 'repeater-field-for-acf') : esc_attr__('Drag to reorder', 'repeater-field-for-acf'); ?>">
-					<span class="acf-sortable-handle" title="<?php esc_attr_e('Drag to reorder', 'repeater-field-for-acf'); ?>"></span>
+					<span class="acf-sortable-handle"
+						title="<?php esc_attr_e('Drag to reorder', 'repeater-field-for-acf'); ?>"></span>
 					<span class="acf-row-number"><?php echo esc_html($row_num); ?></span>
 					<?php if ($collapsed_key): ?>
-						<a class="acf-icon -collapse small" href="#" title="<?php esc_attr_e('Click to toggle row', 'repeater-field-for-acf'); ?>"
-							data-event="collapse-row">
+						<a class="acf-icon -collapse small" href="#"
+							title="<?php esc_attr_e('Click to toggle row', 'repeater-field-for-acf'); ?>" data-event="collapse-row">
 						</a>
 						<span class="acf-row-compact-title"><?php echo esc_html($collapsed_title); ?></span>
 					<?php endif; ?>
@@ -304,7 +305,7 @@ if (!class_exists('acf_field_repeater')):
 		/* Legacy method aliases kept to avoid breaking any subclass overrides. */
 		private function render_table($field, $value, $sub_fields)
 		{
-			echo '<div class="acf-repeater-rows">';
+			echo '<div class="repeater-field-for-acf-rows">';
 			foreach ($value as $row_index => $row) {
 				$this->render_row($field, $row, $row_index, $sub_fields);
 			}
@@ -313,7 +314,7 @@ if (!class_exists('acf_field_repeater')):
 
 		private function render_block($field, $value, $sub_fields)
 		{
-			echo '<div class="acf-repeater-rows">';
+			echo '<div class="repeater-field-for-acf-rows">';
 			foreach ($value as $row_index => $row) {
 				$this->render_row($field, $row, $row_index, $sub_fields);
 			}

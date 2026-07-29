@@ -113,10 +113,10 @@ class ACFRepeaterSubFields {
 	 * Initialize file/image field.
 	 */
 	initFileField( fieldWrapper ) {
-		const selectBtn = fieldWrapper.querySelector( '.acf-repeater-file-select' );
-		const removeBtn = fieldWrapper.querySelector( '.acf-repeater-file-remove' );
-		const hiddenInput = fieldWrapper.querySelector( '.acf-repeater-file-input' );
-		const preview = fieldWrapper.querySelector( '.acf-repeater-file-preview' );
+		const selectBtn = fieldWrapper.querySelector( '.repeater-field-for-acf-file-select' );
+		const removeBtn = fieldWrapper.querySelector( '.repeater-field-for-acf-file-remove' );
+		const hiddenInput = fieldWrapper.querySelector( '.repeater-field-for-acf-file-input' );
+		const preview = fieldWrapper.querySelector( '.repeater-field-for-acf-file-preview' );
 
 		if ( selectBtn ) {
 			selectBtn.addEventListener( 'click', ( e ) => {
@@ -147,10 +147,10 @@ class ACFRepeaterSubFields {
 			return;
 		}
 
-		const hiddenInput = fieldWrapper.querySelector( '.acf-repeater-file-input' );
-		const preview = fieldWrapper.querySelector( '.acf-repeater-file-preview' );
-		const selectBtn = fieldWrapper.querySelector( '.acf-repeater-file-select' );
-		const removeBtn = fieldWrapper.querySelector( '.acf-repeater-file-remove' );
+		const hiddenInput = fieldWrapper.querySelector( '.repeater-field-for-acf-file-input' );
+		const preview = fieldWrapper.querySelector( '.repeater-field-for-acf-file-preview' );
+		const selectBtn = fieldWrapper.querySelector( '.repeater-field-for-acf-file-select' );
+		const removeBtn = fieldWrapper.querySelector( '.repeater-field-for-acf-file-remove' );
 
 		const frame = wp.media({
 			title: type === 'image' ? 'Select Image' : 'Select File',
@@ -249,7 +249,7 @@ class ACFRepeaterSubFields {
 	 * Initialize nested repeater.
 	 */
 	initNestedRepeater( fieldWrapper ) {
-		const nestedRepeater = fieldWrapper.querySelector( '.acf-repeater' );
+		const nestedRepeater = fieldWrapper.querySelector( '.repeater-field-for-acf' );
 		if ( nestedRepeater && ! nestedRepeater.acfRepeaterField ) {
 			nestedRepeater.acfRepeaterField = new ACFRepeaterField( nestedRepeater );
 		}
@@ -293,7 +293,7 @@ class ACFRepeaterSubFields {
 
 			// Cleanup nested repeaters.
 			if ( fieldType === 'repeater' ) {
-				const nestedRepeater = fieldWrapper.querySelector( '.acf-repeater' );
+				const nestedRepeater = fieldWrapper.querySelector( '.repeater-field-for-acf' );
 				if ( nestedRepeater && nestedRepeater.acfRepeaterField ) {
 					nestedRepeater.acfRepeaterField.destroy();
 				}

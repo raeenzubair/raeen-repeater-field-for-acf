@@ -6,17 +6,18 @@
  */
 
 // Load WordPress test environment.
-$tests_dir = getenv( 'WP_TESTS_DIR' ) ?: dirname( __DIR__, 3 ) . '/wordpress-tests-lib';
+$tests_dir = getenv('WP_TESTS_DIR') ?: dirname(__DIR__, 3) . '/wordpress-tests-lib';
 require_once $tests_dir . '/includes/functions.php';
 
 // Load plugin.
-require_once dirname( __DIR__, 2 ) . '/acf-repeater.php';
+require_once dirname(__DIR__, 2) . '/repeater-field-for-acf.php';
 
 // Initialize test environment.
-function _manually_load_plugin() {
-	require_once dirname( __DIR__, 2 ) . '/acf-repeater.php';
+function _manually_load_plugin()
+{
+	require_once dirname(__DIR__, 2) . '/repeater-field-for-acf.php';
 }
-tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
+tests_add_filter('muplugins_loaded', '_manually_load_plugin');
 
 // Start WordPress.
 require_once $tests_dir . '/includes/bootstrap.php';

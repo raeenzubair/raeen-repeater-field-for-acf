@@ -354,8 +354,8 @@ add_filter( 'acf_repeater_row_data', function( $row_data, $field, $post_id, $row
 
 // JavaScript: Display row number in the handle column
 acf.addAction( 'repeater_init', function( $field ) {
-    $field.find( '.acf-repeater-row' ).each( function( index ) {
-        const $handle = $( this ).find( '.acf-repeater-drag-handle' );
+    $field.find( '.repeater-field-for-acf-row' ).each( function( index ) {
+        const $handle = $( this ).find( '.repeater-field-for-acf-drag-handle' );
         $handle.attr( 'title', acf.__('Row') + ' ' + ( index + 1 ) );
     } );
 } );
@@ -389,7 +389,7 @@ acf.addAction( 'repeater_init', function( $field ) {
     let saveTimeout;
     
     $field.on( 'blur', 'input, select, textarea', function() {
-        const $row = $( this ).closest( '.acf-repeater-row' );
+        const $row = $( this ).closest( '.repeater-field-for-acf-row' );
         const rowIndex = $row.data( 'row-index' );
         
         clearTimeout( saveTimeout );

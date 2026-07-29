@@ -25,18 +25,18 @@
 }
 
 /* ─── Repeater Wrapper ───────────────────────────────────────────────── */
-.acf-repeater {
+.repeater-field-for-acf {
 	font-size: 13px;
 	color: var(--acfr-text);
 	margin-top: 4px;
 }
 
-.acf-repeater * {
+.repeater-field-for-acf * {
 	box-sizing: border-box;
 }
 
 /* ─── Rows Container ─────────────────────────────────────────────────── */
-.acf-repeater-rows {
+.repeater-field-for-acf-rows {
 	border: 1px solid var(--acfr-border);
 	border-radius: var(--acfr-radius);
 	background: var(--acfr-bg);
@@ -44,7 +44,7 @@
 }
 
 /* ─── Single Row ─────────────────────────────────────────────────────── */
-.acf-repeater .acf-row {
+.repeater-field-for-acf .acf-row {
 	display: flex;
 	align-items: stretch;
 	border-bottom: 1px solid var(--acfr-border);
@@ -53,28 +53,28 @@
 	position: relative;
 }
 
-.acf-repeater .acf-row:last-child {
+.repeater-field-for-acf .acf-row:last-child {
 	border-bottom: none;
 }
 
-.acf-repeater .acf-row:hover {
+.repeater-field-for-acf .acf-row:hover {
 	background: var(--acfr-bg-row);
 }
 
 /* Hidden clone row */
-.acf-repeater .acf-row.acf-clone {
+.repeater-field-for-acf .acf-row.acf-clone {
 	display: none !important;
 }
 
 /* Dragging state */
-.acf-repeater .acf-row.acf-row-dragging {
+.repeater-field-for-acf .acf-row.acf-row-dragging {
 	opacity: 0.5;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 	z-index: 99;
 }
 
 /* Sortable placeholder */
-.acf-repeater .acf-sortable-placeholder {
+.repeater-field-for-acf .acf-sortable-placeholder {
 	background: #e8f3fb !important;
 	outline: 2px dashed var(--acfr-primary) !important;
 	outline-offset: -2px;
@@ -82,7 +82,7 @@
 }
 
 /* ─── Left Handle Column (row number + drag dots) ───────────────────── */
-.acf-repeater .acf-row-handle.order {
+.repeater-field-for-acf .acf-row-handle.order {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -100,7 +100,7 @@
 }
 
 /* Dedicated 6-dot drag grip icon */
-.acf-repeater .acf-sortable-handle {
+.repeater-field-for-acf .acf-sortable-handle {
 	display: block;
 	width: 14px;
 	height: 18px;
@@ -125,8 +125,8 @@
 	transition: background-image var(--acfr-ease);
 }
 
-.acf-repeater .acf-sortable-handle:hover,
-.acf-repeater .acf-row:hover .acf-sortable-handle {
+.repeater-field-for-acf .acf-sortable-handle:hover,
+.repeater-field-for-acf .acf-row:hover .acf-sortable-handle {
 	background-image:
 		radial-gradient(circle, var(--acfr-handle-h) 1.5px, transparent 1.5px),
 		radial-gradient(circle, var(--acfr-handle-h) 1.5px, transparent 1.5px),
@@ -136,12 +136,12 @@
 		radial-gradient(circle, var(--acfr-handle-h) 1.5px, transparent 1.5px);
 }
 
-.acf-repeater .acf-sortable-handle:active {
+.repeater-field-for-acf .acf-sortable-handle:active {
 	cursor: grabbing;
 }
 
 /* Row number badge — clean, scoped */
-.acf-repeater .acf-row-number {
+.repeater-field-for-acf .acf-row-number {
 	display: inline-block;
 	font-size: 11px;
 	font-weight: 600;
@@ -152,7 +152,7 @@
 }
 
 /* Collapse toggle icon & compact title */
-.acf-repeater .acf-icon.-collapse {
+.repeater-field-for-acf .acf-icon.-collapse {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -164,11 +164,11 @@
 	transition: color var(--acfr-ease);
 }
 
-.acf-repeater .acf-icon.-collapse:hover {
+.repeater-field-for-acf .acf-icon.-collapse:hover {
 	color: var(--acfr-primary);
 }
 
-.acf-repeater .acf-icon.-collapse .dashicons {
+.repeater-field-for-acf .acf-icon.-collapse .dashicons {
 	font-size: 14px;
 	width: 14px;
 	height: 14px;
@@ -176,19 +176,19 @@
 	transition: transform var(--acfr-ease);
 }
 
-.acf-repeater .acf-row.-collapsed .acf-icon.-collapse .dashicons,
-.acf-repeater .acf-row.acf-row-collapsed .acf-icon.-collapse .dashicons {
+.repeater-field-for-acf .acf-row.-collapsed .acf-icon.-collapse .dashicons,
+.repeater-field-for-acf .acf-row.acf-row-collapsed .acf-icon.-collapse .dashicons {
 	transform: rotate(-90deg);
 }
 
-.acf-repeater .acf-row.-collapsed > .acf-fields,
-.acf-repeater .acf-row.acf-row-collapsed > .acf-fields {
+.repeater-field-for-acf .acf-row.-collapsed > .acf-fields,
+.repeater-field-for-acf .acf-row.acf-row-collapsed > .acf-fields {
 	display: none !important;
 }
 
 /* Full-width header summary bar when row is collapsed */
-.acf-repeater .acf-row.-collapsed > .acf-row-handle.order,
-.acf-repeater .acf-row.acf-row-collapsed > .acf-row-handle.order {
+.repeater-field-for-acf .acf-row.-collapsed > .acf-row-handle.order,
+.repeater-field-for-acf .acf-row.acf-row-collapsed > .acf-row-handle.order {
 	flex: 1 1 auto;
 	width: auto;
 	min-width: 0;
@@ -201,12 +201,12 @@
 	cursor: pointer;
 }
 
-.acf-repeater .acf-row.-collapsed > .acf-row-handle.order:hover,
-.acf-repeater .acf-row.acf-row-collapsed > .acf-row-handle.order:hover {
+.repeater-field-for-acf .acf-row.-collapsed > .acf-row-handle.order:hover,
+.repeater-field-for-acf .acf-row.acf-row-collapsed > .acf-row-handle.order:hover {
 	background: #f0f6fc;
 }
 
-.acf-repeater .acf-row-compact-title {
+.repeater-field-for-acf .acf-row-compact-title {
 	display: none;
 	font-size: 13px;
 	font-weight: 600;
@@ -218,47 +218,47 @@
 	margin: 0;
 }
 
-.acf-repeater .acf-row.-collapsed .acf-row-compact-title,
-.acf-repeater .acf-row.acf-row-collapsed .acf-row-compact-title {
+.repeater-field-for-acf .acf-row.-collapsed .acf-row-compact-title,
+.repeater-field-for-acf .acf-row.acf-row-collapsed .acf-row-compact-title {
 	display: inline-block;
 }
 
 /* ─── Centre Column: sub-fields ─────────────────────────────────────── */
-.acf-repeater .acf-row>.acf-fields {
+.repeater-field-for-acf .acf-row>.acf-fields {
 	flex: 1 1 auto;
 	min-width: 0;
 	padding: 0;
 }
 
 /* Each sub-field gets normal ACF padding + bottom border */
-.acf-repeater .acf-row>.acf-fields>.acf-field {
+.repeater-field-for-acf .acf-row>.acf-fields>.acf-field {
 	padding: 12px 14px !important;
 	border-bottom: 1px solid var(--acfr-border);
 	margin: 0 !important;
 }
 
-.acf-repeater .acf-row>.acf-fields>.acf-field:last-child {
+.repeater-field-for-acf .acf-row>.acf-fields>.acf-field:last-child {
 	border-bottom: none;
 }
 
 /* Keep labels visible (unlike table layout) */
-.acf-repeater .acf-row>.acf-fields .acf-label {
+.repeater-field-for-acf .acf-row>.acf-fields .acf-label {
 	display: block;
 }
 
 /* Full-width inputs inside each sub-field */
-.acf-repeater .acf-row>.acf-fields .acf-input input[type="text"],
-.acf-repeater .acf-row>.acf-fields .acf-input input[type="email"],
-.acf-repeater .acf-row>.acf-fields .acf-input input[type="url"],
-.acf-repeater .acf-row>.acf-fields .acf-input input[type="number"],
-.acf-repeater .acf-row>.acf-fields .acf-input input[type="password"],
-.acf-repeater .acf-row>.acf-fields .acf-input textarea,
-.acf-repeater .acf-row>.acf-fields .acf-input select {
+.repeater-field-for-acf .acf-row>.acf-fields .acf-input input[type="text"],
+.repeater-field-for-acf .acf-row>.acf-fields .acf-input input[type="email"],
+.repeater-field-for-acf .acf-row>.acf-fields .acf-input input[type="url"],
+.repeater-field-for-acf .acf-row>.acf-fields .acf-input input[type="number"],
+.repeater-field-for-acf .acf-row>.acf-fields .acf-input input[type="password"],
+.repeater-field-for-acf .acf-row>.acf-fields .acf-input textarea,
+.repeater-field-for-acf .acf-row>.acf-fields .acf-input select {
 	width: 100%;
 }
 
 /* ─── Right Handle Column (remove + duplicate) ──────────────────────── */
-.acf-repeater .acf-row-handle.remove {
+.repeater-field-for-acf .acf-row-handle.remove {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -273,8 +273,8 @@
 }
 
 /* ─── Remove / Duplicate buttons — scoped to our repeater rows ──────── */
-.acf-repeater .acf-row-handle.remove .acf-remove-row,
-.acf-repeater .acf-row-handle.remove .acf-duplicate-row {
+.repeater-field-for-acf .acf-row-handle.remove .acf-remove-row,
+.repeater-field-for-acf .acf-row-handle.remove .acf-duplicate-row {
 	display: flex !important;
 	align-items: center;
 	justify-content: center;
@@ -294,8 +294,8 @@
 }
 
 /* Remove — red on hover */
-.acf-repeater .acf-row-handle.remove .acf-remove-row:hover,
-.acf-repeater .acf-row-handle.remove .acf-remove-row:focus {
+.repeater-field-for-acf .acf-row-handle.remove .acf-remove-row:hover,
+.repeater-field-for-acf .acf-row-handle.remove .acf-remove-row:focus {
 	background: var(--acfr-danger-bg);
 	border-color: var(--acfr-danger);
 	color: var(--acfr-danger) !important;
@@ -303,8 +303,8 @@
 }
 
 /* Duplicate — blue on hover */
-.acf-repeater .acf-row-handle.remove .acf-duplicate-row:hover,
-.acf-repeater .acf-row-handle.remove .acf-duplicate-row:focus {
+.repeater-field-for-acf .acf-row-handle.remove .acf-duplicate-row:hover,
+.repeater-field-for-acf .acf-row-handle.remove .acf-duplicate-row:focus {
 	background: #e8f3fb;
 	border-color: var(--acfr-primary);
 	color: var(--acfr-primary) !important;
@@ -312,8 +312,8 @@
 }
 
 /* Dashicons inside buttons */
-.acf-repeater .acf-row-handle.remove .acf-remove-row .dashicons,
-.acf-repeater .acf-row-handle.remove .acf-duplicate-row .dashicons {
+.repeater-field-for-acf .acf-row-handle.remove .acf-remove-row .dashicons,
+.repeater-field-for-acf .acf-row-handle.remove .acf-duplicate-row .dashicons {
 	font-size: 14px;
 	width: 14px;
 	height: 14px;
@@ -321,7 +321,7 @@
 }
 
 /* ─── Add Row Footer ─────────────────────────────────────────────────── */
-.acf-repeater-add-row {
+.repeater-field-for-acf-add-row {
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -329,7 +329,7 @@
 }
 
 /* The Add Row button */
-.acf-repeater-add-row-btn {
+.repeater-field-for-acf-add-row-btn {
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: center !important;
@@ -349,15 +349,15 @@
 	vertical-align: middle !important;
 }
 
-.acf-repeater-add-row-btn:hover,
-.acf-repeater-add-row-btn:focus {
+.repeater-field-for-acf-add-row-btn:hover,
+.repeater-field-for-acf-add-row-btn:focus {
 	background: var(--acfr-primary-h) !important;
 	border-color: var(--acfr-primary-h) !important;
 	color: #fff !important;
 	outline: none;
 }
 
-.acf-repeater-add-row-btn .dashicons {
+.repeater-field-for-acf-add-row-btn .dashicons {
 	font-size: 16px !important;
 	width: 16px !important;
 	height: 16px !important;
@@ -402,20 +402,20 @@
 }
 
 /* ─── RTL ────────────────────────────────────────────────────────────── */
-.rtl .acf-repeater .acf-row-handle.order {
+.rtl .repeater-field-for-acf .acf-row-handle.order {
 	border-right: none;
 	border-left: 1px solid var(--acfr-border);
 }
 
-.rtl .acf-repeater .acf-row-handle.remove {
+.rtl .repeater-field-for-acf .acf-row-handle.remove {
 	border-left: none;
 	border-right: 1px solid var(--acfr-border);
 }
 
 /* ─── Print ──────────────────────────────────────────────────────────── */
 @media print {
-	.acf-repeater .acf-row-handle,
-	.acf-repeater-add-row {
+	.repeater-field-for-acf .acf-row-handle,
+	.repeater-field-for-acf-add-row {
 		display: none !important;
 	}
 }

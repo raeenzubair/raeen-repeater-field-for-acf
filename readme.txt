@@ -1,5 +1,5 @@
 === Repeater Field for ACF ===
-Contributors: acf-repeater
+Contributors: repeater-field-for-acf
 Donate link: https://wordpress.org/plugins/repeater-field-for-acf/
 Tags: acf, advanced-custom-fields, repeater, custom-fields, flexible-content
 Requires at least: 5.8
@@ -54,7 +54,7 @@ if ( have_rows( 'my_repeater' ) ) {
 == Installation ==
 
 1. Make sure **Advanced Custom Fields** (free, version 5.8+) is installed and activated.
-2. Upload the `acf-repeater` folder to `/wp-content/plugins/`.
+2. Upload the `repeater-field-for-acf` folder to `/wp-content/plugins/`.
 3. Activate the plugin through the **Plugins** menu in WordPress.
 4. Go to **Custom Fields → Field Groups**, edit a field group, and add a new **Repeater** field (under the Layout category).
 5. Add sub-fields to the repeater and save.

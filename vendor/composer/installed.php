@@ -3,7 +3,7 @@
         'name' => 'repeater-field-for-acf/repeater-field-for-acf',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '787a3a48eda856215461c02553023b6a59648d4a',
+        'reference' => '870a315bf00ea23caa76cf26c2b94e9ce474f84b',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -148,7 +148,7 @@
         'repeater-field-for-acf/repeater-field-for-acf' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '787a3a48eda856215461c02553023b6a59648d4a',
+            'reference' => '870a315bf00ea23caa76cf26c2b94e9ce474f84b',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

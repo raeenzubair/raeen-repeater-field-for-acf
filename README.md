@@ -27,7 +27,7 @@ A powerful, performant Repeater field type for the free version of Advanced Cust
 
 ## Installation
 
-1. Upload the `acf-repeater` folder to `/wp-content/plugins/`
+1. Upload the `repeater-field-for-acf` folder to `/wp-content/plugins/`
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Requires Advanced Custom Fields (free version 5.8 or higher)
 4. Go to Custom Fields > Field Groups and add a new "Repeater" field (under Layout fields)
@@ -159,17 +159,17 @@ GET /wp-json/wp/v2/posts/123?fields=acf_repeater
 
 ### Get specific repeater field
 ```
-GET /wp-json/acf-repeater/v1/repeater/field_abc123?post_id=123
+GET /wp-json/repeater-field-for-acf/v1/repeater/field_abc123?post_id=123
 ```
 
 ### Get specific row
 ```
-GET /wp-json/acf-repeater/v1/repeater/field_abc123/rows/0?post_id=123
+GET /wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows/0?post_id=123
 ```
 
 ### Add row
 ```
-POST /wp-json/acf-repeater/v1/repeater/field_abc123/rows
+POST /wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows
 Content-Type: application/json
 
 {
@@ -183,7 +183,7 @@ Content-Type: application/json
 
 ### Update row
 ```
-PUT /wp-json/acf-repeater/v1/repeater/field_abc123/rows/0
+PUT /wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows/0
 Content-Type: application/json
 
 {
@@ -196,7 +196,7 @@ Content-Type: application/json
 
 ### Delete row
 ```
-DELETE /wp-json/acf-repeater/v1/repeater/field_abc123/rows/0?post_id=123
+DELETE /wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows/0?post_id=123
 ```
 
 ## Development

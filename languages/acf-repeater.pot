@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ACF Repeater 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/acf-repeater/\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/repeater-field-for-acf/\n"
 "POT-Creation-Date: 2024-01-01 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4\n"
-"X-Domain: acf-repeater\n"
+"X-Domain: repeater-field-for-acf\n"
 
 #: includes/Field/Repeater_Field.php:150
 msgid "Add Row"
@@ -398,19 +398,19 @@ msgstr ""
 msgid "Failed to delete row."
 msgstr ""
 
-#: acf-repeater.php:150
+#: repeater-field-for-acf.php:150
 msgid "ACF Repeater"
 msgstr ""
 
-#: acf-repeater.php:150
+#: repeater-field-for-acf.php:150
 msgid "%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated."
 msgstr ""
 
-#: acf-repeater.php:150
+#: repeater-field-for-acf.php:150
 msgid "Advanced Custom Fields version %s is installed. Version 5.8 or higher is required."
 msgstr ""
 
-#: acf-repeater.php:150
+#: repeater-field-for-acf.php:150
 msgid "PHP version %s or higher is required. You are running %s."
 msgstr ""
 

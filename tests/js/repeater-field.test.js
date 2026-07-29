@@ -39,31 +39,31 @@ describe( 'ACFRepeaterField', () => {
 	beforeEach( () => {
 		// Create a basic repeater field element.
 		document.body.innerHTML = `
-			<div class="acf-repeater acf-repeater-table" data-field-key="field_123" data-field-name="repeater_field" data-max-rows="0" data-min-rows="0" data-button-label="Add Row" data-collapsed-field="" data-duplicate-enabled="true" data-delete-confirm="true" data-sortable-enabled="true">
-				<table class="acf-repeater-table">
+			<div class="repeater-field-for-acf repeater-field-for-acf-table" data-field-key="field_123" data-field-name="repeater_field" data-max-rows="0" data-min-rows="0" data-button-label="Add Row" data-collapsed-field="" data-duplicate-enabled="true" data-delete-confirm="true" data-sortable-enabled="true">
+				<table class="repeater-field-for-acf-table">
 					<thead>
 						<tr>
-							<th class="acf-repeater-col-handle"></th>
-							<th class="acf-repeater-col-text_field">Text Field</th>
-							<th class="acf-repeater-col-actions"></th>
+							<th class="repeater-field-for-acf-col-handle"></th>
+							<th class="repeater-field-for-acf-col-text_field">Text Field</th>
+							<th class="repeater-field-for-acf-col-actions"></th>
 						</tr>
 					</thead>
-					<tbody class="acf-repeater-rows">
+					<tbody class="repeater-field-for-acf-rows">
 					</tbody>
 				</table>
-				<div class="acf-repeater-footer">
-					<button type="button" class="button button-primary acf-repeater-add-row" data-field-key="field_123">
+				<div class="repeater-field-for-acf-footer">
+					<button type="button" class="button button-primary repeater-field-for-acf-add-row" data-field-key="field_123">
 						<span class="dashicons dashicons-plus-alt"></span>
 						<span>Add Row</span>
 					</button>
 				</div>
-				<div class="acf-repeater-empty-notice" style="display: block;">
+				<div class="repeater-field-for-acf-empty-notice" style="display: block;">
 					<p>No rows added yet. Click "Add Row" to get started.</p>
 				</div>
 			</div>
 		`;
 
-		fieldElement = document.querySelector( '.acf-repeater' );
+		fieldElement = document.querySelector( '.repeater-field-for-acf' );
 		fieldController = new ACFRepeaterField( fieldElement );
 	} );
 
@@ -84,9 +84,9 @@ describe( 'ACFRepeaterField', () => {
 	} );
 
 	test( 'cacheRows finds existing rows', () => {
-		fieldElement.querySelector( '.acf-repeater-rows' ).innerHTML = `
-			<tr class="acf-repeater-row" data-row-id="row_1" data-row-index="0"></tr>
-			<tr class="acf-repeater-row" data-row-id="row_2" data-row-index="1"></tr>
+		fieldElement.querySelector( '.repeater-field-for-acf-rows' ).innerHTML = `
+			<tr class="repeater-field-for-acf-row" data-row-id="row_1" data-row-index="0"></tr>
+			<tr class="repeater-field-for-acf-row" data-row-id="row_2" data-row-index="1"></tr>
 		`;
 
 		fieldController.cacheRows();
@@ -95,15 +95,15 @@ describe( 'ACFRepeaterField', () => {
 	} );
 
 	test( 'updateRowIndices updates row data attributes', () => {
-		fieldElement.querySelector( '.acf-repeater-rows' ).innerHTML = `
-			<tr class="acf-repeater-row" data-row-id="row_1" data-row-index="5"></tr>
-			<tr class="acf-repeater-row" data-row-id="row_2" data-row-index="3"></tr>
+		fieldElement.querySelector( '.repeater-field-for-acf-rows' ).innerHTML = `
+			<tr class="repeater-field-for-acf-row" data-row-id="row_1" data-row-index="5"></tr>
+			<tr class="repeater-field-for-acf-row" data-row-id="row_2" data-row-index="3"></tr>
 		`;
 
 		fieldController.cacheRows();
 		fieldController.updateRowIndices();
 
-		const rows = fieldElement.querySelectorAll( '.acf-repeater-row' );
+		const rows = fieldElement.querySelectorAll( '.repeater-field-for-acf-row' );
 		expect( rows[0].dataset.rowIndex ).toBe( '0' );
 		expect( rows[1].dataset.rowIndex ).toBe( '1' );
 	} );
@@ -112,7 +112,7 @@ describe( 'ACFRepeaterField', () => {
 		fieldController.rowCount = 0;
 		fieldController.updateEmptyState();
 
-		const notice = fieldElement.querySelector( '.acf-repeater-empty-notice' );
+		const notice = fieldElement.querySelector( '.repeater-field-for-acf-empty-notice' );
 		expect( notice.style.display ).toBe( '' );
 	} );
 
@@ -120,7 +120,7 @@ describe( 'ACFRepeaterField', () => {
 		fieldController.rowCount = 2;
 		fieldController.updateEmptyState();
 
-		const notice = fieldElement.querySelector( '.acf-repeater-empty-notice' );
+		const notice = fieldElement.querySelector( '.repeater-field-for-acf-empty-notice' );
 		expect( notice.style.display ).toBe( 'none' );
 	} );
 

@@ -19,26 +19,26 @@ class ACFRepeaterModal {
 	createElements() {
 		// Create overlay.
 		this.overlay = document.createElement( 'div' );
-		this.overlay.className = 'acf-repeater-modal-overlay';
+		this.overlay.className = 'repeater-field-for-acf-modal-overlay';
 
 		// Create modal.
 		this.modal = document.createElement( 'div' );
-		this.modal.className = 'acf-repeater-modal';
+		this.modal.className = 'repeater-field-for-acf-modal';
 		this.modal.setAttribute( 'role', 'dialog' );
 		this.modal.setAttribute( 'aria-modal', 'true' );
-		this.modal.setAttribute( 'aria-labelledby', 'acf-repeater-modal-title' );
+		this.modal.setAttribute( 'aria-labelledby', 'repeater-field-for-acf-modal-title' );
 		this.modal.innerHTML = `
-			<div class="acf-repeater-modal-content">
-				<div class="acf-repeater-modal-header">
-					<h3 id="acf-repeater-modal-title" class="acf-repeater-modal-title"></h3>
-					<button type="button" class="acf-repeater-modal-close" aria-label="${this.escapeHtml( acfRepeater?.i18n?.close || 'Close' )}">
+			<div class="repeater-field-for-acf-modal-content">
+				<div class="repeater-field-for-acf-modal-header">
+					<h3 id="repeater-field-for-acf-modal-title" class="repeater-field-for-acf-modal-title"></h3>
+					<button type="button" class="repeater-field-for-acf-modal-close" aria-label="${this.escapeHtml( acfRepeater?.i18n?.close || 'Close' )}">
 						<span class="dashicons dashicons-no-alt" aria-hidden="true"></span>
 					</button>
 				</div>
-				<div class="acf-repeater-modal-body"></div>
-				<div class="acf-repeater-modal-footer">
-					<button type="button" class="button acf-repeater-modal-cancel"></button>
-					<button type="button" class="button button-primary acf-repeater-modal-confirm"></button>
+				<div class="repeater-field-for-acf-modal-body"></div>
+				<div class="repeater-field-for-acf-modal-footer">
+					<button type="button" class="button repeater-field-for-acf-modal-cancel"></button>
+					<button type="button" class="button button-primary repeater-field-for-acf-modal-confirm"></button>
 				</div>
 			</div>
 		`;
@@ -52,9 +52,9 @@ class ACFRepeaterModal {
 	}
 
 	bindEvents() {
-		this.modal.querySelector( '.acf-repeater-modal-close' ).addEventListener( 'click', () => this.close( false ) );
-		this.modal.querySelector( '.acf-repeater-modal-cancel' ).addEventListener( 'click', () => this.close( false ) );
-		this.modal.querySelector( '.acf-repeater-modal-confirm' ).addEventListener( 'click', () => this.close( true ) );
+		this.modal.querySelector( '.repeater-field-for-acf-modal-close' ).addEventListener( 'click', () => this.close( false ) );
+		this.modal.querySelector( '.repeater-field-for-acf-modal-cancel' ).addEventListener( 'click', () => this.close( false ) );
+		this.modal.querySelector( '.repeater-field-for-acf-modal-confirm' ).addEventListener( 'click', () => this.close( true ) );
 
 		// Close on overlay click.
 		this.overlay.addEventListener( 'click', ( e ) => {
@@ -89,10 +89,10 @@ class ACFRepeaterModal {
 			this.onConfirm = () => resolve( true );
 			this.onCancel = () => resolve( false );
 
-			const titleEl = this.modal.querySelector( '.acf-repeater-modal-title' );
-			const bodyEl = this.modal.querySelector( '.acf-repeater-modal-body' );
-			const confirmBtn = this.modal.querySelector( '.acf-repeater-modal-confirm' );
-			const cancelBtn = this.modal.querySelector( '.acf-repeater-modal-cancel' );
+			const titleEl = this.modal.querySelector( '.repeater-field-for-acf-modal-title' );
+			const bodyEl = this.modal.querySelector( '.repeater-field-for-acf-modal-body' );
+			const confirmBtn = this.modal.querySelector( '.repeater-field-for-acf-modal-confirm' );
+			const cancelBtn = this.modal.querySelector( '.repeater-field-for-acf-modal-cancel' );
 
 			titleEl.textContent = options.title || 'Confirm';
 			bodyEl.innerHTML = `<p>${options.message || ''}</p>`;
@@ -100,9 +100,9 @@ class ACFRepeaterModal {
 			cancelBtn.textContent = options.cancelText || 'Cancel';
 
 			if ( options.danger ) {
-				confirmBtn.classList.add( 'acf-repeater-modal-danger' );
+				confirmBtn.classList.add( 'repeater-field-for-acf-modal-danger' );
 			} else {
-				confirmBtn.classList.remove( 'acf-repeater-modal-danger' );
+				confirmBtn.classList.remove( 'repeater-field-for-acf-modal-danger' );
 			}
 
 			this.open();
@@ -110,8 +110,8 @@ class ACFRepeaterModal {
 	}
 
 	open() {
-		this.overlay.classList.add( 'acf-repeater-modal-overlay-visible' );
-		this.modal.classList.add( 'acf-repeater-modal-open' );
+		this.overlay.classList.add( 'repeater-field-for-acf-modal-overlay-visible' );
+		this.modal.classList.add( 'repeater-field-for-acf-modal-open' );
 		document.body.style.overflow = 'hidden';
 
 		// Focus management.
@@ -128,8 +128,8 @@ class ACFRepeaterModal {
 	}
 
 	close( confirmed = false ) {
-		this.modal.classList.remove( 'acf-repeater-modal-open' );
-		this.overlay.classList.remove( 'acf-repeater-modal-overlay-visible' );
+		this.modal.classList.remove( 'repeater-field-for-acf-modal-open' );
+		this.overlay.classList.remove( 'repeater-field-for-acf-modal-overlay-visible' );
 		document.body.style.overflow = '';
 
 		document.removeEventListener( 'keydown', this.keydownHandler );

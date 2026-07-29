@@ -24,13 +24,13 @@ class ACFRepeaterSortable {
 
 	bindDragEvents() {
 		const container = this.fieldController.layout === 'table'
-			? this.fieldController.element.querySelector( '.acf-repeater-rows' )
-			: this.fieldController.element.querySelector( '.acf-repeater-blocks' );
+			? this.fieldController.element.querySelector( '.repeater-field-for-acf-rows' )
+			: this.fieldController.element.querySelector( '.repeater-field-for-acf-blocks' );
 
 		if ( ! container ) return;
 
 		// Make rows draggable.
-		container.querySelectorAll( '.acf-repeater-row, .acf-repeater-block-row' ).forEach( row => {
+		container.querySelectorAll( '.repeater-field-for-acf-row, .repeater-field-for-acf-block-row' ).forEach( row => {
 			row.setAttribute( 'draggable', 'true' );
 			row.addEventListener( 'dragstart', ( e ) => this.onDragStart( e, row ) );
 			row.addEventListener( 'dragend', ( e ) => this.onDragEnd( e, row ) );
@@ -40,9 +40,9 @@ class ACFRepeaterSortable {
 		} );
 
 		// Handle for better UX.
-		container.querySelectorAll( '.acf-repeater-drag-handle' ).forEach( handle => {
+		container.querySelectorAll( '.repeater-field-for-acf-drag-handle' ).forEach( handle => {
 			handle.addEventListener( 'mousedown', ( e ) => {
-				const row = handle.closest( '.acf-repeater-row, .acf-repeater-block-row' );
+				const row = handle.closest( '.repeater-field-for-acf-row, .repeater-field-for-acf-block-row' );
 				if ( row ) {
 					row.setAttribute( 'draggable', 'true' );
 				}
@@ -53,7 +53,7 @@ class ACFRepeaterSortable {
 	onDragStart( event, row ) {
 		this.draggedRow = row;
 		this.startIndex = parseInt( row.dataset.rowIndex, 10 );
-		row.classList.add( 'acf-repeater-row-dragging' );
+		row.classList.add( 'repeater-field-for-acf-row-dragging' );
 
 		// Set drag data.
 		event.dataTransfer.effectAllowed = 'move';
@@ -64,7 +64,7 @@ class ACFRepeaterSortable {
 	}
 
 	onDragEnd( event, row ) {
-		row.classList.remove( 'acf-repeater-row-dragging' );
+		row.classList.remove( 'repeater-field-for-acf-row-dragging' );
 		this.removePlaceholder();
 		this.draggedRow = null;
 		this.startIndex = -1;
@@ -77,25 +77,25 @@ class ACFRepeaterSortable {
 		if ( row === this.draggedRow ) return;
 
 		// Show drop indicator.
-		row.classList.add( 'acf-repeater-drop-target' );
+		row.classList.add( 'repeater-field-for-acf-drop-target' );
 
 		// Determine insert position (before or after).
 		const rect = row.getBoundingClientRect();
 		const midY = rect.top + rect.height / 2;
 
 		if ( event.clientY < midY ) {
-			row.classList.add( 'acf-repeater-drop-before' );
-			row.classList.remove( 'acf-repeater-drop-after' );
+			row.classList.add( 'repeater-field-for-acf-drop-before' );
+			row.classList.remove( 'repeater-field-for-acf-drop-after' );
 		} else {
-			row.classList.add( 'acf-repeater-drop-after' );
-			row.classList.remove( 'acf-repeater-drop-before' );
+			row.classList.add( 'repeater-field-for-acf-drop-after' );
+			row.classList.remove( 'repeater-field-for-acf-drop-before' );
 		}
 	}
 
 	onDragLeave( event, row ) {
 		// Only remove if actually leaving the row (not entering a child).
 		if ( ! row.contains( event.relatedTarget ) ) {
-			row.classList.remove( 'acf-repeater-drop-target', 'acf-repeater-drop-before', 'acf-repeater-drop-after' );
+			row.classList.remove( 'repeater-field-for-acf-drop-target', 'repeater-field-for-acf-drop-before', 'repeater-field-for-acf-drop-after' );
 		}
 	}
 
@@ -105,7 +105,7 @@ class ACFRepeaterSortable {
 		if ( row === this.draggedRow ) return;
 
 		const targetIndex = parseInt( row.dataset.rowIndex, 10 );
-		const isBefore = row.classList.contains( 'acf-repeater-drop-before' );
+		const isBefore = row.classList.contains( 'repeater-field-for-acf-drop-before' );
 		const newIndex = isBefore ? targetIndex : targetIndex + 1;
 
 		// Adjust for removed dragged row.
@@ -117,7 +117,7 @@ class ACFRepeaterSortable {
 		this.moveRow( this.startIndex, adjustedNewIndex );
 
 		// Cleanup.
-		row.classList.remove( 'acf-repeater-drop-target', 'acf-repeater-drop-before', 'acf-repeater-drop-after' );
+		row.classList.remove( 'repeater-field-for-acf-drop-target', 'repeater-field-for-acf-drop-before', 'repeater-field-for-acf-drop-after' );
 	}
 
 	moveRow( fromIndex, toIndex ) {
@@ -144,8 +144,8 @@ class ACFRepeaterSortable {
 
 	reorderDOM() {
 		const container = this.fieldController.layout === 'table'
-			? this.fieldController.element.querySelector( '.acf-repeater-rows' )
-			: this.fieldController.element.querySelector( '.acf-repeater-blocks' );
+			? this.fieldController.element.querySelector( '.repeater-field-for-acf-rows' )
+			: this.fieldController.element.querySelector( '.repeater-field-for-acf-blocks' );
 
 		if ( ! container ) return;
 
@@ -159,7 +159,7 @@ class ACFRepeaterSortable {
 
 	createPlaceholder( row ) {
 		this.placeholder = row.cloneNode( true );
-		this.placeholder.classList.add( 'acf-repeater-sortable-placeholder' );
+		this.placeholder.classList.add( 'repeater-field-for-acf-sortable-placeholder' );
 		this.placeholder.style.opacity = '0.5';
 		this.placeholder.style.pointerEvents = 'none';
 		this.placeholder.removeAttribute( 'draggable' );
@@ -182,11 +182,11 @@ class ACFRepeaterSortable {
 
 	destroy() {
 		const container = this.fieldController.layout === 'table'
-			? this.fieldController.element.querySelector( '.acf-repeater-rows' )
-			: this.fieldController.element.querySelector( '.acf-repeater-blocks' );
+			? this.fieldController.element.querySelector( '.repeater-field-for-acf-rows' )
+			: this.fieldController.element.querySelector( '.repeater-field-for-acf-blocks' );
 
 		if ( container ) {
-			container.querySelectorAll( '.acf-repeater-row, .acf-repeater-block-row' ).forEach( row => {
+			container.querySelectorAll( '.repeater-field-for-acf-row, .repeater-field-for-acf-block-row' ).forEach( row => {
 				row.removeAttribute( 'draggable' );
 				row.removeEventListener( 'dragstart', this.boundDragStart );
 				row.removeEventListener( 'dragend', this.boundDragEnd );

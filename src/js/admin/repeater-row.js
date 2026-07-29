@@ -102,23 +102,23 @@ class ACFRepeaterRow {
 	}
 
 	onFocusIn( event ) {
-		this.element.classList.add( 'acf-repeater-row-focused' );
+		this.element.classList.add( 'repeater-field-for-acf-row-focused' );
 	}
 
 	onFocusOut( event ) {
 		// Check if focus moved outside this row.
 		setTimeout( () => {
 			if ( ! this.element.contains( document.activeElement ) ) {
-				this.element.classList.remove( 'acf-repeater-row-focused' );
+				this.element.classList.remove( 'repeater-field-for-acf-row-focused' );
 			}
 		}, 0 );
 	}
 
 	setCollapsed( collapsed ) {
 		this.isCollapsed = collapsed;
-		this.element.classList.toggle( 'acf-repeater-row-collapsed', collapsed );
+		this.element.classList.toggle( 'repeater-field-for-acf-row-collapsed', collapsed );
 
-		const toggleBtn = this.element.querySelector( '.acf-repeater-row-toggle, .acf-repeater-block-toggle' );
+		const toggleBtn = this.element.querySelector( '.repeater-field-for-acf-row-toggle, .repeater-field-for-acf-block-toggle' );
 		if ( toggleBtn ) {
 			toggleBtn.setAttribute( 'aria-expanded', ! collapsed );
 			const icon = toggleBtn.querySelector( '.dashicons' );
@@ -128,7 +128,7 @@ class ACFRepeaterRow {
 		}
 
 		if ( this.fieldController.layout === 'block' ) {
-			const content = this.element.querySelector( '.acf-repeater-block-content' );
+			const content = this.element.querySelector( '.repeater-field-for-acf-block-content' );
 			if ( content ) {
 				content.style.display = collapsed ? 'none' : '';
 			}

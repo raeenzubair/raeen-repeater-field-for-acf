@@ -45,7 +45,7 @@ class ACFRepeaterField {
 		// Use event delegation on the container so it covers dynamically added rows.
 		this.element.addEventListener( 'click', ( e ) => {
 			// Add Row button.
-			const addBtn = e.target.closest( '.acf-repeater-add-row-btn, .acf-add-row-btn, [data-name="add-row"], .acf-button.blue' );
+			const addBtn = e.target.closest( '.repeater-field-for-acf-add-row-btn, .acf-add-row-btn, [data-name="add-row"], .acf-button.blue' );
 			if ( addBtn && this.element.contains( addBtn ) ) {
 				e.preventDefault();
 				// Only handle add-row buttons inside THIS repeater, not nested ones.
@@ -106,11 +106,11 @@ class ACFRepeaterField {
 	 * (not inside a nested repeater).
 	 */
 	isDirectChild( el ) {
-		// Walk up and check for the first .acf-repeater ancestor.
+		// Walk up and check for the first .repeater-field-for-acf ancestor.
 		let node = el.parentElement;
 		while ( node ) {
 			if ( node === this.element ) return true;
-			if ( node.classList && node.classList.contains( 'acf-repeater' ) ) return false;
+			if ( node.classList && node.classList.contains( 'repeater-field-for-acf' ) ) return false;
 			node = node.parentElement;
 		}
 		return false;
@@ -120,11 +120,11 @@ class ACFRepeaterField {
 	 * Check if a row belongs to this repeater (not a nested one).
 	 */
 	ownsRow( row ) {
-		// The row's direct .acf-repeater ancestor must be this.element.
+		// The row's direct .repeater-field-for-acf ancestor must be this.element.
 		let node = row.parentElement;
 		while ( node ) {
 			if ( node === this.element ) return true;
-			if ( node.classList && node.classList.contains( 'acf-repeater' ) ) return false;
+			if ( node.classList && node.classList.contains( 'repeater-field-for-acf' ) ) return false;
 			node = node.parentElement;
 		}
 		return false;
@@ -136,9 +136,9 @@ class ACFRepeaterField {
 	 * Cache references to live (non-clone) rows.
 	 */
 	cacheRows() {
-		// All layouts now use .acf-repeater-rows > .acf-row.
+		// All layouts now use .repeater-field-for-acf-rows > .acf-row.
 		this._rows = Array.from(
-			this.element.querySelectorAll( ':scope > .acf-repeater-rows > .acf-row' )
+			this.element.querySelectorAll( ':scope > .repeater-field-for-acf-rows > .acf-row' )
 		).filter( ( r ) => ! r.classList.contains( 'acf-clone' ) );
 	}
 
@@ -284,7 +284,7 @@ class ACFRepeaterField {
 		if ( clone ) {
 			clone.parentNode.insertBefore( newRow, clone );
 		} else {
-			this.element.querySelector( '.acf-repeater-rows' ).appendChild( newRow );
+			this.element.querySelector( '.repeater-field-for-acf-rows' ).appendChild( newRow );
 		}
 
 		this.cacheRows();
@@ -515,8 +515,8 @@ class ACFRepeaterField {
 			return;
 		}
 
-		// All layouts use .acf-repeater-rows as the sortable container.
-		const $container = jQuery( this.element ).find( '> .acf-repeater-rows' );
+		// All layouts use .repeater-field-for-acf-rows as the sortable container.
+		const $container = jQuery( this.element ).find( '> .repeater-field-for-acf-rows' );
 		if ( ! $container.length ) return;
 
 		this.sortableInstance = $container.sortable( {
