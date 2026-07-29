@@ -406,7 +406,7 @@ class Validator {
 		$row_errors = array();
 
 		foreach ( $this->errors as $key => $messages ) {
-			if ( str_starts_with( $key, $prefix ) ) {
+			if ( strpos( $key, $prefix ) === 0 ) {
 				$row_errors[ $key ] = $messages;
 			}
 		}

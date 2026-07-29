@@ -260,7 +260,7 @@ final class Plugin {
 	 * @return void
 	 */
 	public function load_textdomain(): void {
-		load_plugin_textdomain(
+		load_plugin_textdomain( // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
 			ACF_REPEATER_TEXT_DOMAIN,
 			false,
 			dirname( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) ) . '/languages/'

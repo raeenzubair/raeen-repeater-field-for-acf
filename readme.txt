@@ -1,92 +1,107 @@
 === ACF Repeater ===
 Contributors: acf-repeater
 Donate link: https://wordpress.org/plugins/acf-repeater/
-Tags: acf, advanced-custom-fields, repeater, field, custom-fields, layout, flexible-content
+Tags: acf, advanced-custom-fields, repeater, custom-fields, flexible-content
 Requires at least: 5.8
+Tested up to: 7.0
 Requires PHP: 7.4
 Requires Plugins: advanced-custom-fields
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-ACF Repeater adds a powerful Repeater field type to the free version of Advanced Custom Fields (ACF). Supports table/block layouts, drag-and-drop sorting, nested repeaters, REST API, and ACF JSON sync.
+Adds a fully functional Repeater field to the free version of Advanced Custom Fields. No ACF Pro required.
 
 == Description ==
 
-ACF Repeater is a feature-complete Repeater field implementation for the free version of Advanced Custom Fields. It provides a seamless experience that feels native to ACF.
+ACF Repeater adds a native-feeling Repeater field type to the **free** version of Advanced Custom Fields (ACF). It stores data in the same flat postmeta format used by ACF Pro, so all standard template functions work out of the box.
 
 **Key Features:**
 
-* **Two Layout Modes**: Table (spreadsheet-like) and Block (card-based) layouts
-* **Drag & Drop Reordering**: Intuitive row sorting with keyboard support
-* **Row Operations**: Add, delete, duplicate, collapse/expand rows
-* **Unlimited Sub Fields**: Supports all ACF Free field types including nested repeaters
-* **Field Settings**: Min/max rows, button labels, collapsed titles, validation
-* **Performance Optimized**: Handles hundreds of rows with lazy initialization
-* **REST API Support**: Exposes repeater data through WordPress REST API
-* **ACF JSON Export/Import**: Full compatibility with ACF's field group export
-* **PHP Export**: Generate PHP code for field groups
+* **Three Layout Modes**: Table, Block (card), and Row (stacked) layouts
+* **Drag & Drop Reordering**: Intuitive row sorting powered by jQuery UI Sortable
+* **Row Operations**: Add, remove, duplicate rows
+* **All ACF Free field types**: Text, Textarea, Number, Email, URL, Image, File, WYSIWYG, Select, Radio, Checkbox, True/False, Date Picker, Color Picker, Link, and more
+* **Nested Repeaters**: Repeater fields can contain other repeater fields
+* **get_field() compatible**: Uses ACF Pro-compatible flat meta storage — `get_field()`, `have_rows()`, `the_row()`, and `get_sub_field()` all work natively
+* **ACF JSON Sync**: Full compatibility with ACF's field group JSON export/import
+* **REST API Support**: Exposes repeater data through the WordPress REST API
 * **Gutenberg & Classic Editor**: Works in both editors
 * **Multisite Compatible**: Network activatable
-* **Accessibility Ready**: WCAG 2.1 AA compliant
-* **Mobile Responsive**: Works on all device sizes
-* **Internationalization Ready**: Translation functions throughout
+* **Internationalization Ready**: Full translation support (text domain: `acf-repeater`)
+* **Accessibility Ready**: Proper ARIA labels and keyboard support
 
-**Field Settings:**
-- Minimum/Maximum rows
-- Custom "Add Row" button label
-- Table or Block layout
-- Collapsed row title (uses sub-field value)
-- Enable/disable row sorting
-- Enable/disable row duplication
-- Delete confirmation dialog
-- Default rows (pre-populate on new posts)
+**Data Storage (ACF Pro-compatible):**
 
-**Sub Field Support:**
-All ACF Free field types: Text, Textarea, Number, Email, URL, Image, File, Select, Radio, Checkbox, True/False, WYSIWYG, Date Picker, Time Picker, Color Picker, Link, and more.
+Data is stored using ACF Pro's flat postmeta format:
 
-**Developer Features:**
-- PSR-4 autoloading
-- Comprehensive hook system (actions/filters)
-- WordPress Coding Standards compliant
-- Extensible architecture
+* `{field_name}` → row count (integer)
+* `{field_name}_{i}_{sub_field_name}` → sub-field value for row `i`
+* `_{field_name}_{i}_{sub_field_name}` → sub-field key reference
+
+This means all ACF template functions work without modification:
+
+`php
+$rows = get_field( 'my_repeater' );
+if ( have_rows( 'my_repeater' ) ) {
+    while ( have_rows( 'my_repeater' ) ) {
+        the_row();
+        $name = get_sub_field( 'name' );
+    }
+}
+`
 
 == Installation ==
 
-1. Upload the `acf-repeater` folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Requires Advanced Custom Fields (Free) version 5.8 or higher
-4. Go to Custom Fields > Field Groups and add a new "Repeater" field (under Layout fields)
+1. Make sure **Advanced Custom Fields** (free, version 5.8+) is installed and activated.
+2. Upload the `acf-repeater` folder to `/wp-content/plugins/`.
+3. Activate the plugin through the **Plugins** menu in WordPress.
+4. Go to **Custom Fields → Field Groups**, edit a field group, and add a new **Repeater** field (under the Layout category).
+5. Add sub-fields to the repeater and save.
 
 == Frequently Asked Questions ==
 
 = Does this require ACF Pro? =
-No! This plugin works with the free version of Advanced Custom Fields (5.8+).
+
+No. This plugin works exclusively with the **free** version of Advanced Custom Fields (5.8+). If ACF Pro is active, this plugin automatically defers to Pro's built-in repeater.
+
+= Will it conflict with ACF Pro? =
+
+No. If ACF Pro is detected (`ACF_PRO` constant is defined), the plugin disables itself and lets Pro handle the repeater field natively.
 
 = Can I nest repeaters? =
-Yes, repeater fields can contain other repeater fields as sub-fields.
+
+Yes. Repeater fields can contain other repeater fields as sub-fields, with full drag-and-drop and all row operations.
+
+= Does get_field() work? =
+
+Yes. Data is stored in the same flat postmeta format as ACF Pro, so `get_field()`, `have_rows()`, `the_row()`, and `get_sub_field()` all work without any code changes.
 
 = Is it compatible with ACF JSON sync? =
-Yes, full support for ACF's JSON export/import and PHP export.
 
-= Does it work with Gutenberg? =
-Yes, fully compatible with both Gutenberg and Classic Editor.
+Yes. Full support for ACF's field group JSON export, import, and auto-sync.
 
-= How does data storage work? =
-Data is stored in the standard ACF format (serialized arrays in postmeta), fully compatible with ACF's get_field(), the_field(), and other functions.
+= What WYSIWYG / rich field support is there? =
+
+The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and switches to the stacked Row layout to prevent display issues. TinyMCE editors are properly initialized, duplicated, and cleaned up when rows are added, duplicated, or removed.
 
 == Changelog ==
 
 = 1.0.0 =
 * Initial release
-* Full Repeater field implementation
-* Table and Block layouts
-* Drag-and-drop sorting
-* Nested repeater support
+* Full Repeater field implementation compatible with ACF Free 5.8+
+* Three layout modes: Table, Block, Row
+* Drag-and-drop row sorting
+* Add, remove, duplicate rows
+* WYSIWYG / TinyMCE editor support with proper clone/remove handling
+* ACF Pro-compatible flat meta storage (get_field, have_rows, get_sub_field)
+* Settings page under Custom Fields menu
 * REST API integration
 * ACF JSON/PHP export support
+* Nested repeater support
+* Multisite compatible
 
 == Upgrade Notice ==
 
 = 1.0.0 =
-Initial release. Requires ACF 5.8+ and PHP 7.4+.
+Initial release. Requires Advanced Custom Fields (free) 5.8+ and PHP 7.4+.

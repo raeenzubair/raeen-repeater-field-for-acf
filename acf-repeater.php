@@ -145,10 +145,6 @@ final class ACF_Repeater_Bootstrap {
 		// REST API.
 		add_action( 'rest_api_init', [ $this->rest_api, 'register_routes' ] );
 
-		// Settings page.
-		add_action( 'admin_menu', [ $this->settings, 'add_admin_menu' ] );
-		add_action( 'admin_init', [ $this->settings, 'register_settings' ] );
-
 		// ACF JSON sync.
 		add_filter( 'acf/settings/save_json', [ $this->settings, 'modify_save_json_path' ] );
 		add_filter( 'acf/settings/load_json', [ $this->settings, 'modify_load_json_paths' ] );
@@ -163,7 +159,7 @@ final class ACF_Repeater_Bootstrap {
 	 * @return void
 	 */
 	public function load_textdomain(): void {
-		load_plugin_textdomain(
+		load_plugin_textdomain( // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
 			ACF_REPEATER_TEXT_DOMAIN,
 			false,
 			dirname( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) ) . '/languages'

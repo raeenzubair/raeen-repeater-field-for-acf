@@ -86,24 +86,26 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;   /* vertically center grip + number */
-	padding: 6px;
+	justify-content: center;
+	padding: 10px 4px;
 	width: var(--acfr-col-left);
 	min-width: var(--acfr-col-left);
+	align-self: stretch;
 	flex-shrink: 0;
 	border-right: 1px solid var(--acfr-border);
 	background: var(--acfr-bg);
-	cursor: default;
+	cursor: grab;
 	gap: 6px;
+	box-sizing: border-box;
 }
 
-/* Six-dot drag grip — scoped to our repeater so it doesn't override
-   ACF's own .acf-sortable-handle in the field group editor. */
+/* Dedicated 6-dot drag grip icon */
 .acf-repeater .acf-sortable-handle {
 	display: block;
 	width: 14px;
 	height: 18px;
 	cursor: grab;
+	flex-shrink: 0;
 	background-image:
 		radial-gradient(circle, var(--acfr-handle) 1.5px, transparent 1.5px),
 		radial-gradient(circle, var(--acfr-handle) 1.5px, transparent 1.5px),
@@ -121,7 +123,6 @@
 		6px 12px;
 	background-repeat: no-repeat;
 	transition: background-image var(--acfr-ease);
-	flex-shrink: 0;
 }
 
 .acf-repeater .acf-sortable-handle:hover,
@@ -139,14 +140,87 @@
 	cursor: grabbing;
 }
 
-/* Row number badge — scoped to repeater */
+/* Row number badge — clean, scoped */
 .acf-repeater .acf-row-number {
-	display: block;
+	display: inline-block;
 	font-size: 11px;
 	font-weight: 600;
 	color: var(--acfr-muted);
 	line-height: 1;
 	text-align: center;
+	user-select: none;
+}
+
+/* Collapse toggle icon & compact title */
+.acf-repeater .acf-icon.-collapse {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	color: var(--acfr-muted);
+	text-decoration: none !important;
+	cursor: pointer;
+	transition: color var(--acfr-ease);
+}
+
+.acf-repeater .acf-icon.-collapse:hover {
+	color: var(--acfr-primary);
+}
+
+.acf-repeater .acf-icon.-collapse .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	line-height: 14px;
+	transition: transform var(--acfr-ease);
+}
+
+.acf-repeater .acf-row.-collapsed .acf-icon.-collapse .dashicons,
+.acf-repeater .acf-row.acf-row-collapsed .acf-icon.-collapse .dashicons {
+	transform: rotate(-90deg);
+}
+
+.acf-repeater .acf-row.-collapsed > .acf-fields,
+.acf-repeater .acf-row.acf-row-collapsed > .acf-fields {
+	display: none !important;
+}
+
+/* Full-width header summary bar when row is collapsed */
+.acf-repeater .acf-row.-collapsed > .acf-row-handle.order,
+.acf-repeater .acf-row.acf-row-collapsed > .acf-row-handle.order {
+	flex: 1 1 auto;
+	width: auto;
+	min-width: 0;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 10px 14px;
+	border-right: none;
+	gap: 10px;
+	cursor: pointer;
+}
+
+.acf-repeater .acf-row.-collapsed > .acf-row-handle.order:hover,
+.acf-repeater .acf-row.acf-row-collapsed > .acf-row-handle.order:hover {
+	background: #f0f6fc;
+}
+
+.acf-repeater .acf-row-compact-title {
+	display: none;
+	font-size: 13px;
+	font-weight: 600;
+	color: #1d2327;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex: 1;
+	margin: 0;
+}
+
+.acf-repeater .acf-row.-collapsed .acf-row-compact-title,
+.acf-repeater .acf-row.acf-row-collapsed .acf-row-compact-title {
+	display: inline-block;
 }
 
 /* ─── Centre Column: sub-fields ─────────────────────────────────────── */

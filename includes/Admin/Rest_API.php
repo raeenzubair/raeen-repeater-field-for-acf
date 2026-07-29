@@ -649,6 +649,7 @@ class Rest_API {
 		if ( $max_rows > 0 ) {
 			$current_rows = get_field( $field['name'], $post_id, false );
 			if ( is_array( $current_rows ) && count( $current_rows ) >= $max_rows ) {
+				/* translators: %d: maximum number of rows */
 				return new \WP_Error( 'max_rows', sprintf( __( 'Maximum number of rows (%d) reached.', 'acf-repeater' ), $max_rows ), array( 'status' => 400 ) );
 			}
 		}
@@ -747,6 +748,7 @@ class Rest_API {
 		if ( $min_rows > 0 ) {
 			$current_rows = get_field( $field['name'], $post_id, false );
 			if ( is_array( $current_rows ) && count( $current_rows ) <= $min_rows ) {
+				/* translators: %d: minimum number of rows */
 				return new \WP_Error( 'min_rows', sprintf( __( 'Minimum number of rows (%d) required.', 'acf-repeater' ), $min_rows ), array( 'status' => 400 ) );
 			}
 		}

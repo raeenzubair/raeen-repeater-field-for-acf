@@ -73,7 +73,7 @@ class Ajax_Handler {
 	 * @return bool
 	 */
 	private function verify_request(): bool {
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], self::NONCE_ACTION ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['nonce'] ), self::NONCE_ACTION ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return false;
 		}
 
@@ -128,10 +128,10 @@ class Ajax_Handler {
 			return;
 		}
 
-		$field_key = isset( $_POST['field_key'] ) ? sanitize_text_field( $_POST['field_key'] ) : '';
-		$post_id   = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
+		$field_key = isset( $_POST['field_key'] ) ? sanitize_text_field( wp_unslash( $_POST['field_key'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$post_id   = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$new_order = array();
-		$raw_order = isset( $_POST['new_order'] ) ? $_POST['new_order'] : '';
+		$raw_order = isset( $_POST['new_order'] ) ? wp_unslash( $_POST['new_order'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
 		if ( ! empty( $raw_order ) ) {
 			$decoded = json_decode( $raw_order, true );
 			if ( is_array( $decoded ) ) {

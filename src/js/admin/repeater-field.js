@@ -11,20 +11,21 @@
 
 class ACFRepeaterField {
 	constructor( element ) {
-		this.element       = element;
-		this.fieldKey      = element.dataset.fieldKey || '';
-		this.fieldName     = element.dataset.fieldName || '';
-		this.layout        = element.dataset.layout || 'table';
-		this.maxRows       = parseInt( element.dataset.maxRows || '0', 10 );
-		this.minRows       = parseInt( element.dataset.minRows || '0', 10 );
-		this.sortable      = element.dataset.sortable !== 'false';
-		this.duplicate     = element.dataset.duplicate !== 'false';
-		this.deleteConfirm = element.dataset.deleteConfirm !== 'false';
-		this.nonce         = ( typeof acfRepeater !== 'undefined' && acfRepeater.nonce ) || '';
-		this.ajaxUrl       = ( typeof acfRepeater !== 'undefined' && acfRepeater.ajax_url ) || '';
-		this.i18n          = ( typeof acfRepeater !== 'undefined' && acfRepeater.i18n ) || {};
+		this.element           = element;
+		this.fieldKey          = element.dataset.fieldKey || '';
+		this.fieldName         = element.dataset.fieldName || '';
+		this.layout            = element.dataset.layout || 'table';
+		this.collapsedFieldKey = element.dataset.collapsedField || '';
+		this.maxRows           = parseInt( element.dataset.maxRows || '0', 10 );
+		this.minRows           = parseInt( element.dataset.minRows || '0', 10 );
+		this.sortable          = element.dataset.sortable !== 'false';
+		this.duplicate         = element.dataset.duplicate !== 'false';
+		this.deleteConfirm     = element.dataset.deleteConfirm !== 'false';
+		this.nonce             = ( typeof acfRepeater !== 'undefined' && acfRepeater.nonce ) || '';
+		this.ajaxUrl           = ( typeof acfRepeater !== 'undefined' && acfRepeater.ajax_url ) || '';
+		this.i18n              = ( typeof acfRepeater !== 'undefined' && acfRepeater.i18n ) || {};
 
-		this._rows    = [];
+		this._rows            = [];
 		this.sortableInstance = null;
 
 		this.init();
@@ -35,6 +36,7 @@ class ACFRepeaterField {
 		this.bindEvents();
 		this.initSortable();
 		this.updateRowNumbers();
+		this.updateAllCollapsedTitles();
 	}
 
 	// ─── Event Binding ────────────────────────────────────────────────────────
@@ -75,15 +77,26 @@ class ACFRepeaterField {
 				return;
 			}
 
-			// Collapse/expand block row.
-			const collapseBtn = e.target.closest( '.acf-icon.-collapse, .acf-row-handle.collapse a' );
+			// Collapse/expand row toggle button.
+			const collapseBtn = e.target.closest( '.acf-icon.-collapse, [data-event="collapse-row"], .acf-row-handle.order' );
 			if ( collapseBtn ) {
+				// Don't collapse when clicking on drag handle directly if reordering
+				if ( e.target.closest( '.acf-sortable-handle' ) ) return;
+
 				const row = collapseBtn.closest( '.acf-row' );
 				if ( row && this.ownsRow( row ) ) {
 					e.preventDefault();
 					this.toggleRow( row );
 				}
 				return;
+			}
+		} );
+
+		// Update collapsed title live on input change.
+		this.element.addEventListener( 'input', ( e ) => {
+			const row = e.target.closest( '.acf-row' );
+			if ( row && this.ownsRow( row ) ) {
+				this.updateCollapsedTitle( row );
 			}
 		} );
 	}
@@ -377,16 +390,63 @@ class ACFRepeaterField {
 	}
 
 	/**
-	 * Toggle a block row collapsed/expanded state.
+	 * Toggle a row collapsed/expanded state.
 	 *
 	 * @param {HTMLElement} row
 	 */
 	toggleRow( row ) {
-		const isCollapsed = row.classList.toggle( 'acf-row-collapsed' );
+		const isCollapsed = row.classList.toggle( '-collapsed' );
+		row.classList.toggle( 'acf-row-collapsed', isCollapsed );
+
 		const icon = row.querySelector( '.acf-icon.-collapse' );
 		if ( icon ) {
 			icon.setAttribute( 'aria-expanded', ! isCollapsed );
 		}
+
+		if ( isCollapsed ) {
+			this.updateCollapsedTitle( row );
+		}
+	}
+
+	/**
+	 * Update the collapsed title text for a row based on the configured collapsed sub-field.
+	 *
+	 * @param {HTMLElement} row
+	 */
+	updateCollapsedTitle( row ) {
+		const titleEl = row.querySelector( '.acf-row-compact-title' );
+		if ( ! titleEl ) return;
+
+		let val = '';
+		if ( this.collapsedFieldKey ) {
+			// Find sub-field by key or name.
+			const subFieldEl = row.querySelector(
+				`.acf-field[data-key="${this.collapsedFieldKey}"], .acf-field[data-name="${this.collapsedFieldKey}"]`
+			);
+			if ( subFieldEl ) {
+				const input = subFieldEl.querySelector( 'input, select, textarea' );
+				if ( input ) {
+					val = input.value || '';
+				}
+			}
+		}
+
+		// Fallback: if no collapsed title value, use first text input in row.
+		if ( ! val ) {
+			const firstInput = row.querySelector( '.acf-fields > .acf-field input[type="text"]' );
+			if ( firstInput ) {
+				val = firstInput.value || '';
+			}
+		}
+
+		titleEl.textContent = val ? String( val ) : '';
+	}
+
+	/**
+	 * Update collapsed titles for all rows.
+	 */
+	updateAllCollapsedTitles() {
+		this._rows.forEach( ( row ) => this.updateCollapsedTitle( row ) );
 	}
 
 	// ─── Index Management ─────────────────────────────────────────────────────

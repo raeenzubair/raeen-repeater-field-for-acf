@@ -261,7 +261,9 @@ class Asset_Manager {
 				'expand_row'      => __( 'Expand Row', 'acf-repeater' ),
 				'sort_rows'       => __( 'Sort Rows', 'acf-repeater' ),
 				'confirm_delete'  => __( 'Are you sure you want to delete this row?', 'acf-repeater' ),
+				/* translators: %d: minimum number of rows */
 				'min_rows_error'  => __( 'Minimum number of rows required: %d', 'acf-repeater' ),
+				/* translators: %d: maximum number of rows */
 				'max_rows_error'  => __( 'Maximum number of rows exceeded: %d', 'acf-repeater' ),
 				'required_field'  => __( 'This field is required', 'acf-repeater' ),
 				'loading'         => __( 'Loading...', 'acf-repeater' ),
@@ -307,8 +309,8 @@ class Asset_Manager {
 	 */
 	private function is_field_group_page( string $hook ): bool {
 		return in_array( $hook, array( 'post.php', 'post-new.php' ), true )
-			&& isset( $_GET['post_type'] )
-			&& 'acf-field-group' === $_GET['post_type'];
+			&& isset( $_GET['post_type'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			&& 'acf-field-group' === $_GET['post_type']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
