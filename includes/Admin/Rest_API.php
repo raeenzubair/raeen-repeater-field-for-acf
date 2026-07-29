@@ -276,22 +276,27 @@ class Rest_API {
 	 */
 	public function get_repeater_fields( array $object, string $field_name, \WP_REST_Request $request ): array {
 		$post_id = $object['id'] ?? 0;
-		if ( ! $post_id ) {
+		if ( ! is_numeric( $post_id ) || (int) $post_id <= 0 ) {
 			return array();
 		}
 
-		$repeater_fields = $this->get_all_repeater_fields( $post_id );
+		$repeater_fields = $this->get_all_repeater_fields( (int) $post_id );
 		return $repeater_fields;
 	}
 
 	/**
 	 * Get all repeater fields for a post.
 	 *
-	 * @param int $post_id Post ID.
+	 * @param int|string $post_id Post ID.
 	 * @return array
 	 */
-	private function get_all_repeater_fields( int $post_id ): array {
-		$result = array();
+	private function get_all_repeater_fields( $post_id ): array {
+		if ( ! is_numeric( $post_id ) || (int) $post_id <= 0 ) {
+			return array();
+		}
+
+		$post_id = (int) $post_id;
+		$result  = array();
 
 		// Get all ACF fields for this post.
 		$fields = acf_get_fields( $post_id );
@@ -300,7 +305,7 @@ class Rest_API {
 		}
 
 		foreach ( $fields as $field ) {
-			if ( $field['type'] === 'repeater' ) {
+			if ( isset( $field['type'] ) && $field['type'] === 'repeater' ) {
 				$value = get_field( $field['name'], $post_id, false );
 				if ( is_array( $value ) ) {
 					$result[ $field['name'] ] = $this->format_repeater_value( $value, $field );

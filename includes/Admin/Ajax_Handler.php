@@ -180,8 +180,11 @@ class Ajax_Handler {
 	 * @param int    $post_id Post ID.
 	 * @return array<int, array>
 	 */
-	private function get_field_rows( string $field_key, int $post_id ): array {
-		$value = get_post_meta( $post_id, $field_key, true );
+	private function get_field_rows( string $field_key, $post_id ): array {
+		if ( ! is_numeric( $post_id ) || (int) $post_id <= 0 ) {
+			return array();
+		}
+		$value = get_post_meta( (int) $post_id, $field_key, true );
 		if ( is_array( $value ) ) {
 			return $value;
 		}
@@ -192,11 +195,14 @@ class Ajax_Handler {
 	 * Save field rows to post meta.
 	 *
 	 * @param string       $field_key Field key.
-	 * @param int          $post_id Post ID.
+	 * @param int|string   $post_id Post ID.
 	 * @param array<array> $rows Rows data.
 	 * @return bool
 	 */
-	private function save_field_rows( string $field_key, int $post_id, array $rows ): bool {
-		return update_post_meta( $post_id, $field_key, $rows );
+	private function save_field_rows( string $field_key, $post_id, array $rows ): bool {
+		if ( ! is_numeric( $post_id ) || (int) $post_id <= 0 ) {
+			return false;
+		}
+		return update_post_meta( (int) $post_id, $field_key, $rows );
 	}
 }

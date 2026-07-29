@@ -4,7 +4,7 @@ A powerful, performant Repeater field type for the free version of Advanced Cust
 
 ## Features
 
-- **Two Layout Modes**: Table (spreadsheet-like) and Block (card-based) layouts
+- **Three Layout Modes**: Table (spreadsheet-like), Block (card-based), and Row (stacked) layouts
 - **Drag & Drop Reordering**: Intuitive row sorting with keyboard support
 - **Row Operations**: Add, delete, duplicate, collapse/expand rows
 - **Unlimited Sub Fields**: Supports all ACF Free field types including nested repeaters
@@ -43,7 +43,7 @@ A powerful, performant Repeater field type for the free version of Advanced Cust
    - **Minimum Rows**: Minimum number of rows required (0 = no minimum)
    - **Maximum Rows**: Maximum number of rows allowed (0 = unlimited)
    - **Button Label**: Text for the "Add Row" button
-   - **Layout**: Table or Block
+   - **Layout**: Table, Block, or Row
    - **Collapsed Field**: Sub-field to use as row title when collapsed
    - **Enable Row Sorting**: Allow drag-and-drop reordering
    - **Enable Row Duplication**: Allow duplicating rows
@@ -88,23 +88,7 @@ endif;
 
 ## Configuration
 
-### Global Settings
-
-Navigate to **Custom Fields > Repeater Settings** to configure global defaults:
-
-- Default layout (Table/Block)
-- Default button label
-- Default collapsed field
-- Default row sorting enabled/disabled
-- Default row duplication enabled/disabled
-- Default delete confirmation enabled/disabled
-- Default minimum/maximum rows
-- REST API enable/disable
-- ACF JSON sync path customization
-
-### Field-Level Settings
-
-Each Repeater field can override global settings in the field group editor.
+Each Repeater field is configured directly inside the ACF Field Group editor. Options include layout selection (Table/Block/Row), row bounds (min/max), button labels, collapsed fields, and subfields.
 
 ## Hooks Reference
 

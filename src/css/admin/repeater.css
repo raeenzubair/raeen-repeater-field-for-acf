@@ -331,20 +331,22 @@
 /* The Add Row button */
 .acf-repeater-add-row-btn {
 	display: inline-flex !important;
-	align-items: center;
+	align-items: center !important;
+	justify-content: center !important;
 	gap: 4px;
 	padding: 0 12px 0 8px !important;
-	height: 30px;
-	font-size: 13px;
-	font-weight: 500;
-	line-height: 30px;
+	height: 30px !important;
+	font-size: 13px !important;
+	font-weight: 500 !important;
+	line-height: 1 !important;
 	background: var(--acfr-primary) !important;
 	border-color: var(--acfr-primary) !important;
 	color: #fff !important;
 	border-radius: var(--acfr-radius) !important;
 	cursor: pointer;
-	text-decoration: none;
+	text-decoration: none !important;
 	transition: background var(--acfr-ease), border-color var(--acfr-ease);
+	vertical-align: middle !important;
 }
 
 .acf-repeater-add-row-btn:hover,
@@ -356,11 +358,17 @@
 }
 
 .acf-repeater-add-row-btn .dashicons {
-	font-size: 16px;
-	width: 16px;
-	height: 16px;
-	line-height: 16px;
+	font-size: 16px !important;
+	width: 16px !important;
+	height: 16px !important;
+	line-height: 16px !important;
+	margin: 0 !important;
+	padding: 0 !important;
 	color: #fff !important;
+	vertical-align: middle !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
 }
 
 /* Min rows notice */
