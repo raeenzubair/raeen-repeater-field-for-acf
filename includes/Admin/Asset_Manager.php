@@ -77,7 +77,7 @@ class Asset_Manager
 	private function define_assets(): void
 	{
 		// Admin script (bundled via Vite).
-		$this->scripts['repeater-field-for-acf-admin'] = array(
+		$this->scripts['advanced-repeater-for-custom-fields-admin'] = array(
 			'src' => 'assets/dist/js/admin/index.js',
 			'deps' => array('jquery', 'acf-input', 'wp-util', 'jquery-ui-sortable'),
 			'version' => $this->version,
@@ -85,7 +85,7 @@ class Asset_Manager
 		);
 
 		// Frontend script (for acf_form() on the frontend).
-		$this->scripts['repeater-field-for-acf-frontend'] = array(
+		$this->scripts['advanced-repeater-for-custom-fields-frontend'] = array(
 			'src' => 'assets/dist/js/public/index.js',
 			'deps' => array('jquery', 'acf-input'),
 			'version' => $this->version,
@@ -93,16 +93,16 @@ class Asset_Manager
 		);
 
 		// Admin stylesheet.
-		$this->styles['repeater-field-for-acf-admin'] = array(
+		$this->styles['advanced-repeater-for-custom-fields-admin'] = array(
 			'src' => 'assets/dist/css/index.css',
 			'deps' => array('acf-global'),
 			'version' => $this->version,
 			'media' => 'all',
 		);
 
-		$this->styles['repeater-field-for-acf-admin-2'] = array(
+		$this->styles['advanced-repeater-for-custom-fields-admin-2'] = array(
 			'src' => 'assets/dist/css/index2.css',
-			'deps' => array('repeater-field-for-acf-admin'),
+			'deps' => array('advanced-repeater-for-custom-fields-admin'),
 			'version' => $this->version,
 			'media' => 'all',
 		);
@@ -187,9 +187,9 @@ class Asset_Manager
 			return;
 		}
 
-		wp_enqueue_script('repeater-field-for-acf-admin');
-		wp_enqueue_style('repeater-field-for-acf-admin');
-		wp_enqueue_style('repeater-field-for-acf-admin-2');
+		wp_enqueue_script('advanced-repeater-for-custom-fields-admin');
+		wp_enqueue_style('advanced-repeater-for-custom-fields-admin');
+		wp_enqueue_style('advanced-repeater-for-custom-fields-admin-2');
 
 		$this->localize_admin_script();
 	}
@@ -202,9 +202,9 @@ class Asset_Manager
 	public function enqueue_field_group_assets(): void
 	{
 		$this->register_with_wordpress();
-		wp_enqueue_script('repeater-field-for-acf-admin');
-		wp_enqueue_style('repeater-field-for-acf-admin');
-		wp_enqueue_style('repeater-field-for-acf-admin-2');
+		wp_enqueue_script('advanced-repeater-for-custom-fields-admin');
+		wp_enqueue_style('advanced-repeater-for-custom-fields-admin');
+		wp_enqueue_style('advanced-repeater-for-custom-fields-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -216,9 +216,9 @@ class Asset_Manager
 	public function enqueue_input_assets(): void
 	{
 		$this->register_with_wordpress();
-		wp_enqueue_script('repeater-field-for-acf-admin');
-		wp_enqueue_style('repeater-field-for-acf-admin');
-		wp_enqueue_style('repeater-field-for-acf-admin-2');
+		wp_enqueue_script('advanced-repeater-for-custom-fields-admin');
+		wp_enqueue_style('advanced-repeater-for-custom-fields-admin');
+		wp_enqueue_style('advanced-repeater-for-custom-fields-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -230,9 +230,9 @@ class Asset_Manager
 	public function enqueue_block_editor_assets(): void
 	{
 		$this->register_with_wordpress();
-		wp_enqueue_script('repeater-field-for-acf-admin');
-		wp_enqueue_style('repeater-field-for-acf-admin');
-		wp_enqueue_style('repeater-field-for-acf-admin-2');
+		wp_enqueue_script('advanced-repeater-for-custom-fields-admin');
+		wp_enqueue_style('advanced-repeater-for-custom-fields-admin');
+		wp_enqueue_style('advanced-repeater-for-custom-fields-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -249,7 +249,7 @@ class Asset_Manager
 		// Only enqueue if ACF frontend form is being used on this page.
 		if (function_exists('acf_form_head') && did_action('acf_form_head')) {
 			// Only enqueue script — no standalone frontend CSS bundle is registered.
-			wp_enqueue_script('repeater-field-for-acf-frontend');
+			wp_enqueue_script('advanced-repeater-for-custom-fields-frontend');
 		}
 	}
 
@@ -268,28 +268,28 @@ class Asset_Manager
 			'version' => $this->version,
 			'plugin_url' => $this->plugin_url,
 			'i18n' => array(
-				'add_row' => __('Add Row', 'repeater-field-for-acf'),
-				'delete_row' => __('Delete Row', 'repeater-field-for-acf'),
-				'duplicate_row' => __('Duplicate Row', 'repeater-field-for-acf'),
-				'collapse_row' => __('Collapse Row', 'repeater-field-for-acf'),
-				'expand_row' => __('Expand Row', 'repeater-field-for-acf'),
-				'sort_rows' => __('Sort Rows', 'repeater-field-for-acf'),
-				'confirm_delete' => __('Are you sure you want to delete this row?', 'repeater-field-for-acf'),
+				'add_row' => __('Add Row', 'advanced-repeater-for-custom-fields'),
+				'delete_row' => __('Delete Row', 'advanced-repeater-for-custom-fields'),
+				'duplicate_row' => __('Duplicate Row', 'advanced-repeater-for-custom-fields'),
+				'collapse_row' => __('Collapse Row', 'advanced-repeater-for-custom-fields'),
+				'expand_row' => __('Expand Row', 'advanced-repeater-for-custom-fields'),
+				'sort_rows' => __('Sort Rows', 'advanced-repeater-for-custom-fields'),
+				'confirm_delete' => __('Are you sure you want to delete this row?', 'advanced-repeater-for-custom-fields'),
 				/* translators: %d: minimum number of rows */
-				'min_rows_error' => __('Minimum number of rows required: %d', 'repeater-field-for-acf'),
+				'min_rows_error' => __('Minimum number of rows required: %d', 'advanced-repeater-for-custom-fields'),
 				/* translators: %d: maximum number of rows */
-				'max_rows_error' => __('Maximum number of rows exceeded: %d', 'repeater-field-for-acf'),
-				'required_field' => __('This field is required', 'repeater-field-for-acf'),
-				'loading' => __('Loading...', 'repeater-field-for-acf'),
-				'no_rows' => __('No rows added yet. Click "Add Row" to get started.', 'repeater-field-for-acf'),
-				'row_collapsed' => __('Row collapsed', 'repeater-field-for-acf'),
-				'row_expanded' => __('Row expanded', 'repeater-field-for-acf'),
-				'drag_to_reorder' => __('Drag to reorder', 'repeater-field-for-acf'),
+				'max_rows_error' => __('Maximum number of rows exceeded: %d', 'advanced-repeater-for-custom-fields'),
+				'required_field' => __('This field is required', 'advanced-repeater-for-custom-fields'),
+				'loading' => __('Loading...', 'advanced-repeater-for-custom-fields'),
+				'no_rows' => __('No rows added yet. Click "Add Row" to get started.', 'advanced-repeater-for-custom-fields'),
+				'row_collapsed' => __('Row collapsed', 'advanced-repeater-for-custom-fields'),
+				'row_expanded' => __('Row expanded', 'advanced-repeater-for-custom-fields'),
+				'drag_to_reorder' => __('Drag to reorder', 'advanced-repeater-for-custom-fields'),
 			),
 			'settings' => get_option('acf_repeater_settings', array()),
 		);
 
-		wp_localize_script('repeater-field-for-acf-admin', 'acfRepeater', $data);
+		wp_localize_script('advanced-repeater-for-custom-fields-admin', 'acfRepeater', $data);
 	}
 
 	/**

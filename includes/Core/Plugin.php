@@ -1,6 +1,6 @@
 <?php
 /**
- * Main Plugin class for ACF Repeater.
+ * Main Plugin class for Advanced Repeater For Custom Fields.
  *
  * @package ACF_Repeater\Core
  */
@@ -205,9 +205,6 @@ final class Plugin {
 		add_filter( 'acf/settings/save_json', array( $this->settings, 'modify_save_json_path' ) );
 		add_filter( 'acf/settings/load_json', array( $this->settings, 'modify_load_json_paths' ) );
 
-		// Translations.
-		add_action( 'init', array( $this, 'load_textdomain' ) );
-
 		// Admin notices.
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
@@ -226,8 +223,8 @@ final class Plugin {
 			}
 		}
 
-		// Load textdomain.
-		$this->load_textdomain();
+		// Load textdomain (WordPress loads translations automatically for
+		// plugins hosted on WordPress.org since WP 4.6).
 	}
 
 	/**
@@ -243,8 +240,8 @@ final class Plugin {
 		// Load the field class and register.
 		require_once ACF_REPEATER_PLUGIN_DIR . 'includes/Field/Repeater_Field.php';
 
-		if ( class_exists( 'acf_field_repeater' ) ) {
-			acf_register_field_type( 'acf_field_repeater' );
+		if ( class_exists( '\ACF_Repeater\Field\Repeater_Field' ) ) {
+			acf_register_field_type( '\ACF_Repeater\Field\Repeater_Field' );
 		}
 	}
 
@@ -259,19 +256,6 @@ final class Plugin {
 	}
 
 	/**
-	 * Load translations.
-	 *
-	 * @return void
-	 */
-	public function load_textdomain(): void {
-		load_plugin_textdomain( // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
-			ACF_REPEATER_TEXT_DOMAIN,
-			false,
-			dirname( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) ) . '/languages/'
-		);
-	}
-
-	/**
 	 * Admin notice: ACF not installed.
 	 *
 	 * @return void
@@ -280,12 +264,12 @@ final class Plugin {
 		?>
 		<div class="notice notice-error is-dismissible">
 			<p>
-				<strong><?php esc_html_e( 'ACF Repeater', 'repeater-field-for-acf' ); ?></strong>
+				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'advanced-repeater-for-custom-fields' ); ?></strong>
 				<?php
 				printf(
 					/* translators: %s: Plugin name */
-					esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'repeater-field-for-acf' ),
-					'<strong>ACF Repeater</strong>'
+					esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'advanced-repeater-for-custom-fields' ),
+					'<strong>Advanced Repeater For Custom Fields</strong>'
 				);
 				?>
 			</p>
@@ -303,11 +287,11 @@ final class Plugin {
 		?>
 		<div class="notice notice-warning is-dismissible">
 			<p>
-				<strong><?php esc_html_e( 'ACF Repeater', 'repeater-field-for-acf' ); ?></strong>
+				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'advanced-repeater-for-custom-fields' ); ?></strong>
 				<?php
 				printf(
 					/* translators: %s: ACF version */
-					esc_html__( 'Advanced Custom Fields version %s is installed. Version 5.8 or higher is required.', 'repeater-field-for-acf' ),
+					esc_html__( 'Advanced Custom Fields version %s is installed. Version 5.8 or higher is required.', 'advanced-repeater-for-custom-fields' ),
 					'<strong>' . esc_html( $acf_version ) . '</strong>'
 				);
 				?>
@@ -327,11 +311,11 @@ final class Plugin {
 			?>
 			<div class="notice notice-error is-dismissible">
 				<p>
-					<strong><?php esc_html_e( 'ACF Repeater', 'repeater-field-for-acf' ); ?></strong>
+					<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'advanced-repeater-for-custom-fields' ); ?></strong>
 					<?php
 					printf(
 						/* translators: %s: PHP version */
-						esc_html__( 'PHP version %1$s or higher is required. You are running %2$s.', 'repeater-field-for-acf' ),
+						esc_html__( 'PHP version %1$s or higher is required. You are running %2$s.', 'advanced-repeater-for-custom-fields' ),
 						'<strong>7.4</strong>',
 						'<strong>' . esc_html( PHP_VERSION ) . '</strong>'
 					);
@@ -352,8 +336,8 @@ final class Plugin {
 		if ( version_compare( PHP_VERSION, '7.4', '<' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'ACF Repeater requires PHP 7.4 or higher.', 'repeater-field-for-acf' ),
-				esc_html__( 'Plugin Activation Error', 'repeater-field-for-acf' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires PHP 7.4 or higher.', 'advanced-repeater-for-custom-fields' ),
+				esc_html__( 'Plugin Activation Error', 'advanced-repeater-for-custom-fields' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -363,8 +347,8 @@ final class Plugin {
 		if ( version_compare( $wp_version, '5.8', '<' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'ACF Repeater requires WordPress 5.8 or higher.', 'repeater-field-for-acf' ),
-				esc_html__( 'Plugin Activation Error', 'repeater-field-for-acf' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires WordPress 5.8 or higher.', 'advanced-repeater-for-custom-fields' ),
+				esc_html__( 'Plugin Activation Error', 'advanced-repeater-for-custom-fields' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -373,8 +357,8 @@ final class Plugin {
 		if ( ! function_exists( 'acf_get_field_type' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'ACF Repeater requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'repeater-field-for-acf' ),
-				esc_html__( 'Plugin Activation Error', 'repeater-field-for-acf' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'advanced-repeater-for-custom-fields' ),
+				esc_html__( 'Plugin Activation Error', 'advanced-repeater-for-custom-fields' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -391,7 +375,7 @@ final class Plugin {
 			'acf_repeater_settings',
 			array(
 				'default_layout'         => 'table',
-				'default_button_label'   => __( 'Add Row', 'repeater-field-for-acf' ),
+				'default_button_label'   => __( 'Add Row', 'advanced-repeater-for-custom-fields' ),
 				'default_collapsed'      => '',
 				'default_sortable'       => true,
 				'default_duplicate'      => true,

@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name: Repeater Field for ACF
+ * Plugin Name: Advanced Repeater For Custom Fields
  * Plugin URI: https://github.com/raeenzubair/repeater-field-for-acf
  * Description: Adds a fully functional Repeater field type to the free version of Advanced Custom Fields. Supports table/block/row layouts, drag-and-drop sorting, nested repeaters, and full ACF JSON sync.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Requires Plugins: advanced-custom-fields
- * Author: Repeater Field for ACF Contributors
+ * Author: moha12351
  * Author URI: https://github.com/raeenzubair
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: repeater-field-for-acf
+ * Text Domain: advanced-repeater-for-custom-fields
  * Domain Path: /languages
  */
 
@@ -23,12 +23,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Plugin metadata constants.
  */
-define( 'ACF_REPEATER_VERSION', '1.0.0' );
-define( 'ACF_REPEATER_DB_VERSION', '1.0.0' );
+define( 'ACF_REPEATER_VERSION', '1.0.1' );
+define( 'ACF_REPEATER_DB_VERSION', '1.0.1' );
 define( 'ACF_REPEATER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_REPEATER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACF_REPEATER_PLUGIN_FILE', __FILE__ );
-define( 'ACF_REPEATER_TEXT_DOMAIN', 'repeater-field-for-acf' );
+define( 'ACF_REPEATER_TEXT_DOMAIN', 'advanced-repeater-for-custom-fields' );
 
 /**
  * Composer autoloader.
@@ -116,9 +116,6 @@ final class ACF_Repeater_Bootstrap {
 		register_activation_hook( __FILE__, [ __CLASS__, 'activate' ] );
 		register_deactivation_hook( __FILE__, [ __CLASS__, 'deactivate' ] );
 
-		// i18n.
-		add_action( 'init', [ $this, 'load_textdomain' ], 5 );
-
 		// ACF field type registration.
 		// Must use acf/include_field_types — fires during ACF's own init, guaranteeing
 		// acf_register_field_type() is available.
@@ -154,19 +151,6 @@ final class ACF_Repeater_Bootstrap {
 	}
 
 	/**
-	 * Load translations.
-	 *
-	 * @return void
-	 */
-	public function load_textdomain(): void {
-		load_plugin_textdomain( // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
-			ACF_REPEATER_TEXT_DOMAIN,
-			false,
-			dirname( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) ) . '/languages'
-		);
-	}
-
-	/**
 	 * Register the repeater field type with ACF.
 	 *
 	 * Hooked on acf/include_field_types so ACF's field registry is fully
@@ -184,8 +168,8 @@ final class ACF_Repeater_Bootstrap {
 
 		require_once ACF_REPEATER_PLUGIN_DIR . 'includes/Field/Repeater_Field.php';
 
-		if ( class_exists( 'acf_field_repeater' ) ) {
-			acf_register_field_type( 'acf_field_repeater' );
+		if ( class_exists( '\ACF_Repeater\Field\Repeater_Field' ) ) {
+			acf_register_field_type( '\ACF_Repeater\Field\Repeater_Field' );
 		}
 	}
 
@@ -238,12 +222,12 @@ final class ACF_Repeater_Bootstrap {
 			?>
 			<div class="notice notice-error is-dismissible">
 				<p>
-					<strong><?php esc_html_e( 'Repeater Field for ACF', 'repeater-field-for-acf' ); ?></strong>
+					<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'advanced-repeater-for-custom-fields' ); ?></strong>
 					<?php
 					printf(
 						/* translators: %s: plugin name */
-						esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'repeater-field-for-acf' ),
-						'<strong>Repeater Field for ACF</strong>'
+						esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'advanced-repeater-for-custom-fields' ),
+						'<strong>Advanced Repeater For Custom Fields</strong>'
 					);
 					?>
 				</p>
@@ -261,7 +245,7 @@ final class ACF_Repeater_Bootstrap {
 		if ( version_compare( PHP_VERSION, '7.4', '<' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Repeater Field for ACF requires PHP 7.4 or higher.', 'repeater-field-for-acf' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires PHP 7.4 or higher.', 'advanced-repeater-for-custom-fields' ),
 				'',
 				[ 'response' => 500 ]
 			);
@@ -271,7 +255,7 @@ final class ACF_Repeater_Bootstrap {
 		if ( version_compare( $wp_version, '5.8', '<' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Repeater Field for ACF requires WordPress 5.8 or higher.', 'repeater-field-for-acf' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires WordPress 5.8 or higher.', 'advanced-repeater-for-custom-fields' ),
 				'',
 				[ 'response' => 500 ]
 			);

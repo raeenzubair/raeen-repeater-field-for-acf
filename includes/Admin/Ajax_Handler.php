@@ -77,7 +77,7 @@ class Ajax_Handler {
 	 * @return bool
 	 */
 	private function verify_request(): bool {
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['nonce'] ), self::NONCE_ACTION ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), self::NONCE_ACTION ) ) {
 			return false;
 		}
 
@@ -128,7 +128,7 @@ class Ajax_Handler {
 	 */
 	public function ajax_sort_rows(): void {
 		if ( ! $this->verify_request() ) {
-			$this->send_error( __( 'Invalid request.', 'repeater-field-for-acf' ), 403 );
+			$this->send_error( __( 'Invalid request.', 'advanced-repeater-for-custom-fields' ), 403 );
 			return;
 		}
 
@@ -139,12 +139,12 @@ class Ajax_Handler {
 		if ( ! empty( $raw_order ) ) {
 			$decoded = json_decode( $raw_order, true );
 			if ( is_array( $decoded ) ) {
-				$new_order = $decoded;
+				$new_order = array_map( 'absint', $decoded );
 			}
 		}
 
 		if ( empty( $field_key ) || empty( $new_order ) ) {
-			$this->send_error( __( 'Invalid parameters.', 'repeater-field-for-acf' ) );
+			$this->send_error( __( 'Invalid parameters.', 'advanced-repeater-for-custom-fields' ) );
 			return;
 		}
 

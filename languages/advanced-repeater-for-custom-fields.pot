@@ -1,11 +1,11 @@
-# ACF Repeater - Translation Template
-# Copyright (C) 2024 ACF Repeater Contributors
-# This file is distributed under the same license as the ACF Repeater plugin.
+# Advanced Repeater For Custom Fields - Translation Template
+# Copyright (C) 2024 Advanced Repeater For Custom Fields Contributors
+# This file is distributed under the same license as the Advanced Repeater For Custom Fields plugin.
 
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF Repeater 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/repeater-field-for-acf/\n"
+"Project-Id-Version: Advanced Repeater For Custom Fields 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/advanced-repeater-for-custom-fields/\n"
 "POT-Creation-Date: 2024-01-01 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4\n"
-"X-Domain: repeater-field-for-acf\n"
+"X-Domain: advanced-repeater-for-custom-fields\n"
 
 #: includes/Field/Repeater_Field.php:150
 msgid "Add Row"
@@ -398,19 +398,19 @@ msgstr ""
 msgid "Failed to delete row."
 msgstr ""
 
-#: repeater-field-for-acf.php:150
-msgid "ACF Repeater"
+#: advanced-repeater-for-custom-fields.php:150
+msgid "Advanced Repeater For Custom Fields"
 msgstr ""
 
-#: repeater-field-for-acf.php:150
+#: advanced-repeater-for-custom-fields.php:150
 msgid "%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated."
 msgstr ""
 
-#: repeater-field-for-acf.php:150
+#: advanced-repeater-for-custom-fields.php:150
 msgid "Advanced Custom Fields version %s is installed. Version 5.8 or higher is required."
 msgstr ""
 
-#: repeater-field-for-acf.php:150
+#: advanced-repeater-for-custom-fields.php:150
 msgid "PHP version %s or higher is required. You are running %s."
 msgstr ""
 

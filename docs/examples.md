@@ -331,12 +331,12 @@ fetch( '/wp-json/wp/v2/posts/123?fields=acf_repeater' )
     } );
 
 // Get specific repeater field
-fetch( '/wp-json/repeater-field-for-acf/v1/repeater/field_abc123?post_id=123' )
+fetch( '/wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123?post_id=123' )
     .then( response => response.json() )
     .then( data => console.log( data ) );
 
 // Add a new row
-fetch( '/wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows', {
+fetch( '/wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123/rows', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -355,7 +355,7 @@ fetch( '/wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows', {
 .then( data => console.log( 'Row added:', data ) );
 
 // Update a row
-fetch( '/wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows/0', {
+fetch( '/wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123/rows/0', {
     method: 'PUT',
     headers: {
         'Content-Type': 'application/json',
@@ -372,7 +372,7 @@ fetch( '/wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows/0', {
 .then( data => console.log( 'Row updated:', data ) );
 
 // Delete a row
-fetch( '/wp-json/repeater-field-for-acf/v1/repeater/field_abc123/rows/0?post_id=123', {
+fetch( '/wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123/rows/0?post_id=123', {
     method: 'DELETE',
     headers: {
         'X-WP-Nonce': 'your-nonce-here'
