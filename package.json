@@ -18,7 +18,7 @@
     "advanced-custom-fields",
     "wordpress-plugin"
   ],
-  "author": "moha12351",
+  "author": "Mohammad Zubair Ali",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@babel/core": "^7.24.5",

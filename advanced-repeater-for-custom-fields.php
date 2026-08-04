@@ -7,7 +7,7 @@
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Requires Plugins: advanced-custom-fields
- * Author: moha12351
+ * Author: Mohammad Zubair Ali
  * Author URI: https://github.com/raeenzubair
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
