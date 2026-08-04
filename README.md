@@ -1,4 +1,4 @@
-# Advanced Repeater For Custom Fields
+# Raeen Repeater Field for ACF
 
 A powerful, performant Repeater field type for the free version of Advanced Custom Fields (ACF). Supports table/block layouts, drag-and-drop sorting, nested repeaters, REST API, and ACF JSON sync.
 
@@ -29,10 +29,11 @@ A powerful, performant Repeater field type for the free version of Advanced Cust
 
 ## Installation
 
-1. Upload the `advanced-repeater-for-custom-fields` folder to `/wp-content/plugins/`
+1. Upload the `raeen-repeater-field-for-acf` folder to `/wp-content/plugins/`
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Requires Advanced Custom Fields (free version 5.8 or higher)
 4. Go to Custom Fields > Field Groups and add a new "Repeater" field (under Layout fields)
+
 
 ## Usage
 

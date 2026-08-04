@@ -1,6 +1,6 @@
-=== Advanced Repeater For Custom Fields ===
+=== Raeen Repeater Field for ACF ===
 Contributors: moha12351
-Donate link: https://wordpress.org/plugins/advanced-repeater-for-custom-fields/
+Donate link: https://wordpress.org/plugins/raeen-repeater-field-for-acf/
 Tags: acf, advanced-custom-fields, repeater, custom-fields, flexible-content
 Requires at least: 5.8
 Tested up to: 7.0
@@ -14,7 +14,7 @@ Adds a fully functional Repeater field to the free version of Advanced Custom Fi
 
 == Description ==
 
-Advanced Repeater For Custom Fields adds a native-feeling Repeater field type to the **free** version of Advanced Custom Fields (ACF). It stores data in the same flat postmeta format used by ACF Pro, so all standard template functions work out of the box.
+Raeen Repeater Field for ACF adds a native-feeling Repeater field type to the **free** version of Advanced Custom Fields (ACF). It stores data in the same flat postmeta format used by ACF Pro, so all standard template functions work out of the box.
 
 **Key Features:**
 
@@ -28,7 +28,7 @@ Advanced Repeater For Custom Fields adds a native-feeling Repeater field type to
 * **REST API Support**: Exposes repeater data through the WordPress REST API
 * **Gutenberg & Classic Editor**: Works in both editors
 * **Multisite Compatible**: Network activatable
-* **Internationalization Ready**: Full translation support (text domain: `advanced-repeater-for-custom-fields`)
+* **Internationalization Ready**: Full translation support (text domain: `raeen-repeater-field-for-acf`)
 * **Accessibility Ready**: Proper ARIA labels and keyboard support
 
 **Data Storage (ACF Pro-compatible):**
@@ -41,7 +41,7 @@ Data is stored using ACF Pro's flat postmeta format:
 
 This means all ACF template functions work without modification:
 
-`php
+```php
 $rows = get_field( 'my_repeater' );
 if ( have_rows( 'my_repeater' ) ) {
     while ( have_rows( 'my_repeater' ) ) {
@@ -49,12 +49,12 @@ if ( have_rows( 'my_repeater' ) ) {
         $name = get_sub_field( 'name' );
     }
 }
-`
+```
 
 == Installation ==
 
 1. Make sure **Advanced Custom Fields** (free, version 5.8+) is installed and activated.
-2. Upload the `advanced-repeater-for-custom-fields` folder to `/wp-content/plugins/`.
+2. Upload the `raeen-repeater-field-for-acf` folder to `/wp-content/plugins/`.
 3. Activate the plugin through the **Plugins** menu in WordPress.
 4. Go to **Custom Fields → Field Groups**, edit a field group, and add a new **Repeater** field (under the Layout category).
 5. Add sub-fields to the repeater and save.
@@ -110,11 +110,10 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 == Changelog ==
 
 = 1.0.1 =
-* Rebranded plugin to "Advanced Repeater For Custom Fields" with a new text domain and slug
-* Added nonce sanitization and hardened AJAX input handling
-* Namespaced the field type class to avoid collisions with ACF Pro
-* Removed the now-unnecessary load_plugin_textdomain() call
-* Documented the public source repository and build tooling in the readme
+* Updated plugin display name to "Raeen Repeater Field for ACF" and text domain / slug to "raeen-repeater-field-for-acf" to respect third-party trademarks and directory guidelines.
+* Updated code namespaces to Raeen_Repeater to avoid prefix collisions.
+* Added nonce sanitization and hardened AJAX input handling.
+* Documented public source code repository and build instructions in readme.txt.
 
 = 1.0.0 =
 * Initial release
@@ -133,7 +132,7 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 == Upgrade Notice ==
 
 = 1.0.1 =
-Rebranded plugin name, text domain, and slug. The plugin now uses the "Advanced Repeater For Custom Fields" name.
+Rebranded plugin display name and slug to "Raeen Repeater Field for ACF".
 
 = 1.0.0 =
 Initial release. Requires Advanced Custom Fields (free) 5.8+ and PHP 7.4+.

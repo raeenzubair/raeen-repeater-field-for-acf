@@ -2,7 +2,7 @@
 /**
  * Uninstall script for ACF Repeater.
  *
- * @package ACF_Repeater
+ * @package Raeen_Repeater
  */
 
 // If uninstall not called from WordPress, exit.

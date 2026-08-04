@@ -23,14 +23,12 @@ class ACFRepeaterSortable {
 	}
 
 	bindDragEvents() {
-		const container = this.fieldController.layout === 'table'
-			? this.fieldController.element.querySelector( '.repeater-field-for-acf-rows' )
-			: this.fieldController.element.querySelector( '.repeater-field-for-acf-blocks' );
+		const container = this.fieldController.element.querySelector( '.repeater-field-for-acf-rows, .repeater-field-for-acf-blocks, tbody' );
 
 		if ( ! container ) return;
 
 		// Make rows draggable.
-		container.querySelectorAll( '.repeater-field-for-acf-row, .repeater-field-for-acf-block-row' ).forEach( row => {
+		container.querySelectorAll( '.repeater-field-for-acf-row, .repeater-field-for-acf-block-row, .acf-row' ).forEach( row => {
 			row.setAttribute( 'draggable', 'true' );
 			row.addEventListener( 'dragstart', ( e ) => this.onDragStart( e, row ) );
 			row.addEventListener( 'dragend', ( e ) => this.onDragEnd( e, row ) );
@@ -40,15 +38,16 @@ class ACFRepeaterSortable {
 		} );
 
 		// Handle for better UX.
-		container.querySelectorAll( '.repeater-field-for-acf-drag-handle' ).forEach( handle => {
+		container.querySelectorAll( '.repeater-field-for-acf-drag-handle, .acf-sortable-handle, .acf-row-handle' ).forEach( handle => {
 			handle.addEventListener( 'mousedown', ( e ) => {
-				const row = handle.closest( '.repeater-field-for-acf-row, .repeater-field-for-acf-block-row' );
+				const row = handle.closest( '.repeater-field-for-acf-row, .repeater-field-for-acf-block-row, .acf-row' );
 				if ( row ) {
 					row.setAttribute( 'draggable', 'true' );
 				}
 			} );
 		} );
 	}
+
 
 	onDragStart( event, row ) {
 		this.draggedRow = row;
@@ -136,26 +135,31 @@ class ACFRepeaterSortable {
 		this.reorderDOM();
 
 		// Update indices.
-		this.fieldController.updateRowIndices();
+		if ( typeof this.fieldController.updateRowIndices === 'function' ) {
+			this.fieldController.updateRowIndices();
+		}
 
-		// Save to server.
-		this.fieldController.saveRowOrder();
+		// Save to server if supported.
+		if ( typeof this.fieldController.saveRowOrder === 'function' ) {
+			this.fieldController.saveRowOrder();
+		}
 	}
 
 	reorderDOM() {
-		const container = this.fieldController.layout === 'table'
-			? this.fieldController.element.querySelector( '.repeater-field-for-acf-rows' )
-			: this.fieldController.element.querySelector( '.repeater-field-for-acf-blocks' );
+		const container = this.fieldController.element.querySelector( '.repeater-field-for-acf-rows, .repeater-field-for-acf-blocks, tbody' );
 
 		if ( ! container ) return;
 
 		// Detach all rows and re-append in order.
 		this.fieldController.rows.forEach( ( row, index ) => {
 			row.dataset.rowIndex = index;
-			this.fieldController.updateInputNames( row, index );
+			if ( typeof this.fieldController.updateInputNames === 'function' ) {
+				this.fieldController.updateInputNames( row, index );
+			}
 			container.appendChild( row );
 		} );
 	}
+
 
 	createPlaceholder( row ) {
 		this.placeholder = row.cloneNode( true );

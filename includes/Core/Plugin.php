@@ -1,22 +1,22 @@
 <?php
 /**
- * Main Plugin class for Advanced Repeater For Custom Fields.
+ * Main Plugin class for Raeen Repeater Field for ACF.
  *
- * @package ACF_Repeater\Core
+ * @package Raeen_Repeater\Core
  */
 
-namespace ACF_Repeater\Core;
+namespace Raeen_Repeater\Core;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use ACF_Repeater\Admin\Settings;
-use ACF_Repeater\Admin\Asset_Manager;
-use ACF_Repeater\Admin\Ajax_Handler;
-use ACF_Repeater\Admin\Rest_API;
-use ACF_Repeater\Helpers\Validator;
-use ACF_Repeater\Helpers\Sanitizer;
+use Raeen_Repeater\Admin\Settings;
+use Raeen_Repeater\Admin\Asset_Manager;
+use Raeen_Repeater\Admin\Ajax_Handler;
+use Raeen_Repeater\Admin\Rest_API;
+use Raeen_Repeater\Helpers\Validator;
+use Raeen_Repeater\Helpers\Sanitizer;
 
 /**
  * Main plugin class - Singleton.
@@ -77,7 +77,8 @@ final class Plugin {
 	 *
 	 * @var string
 	 */
-	private string $version = ACF_REPEATER_VERSION;
+	private string $version = RAEEN_REPEATER_VERSION;
+
 
 	/**
 	 * Plugin initialization state.
@@ -240,8 +241,8 @@ final class Plugin {
 		// Load the field class and register.
 		require_once ACF_REPEATER_PLUGIN_DIR . 'includes/Field/Repeater_Field.php';
 
-		if ( class_exists( '\ACF_Repeater\Field\Repeater_Field' ) ) {
-			acf_register_field_type( '\ACF_Repeater\Field\Repeater_Field' );
+		if ( class_exists( '\Raeen_Repeater\Field\Repeater_Field' ) ) {
+			acf_register_field_type( '\Raeen_Repeater\Field\Repeater_Field' );
 		}
 	}
 
@@ -264,11 +265,11 @@ final class Plugin {
 		?>
 		<div class="notice notice-error is-dismissible">
 			<p>
-				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'advanced-repeater-for-custom-fields' ); ?></strong>
+				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'raeen-repeater-field-for-acf' ); ?></strong>
 				<?php
 				printf(
 					/* translators: %s: Plugin name */
-					esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'advanced-repeater-for-custom-fields' ),
+					esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'raeen-repeater-field-for-acf' ),
 					'<strong>Advanced Repeater For Custom Fields</strong>'
 				);
 				?>
@@ -287,11 +288,11 @@ final class Plugin {
 		?>
 		<div class="notice notice-warning is-dismissible">
 			<p>
-				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'advanced-repeater-for-custom-fields' ); ?></strong>
+				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'raeen-repeater-field-for-acf' ); ?></strong>
 				<?php
 				printf(
 					/* translators: %s: ACF version */
-					esc_html__( 'Advanced Custom Fields version %s is installed. Version 5.8 or higher is required.', 'advanced-repeater-for-custom-fields' ),
+					esc_html__( 'Advanced Custom Fields version %s is installed. Version 5.8 or higher is required.', 'raeen-repeater-field-for-acf' ),
 					'<strong>' . esc_html( $acf_version ) . '</strong>'
 				);
 				?>
@@ -311,11 +312,11 @@ final class Plugin {
 			?>
 			<div class="notice notice-error is-dismissible">
 				<p>
-					<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'advanced-repeater-for-custom-fields' ); ?></strong>
+					<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'raeen-repeater-field-for-acf' ); ?></strong>
 					<?php
 					printf(
 						/* translators: %s: PHP version */
-						esc_html__( 'PHP version %1$s or higher is required. You are running %2$s.', 'advanced-repeater-for-custom-fields' ),
+						esc_html__( 'PHP version %1$s or higher is required. You are running %2$s.', 'raeen-repeater-field-for-acf' ),
 						'<strong>7.4</strong>',
 						'<strong>' . esc_html( PHP_VERSION ) . '</strong>'
 					);
@@ -336,8 +337,8 @@ final class Plugin {
 		if ( version_compare( PHP_VERSION, '7.4', '<' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Advanced Repeater For Custom Fields requires PHP 7.4 or higher.', 'advanced-repeater-for-custom-fields' ),
-				esc_html__( 'Plugin Activation Error', 'advanced-repeater-for-custom-fields' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires PHP 7.4 or higher.', 'raeen-repeater-field-for-acf' ),
+				esc_html__( 'Plugin Activation Error', 'raeen-repeater-field-for-acf' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -347,8 +348,8 @@ final class Plugin {
 		if ( version_compare( $wp_version, '5.8', '<' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Advanced Repeater For Custom Fields requires WordPress 5.8 or higher.', 'advanced-repeater-for-custom-fields' ),
-				esc_html__( 'Plugin Activation Error', 'advanced-repeater-for-custom-fields' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires WordPress 5.8 or higher.', 'raeen-repeater-field-for-acf' ),
+				esc_html__( 'Plugin Activation Error', 'raeen-repeater-field-for-acf' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -357,8 +358,8 @@ final class Plugin {
 		if ( ! function_exists( 'acf_get_field_type' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Advanced Repeater For Custom Fields requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'advanced-repeater-for-custom-fields' ),
-				esc_html__( 'Plugin Activation Error', 'advanced-repeater-for-custom-fields' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'raeen-repeater-field-for-acf' ),
+				esc_html__( 'Plugin Activation Error', 'raeen-repeater-field-for-acf' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -375,7 +376,7 @@ final class Plugin {
 			'acf_repeater_settings',
 			array(
 				'default_layout'         => 'table',
-				'default_button_label'   => __( 'Add Row', 'advanced-repeater-for-custom-fields' ),
+				'default_button_label'   => __( 'Add Row', 'raeen-repeater-field-for-acf' ),
 				'default_collapsed'      => '',
 				'default_sortable'       => true,
 				'default_duplicate'      => true,

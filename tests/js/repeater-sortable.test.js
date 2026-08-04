@@ -50,9 +50,11 @@ describe( 'ACFRepeaterSortable', () => {
 
 		fieldElement = document.querySelector( '.repeater-field-for-acf' );
 		fieldController = new ACFRepeaterField( fieldElement );
+		fieldController.cacheRows();
 		sortable = new ACFRepeaterSortable( fieldController );
 		sortable.init();
 	} );
+
 
 	afterEach( () => {
 		jest.clearAllMocks();

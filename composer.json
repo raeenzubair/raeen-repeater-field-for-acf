@@ -1,6 +1,7 @@
 {
-    "name": "moha12351/advanced-repeater-for-custom-fields",
-    "description": "ACF Repeater field for Advanced Custom Fields (Free version)",
+    "name": "moha12351/raeen-repeater-field-for-acf",
+    "description": "Raeen Repeater Field for Advanced Custom Fields (Free version)",
+
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "require": {
@@ -16,14 +17,15 @@
     },
     "autoload": {
         "psr-4": {
-            "ACF_Repeater\\": "includes/"
+            "Raeen_Repeater\\": "includes/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ACF_Repeater\\Tests\\": "tests/php/"
+            "Raeen_Repeater\\Tests\\": "tests/php/"
         }
     },
+
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,

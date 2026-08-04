@@ -18,17 +18,35 @@ class ACFRepeaterField {
 		this.collapsedFieldKey = element.dataset.collapsedField || '';
 		this.maxRows           = parseInt( element.dataset.maxRows || '0', 10 );
 		this.minRows           = parseInt( element.dataset.minRows || '0', 10 );
+		this.buttonLabel       = element.dataset.buttonLabel || 'Add Row';
+		this._deleteConfirm    = element.dataset.deleteConfirm !== 'false';
 		this.sortable          = element.dataset.sortable !== 'false';
 		this.duplicate         = element.dataset.duplicate !== 'false';
-		this.deleteConfirm     = element.dataset.deleteConfirm !== 'false';
-		this.nonce             = ( typeof acfRepeater !== 'undefined' && acfRepeater.nonce ) || '';
-		this.ajaxUrl           = ( typeof acfRepeater !== 'undefined' && acfRepeater.ajax_url ) || '';
-		this.i18n              = ( typeof acfRepeater !== 'undefined' && acfRepeater.i18n ) || {};
+		this.nonce             = ( typeof raeenRepeater !== 'undefined' && raeenRepeater.nonce ) || ( typeof acfRepeater !== 'undefined' && acfRepeater.nonce ) || '';
+		this.ajaxUrl           = ( typeof raeenRepeater !== 'undefined' && raeenRepeater.ajax_url ) || ( typeof acfRepeater !== 'undefined' && acfRepeater.ajax_url ) || '';
+		this.i18n              = ( typeof raeenRepeater !== 'undefined' && raeenRepeater.i18n ) || ( typeof acfRepeater !== 'undefined' && acfRepeater.i18n ) || {};
+
 
 		this._rows            = [];
 		this.sortableInstance = null;
 
 		this.init();
+	}
+
+	get duplicateEnabled() {
+		return this.duplicate;
+	}
+
+	get deleteConfirm() {
+		return this._deleteConfirm;
+	}
+
+	get sortableEnabled() {
+		return this.sortable;
+	}
+
+	get rows() {
+		return this._rows;
 	}
 
 	init() {
@@ -136,11 +154,14 @@ class ACFRepeaterField {
 	 * Cache references to live (non-clone) rows.
 	 */
 	cacheRows() {
-		// All layouts now use .repeater-field-for-acf-rows > .acf-row.
 		this._rows = Array.from(
-			this.element.querySelectorAll( ':scope > .repeater-field-for-acf-rows > .acf-row' )
+			this.element.querySelectorAll(
+				':scope > .repeater-field-for-acf-rows > .acf-row, :scope > table > .repeater-field-for-acf-rows > .acf-row, :scope > .repeater-field-for-acf-rows > .repeater-field-for-acf-row, :scope > table > .repeater-field-for-acf-rows > .repeater-field-for-acf-row, .repeater-field-for-acf-rows > .repeater-field-for-acf-row, .repeater-field-for-acf-rows > .acf-row'
+			)
 		).filter( ( r ) => ! r.classList.contains( 'acf-clone' ) );
+		return this._rows.length;
 	}
+
 
 	get rowCount() {
 		return this._rows.length;
@@ -554,6 +575,46 @@ class ACFRepeaterField {
 	}
 
 	/**
+	 * Update row indices and datasets.
+	 */
+	updateRowIndices() {
+		this._rows.forEach( ( row, idx ) => {
+			if ( row.dataset ) {
+				row.dataset.rowIndex = String( idx );
+			}
+		} );
+		this.updateRowNumbers();
+	}
+
+	/**
+	 * Update empty state notice display.
+	 */
+	updateEmptyState() {
+		const notice = this.element.querySelector( '.repeater-field-for-acf-empty-notice, .acf-no-fields' );
+		if ( notice ) {
+			notice.style.display = this.rowCount === 0 ? 'block' : 'none';
+		}
+	}
+
+	/**
+	 * Get the current post ID from ACF or URL.
+	 *
+	 * @returns {number}
+	 */
+	getPostId() {
+		if ( typeof window !== 'undefined' && window.acf && typeof window.acf.get === 'function' ) {
+			const id = window.acf.get( 'post_id' );
+			if ( id ) return id;
+		}
+		if ( typeof window !== 'undefined' && window.location && window.location.search ) {
+			const params = new URLSearchParams( window.location.search );
+			const post = params.get( 'post' );
+			if ( post ) return parseInt( post, 10 );
+		}
+		return 0;
+	}
+
+	/**
 	 * Destroy the field controller (clean up sortable etc.).
 	 */
 	destroy() {
@@ -566,6 +627,7 @@ class ACFRepeaterField {
 		}
 	}
 }
+
 
 // Export to window for index.js.
 window.ACFRepeaterField = ACFRepeaterField;

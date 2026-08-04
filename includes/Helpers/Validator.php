@@ -2,10 +2,10 @@
 /**
  * Validator class for ACF Repeater.
  *
- * @package ACF_Repeater\Helpers
+ * @package Raeen_Repeater\Helpers
  */
 
-namespace ACF_Repeater\Helpers;
+namespace Raeen_Repeater\Helpers;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -42,7 +42,7 @@ class Validator {
 				'min_rows',
 				sprintf(
 				/* translators: %d: Minimum rows */
-					__( 'Minimum %d rows required.', 'advanced-repeater-for-custom-fields' ),
+					__( 'Minimum %d rows required.', 'raeen-repeater-field-for-acf' ),
 					$min_rows
 				)
 			);
@@ -55,11 +55,12 @@ class Validator {
 				'max_rows',
 				sprintf(
 				/* translators: %d: Maximum rows */
-					__( 'Maximum %d rows allowed.', 'advanced-repeater-for-custom-fields' ),
+					__( 'Maximum %d rows allowed.', 'raeen-repeater-field-for-acf' ),
 					$max_rows
 				)
 			);
 		}
+
 
 		// Validate each row.
 		$sub_fields = $field['sub_fields'] ?? array();
@@ -101,7 +102,7 @@ class Validator {
 				"row_{$row_index}_{$name}",
 				sprintf(
 				/* translators: %s: Field label */
-					__( '%s is required.', 'advanced-repeater-for-custom-fields' ),
+					__( '%s is required.', 'raeen-repeater-field-for-acf' ),
 					$sub_field['label'] ?? $name
 				)
 			);
@@ -132,20 +133,20 @@ class Validator {
 		switch ( $type ) {
 			case 'email':
 				if ( is_string( $value ) && ! filter_var( $value, FILTER_VALIDATE_EMAIL ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid email address.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid email address.', 'raeen-repeater-field-for-acf' ) );
 				}
 				break;
 
 			case 'url':
 				if ( is_string( $value ) && ! filter_var( $value, FILTER_VALIDATE_URL ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid URL.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid URL.', 'raeen-repeater-field-for-acf' ) );
 				}
 				break;
 
 			case 'number':
 			case 'range':
 				if ( ! is_numeric( $value ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Must be a number.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Must be a number.', 'raeen-repeater-field-for-acf' ) );
 				} else {
 					$num_value = (float) $value;
 					if ( isset( $sub_field['min'] ) && $num_value < (float) $sub_field['min'] ) {
@@ -153,7 +154,7 @@ class Validator {
 							"row_{$row_index}_{$name}",
 							sprintf(
 							/* translators: %s: Minimum value */
-								__( 'Minimum value is %s.', 'advanced-repeater-for-custom-fields' ),
+								__( 'Minimum value is %s.', 'raeen-repeater-field-for-acf' ),
 								$sub_field['min']
 							)
 						);
@@ -163,7 +164,7 @@ class Validator {
 							"row_{$row_index}_{$name}",
 							sprintf(
 							/* translators: %s: Maximum value */
-								__( 'Maximum value is %s.', 'advanced-repeater-for-custom-fields' ),
+								__( 'Maximum value is %s.', 'raeen-repeater-field-for-acf' ),
 								$sub_field['max']
 							)
 						);
@@ -176,7 +177,7 @@ class Validator {
 								"row_{$row_index}_{$name}",
 								sprintf(
 								/* translators: %s: Step value */
-									__( 'Value must be a multiple of %s.', 'advanced-repeater-for-custom-fields' ),
+									__( 'Value must be a multiple of %s.', 'raeen-repeater-field-for-acf' ),
 									$sub_field['step']
 								)
 							);
@@ -192,7 +193,7 @@ class Validator {
 					$values = is_array( $value ) ? $value : array( $value );
 					foreach ( $values as $val ) {
 						if ( ! array_key_exists( $val, $choices ) ) {
-							$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid choice.', 'advanced-repeater-for-custom-fields' ) );
+							$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid choice.', 'raeen-repeater-field-for-acf' ) );
 							break;
 						}
 					}
@@ -204,7 +205,7 @@ class Validator {
 				if ( ! empty( $choices ) && is_array( $value ) ) {
 					foreach ( $value as $val ) {
 						if ( ! array_key_exists( $val, $choices ) ) {
-							$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid choice.', 'advanced-repeater-for-custom-fields' ) );
+							$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid choice.', 'raeen-repeater-field-for-acf' ) );
 							break;
 						}
 					}
@@ -213,25 +214,25 @@ class Validator {
 
 			case 'date_picker':
 				if ( is_string( $value ) && ! $this->is_valid_date( $value, $sub_field['date_format'] ?? 'Y-m-d' ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid date format.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid date format.', 'raeen-repeater-field-for-acf' ) );
 				}
 				break;
 
 			case 'time_picker':
 				if ( is_string( $value ) && ! $this->is_valid_time( $value, $sub_field['time_format'] ?? 'H:i' ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid time format.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid time format.', 'raeen-repeater-field-for-acf' ) );
 				}
 				break;
 
 			case 'datetime_picker':
 				if ( is_string( $value ) && ! $this->is_valid_datetime( $value ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid date/time format.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid date/time format.', 'raeen-repeater-field-for-acf' ) );
 				}
 				break;
 
 			case 'color_picker':
 				if ( is_string( $value ) && ! preg_match( '/^#[0-9a-fA-F]{6}$/', $value ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid color format.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid color format.', 'raeen-repeater-field-for-acf' ) );
 				}
 				break;
 
@@ -258,7 +259,7 @@ class Validator {
 			case 'file':
 				// Validate attachment ID exists.
 				if ( is_numeric( $value ) && ! get_post( (int) $value ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid attachment.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid attachment.', 'raeen-repeater-field-for-acf' ) );
 				}
 				break;
 
@@ -266,7 +267,7 @@ class Validator {
 				if ( is_array( $value ) ) {
 					foreach ( $value as $attachment_id ) {
 						if ( is_numeric( $attachment_id ) && ! get_post( (int) $attachment_id ) ) {
-							$this->add_error( "row_{$row_index}_{$name}", __( 'One or more invalid attachments.', 'advanced-repeater-for-custom-fields' ) );
+							$this->add_error( "row_{$row_index}_{$name}", __( 'One or more invalid attachments.', 'raeen-repeater-field-for-acf' ) );
 							break;
 						}
 					}
@@ -275,7 +276,7 @@ class Validator {
 
 			case 'link':
 				if ( is_array( $value ) && ! empty( $value['url'] ) && ! filter_var( $value['url'], FILTER_VALIDATE_URL ) ) {
-					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid link URL.', 'advanced-repeater-for-custom-fields' ) );
+					$this->add_error( "row_{$row_index}_{$name}", __( 'Invalid link URL.', 'raeen-repeater-field-for-acf' ) );
 				}
 				break;
 

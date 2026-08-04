@@ -2,11 +2,11 @@
 /**
  * PSR-4 Autoloader for ACF Repeater.
  *
- * @package ACF_Repeater\Core
+ * @package Raeen_Repeater\Core
  * @version 1.0.0
  */
 
-namespace ACF_Repeater\Core;
+namespace Raeen_Repeater\Core;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -53,9 +53,10 @@ class Autoloader {
 	 * @param string $base_dir        Base directory for classes.
 	 * @param string $namespace_prefix Namespace prefix.
 	 */
-	public function __construct( string $base_dir = '', string $namespace_prefix = 'ACF_Repeater\\' ) {
-		$this->base_dir         = $base_dir ?: ACF_REPEATER_PLUGIN_DIR . 'includes/';
+	public function __construct( string $base_dir = '', string $namespace_prefix = 'Raeen_Repeater\\' ) {
+		$this->base_dir         = $base_dir ?: RAEEN_REPEATER_PLUGIN_DIR . 'includes/';
 		$this->namespace_prefix = $namespace_prefix;
+
 
 		// Build class map for performance.
 		$this->build_class_map();

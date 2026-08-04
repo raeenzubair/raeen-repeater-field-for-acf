@@ -2,10 +2,10 @@
 /**
  * Asset Manager for ACF Repeater.
  *
- * @package ACF_Repeater\Admin
+ * @package Raeen_Repeater\Admin
  */
 
-namespace ACF_Repeater\Admin;
+namespace Raeen_Repeater\Admin;
 
 if (!defined('ABSPATH')) {
 	exit;
@@ -58,9 +58,9 @@ class Asset_Manager
 	 */
 	public function __construct()
 	{
-		$this->version = ACF_REPEATER_VERSION;
-		$this->plugin_url = ACF_REPEATER_PLUGIN_URL;
-		$this->plugin_path = ACF_REPEATER_PLUGIN_DIR;
+		$this->version = RAEEN_REPEATER_VERSION;
+		$this->plugin_url = RAEEN_REPEATER_PLUGIN_URL;
+		$this->plugin_path = RAEEN_REPEATER_PLUGIN_DIR;
 
 		// Only populate the definition arrays — do NOT call wp_register_* here.
 		// WordPress requires registration to happen on an enqueue hook.
@@ -77,7 +77,7 @@ class Asset_Manager
 	private function define_assets(): void
 	{
 		// Admin script (bundled via Vite).
-		$this->scripts['advanced-repeater-for-custom-fields-admin'] = array(
+		$this->scripts['raeen-repeater-field-admin'] = array(
 			'src' => 'assets/dist/js/admin/index.js',
 			'deps' => array('jquery', 'acf-input', 'wp-util', 'jquery-ui-sortable'),
 			'version' => $this->version,
@@ -85,7 +85,7 @@ class Asset_Manager
 		);
 
 		// Frontend script (for acf_form() on the frontend).
-		$this->scripts['advanced-repeater-for-custom-fields-frontend'] = array(
+		$this->scripts['raeen-repeater-field-frontend'] = array(
 			'src' => 'assets/dist/js/public/index.js',
 			'deps' => array('jquery', 'acf-input'),
 			'version' => $this->version,
@@ -93,16 +93,16 @@ class Asset_Manager
 		);
 
 		// Admin stylesheet.
-		$this->styles['advanced-repeater-for-custom-fields-admin'] = array(
+		$this->styles['raeen-repeater-field-admin'] = array(
 			'src' => 'assets/dist/css/index.css',
 			'deps' => array('acf-global'),
 			'version' => $this->version,
 			'media' => 'all',
 		);
 
-		$this->styles['advanced-repeater-for-custom-fields-admin-2'] = array(
+		$this->styles['raeen-repeater-field-admin-2'] = array(
 			'src' => 'assets/dist/css/index2.css',
-			'deps' => array('advanced-repeater-for-custom-fields-admin'),
+			'deps' => array('raeen-repeater-field-admin'),
 			'version' => $this->version,
 			'media' => 'all',
 		);
@@ -187,9 +187,9 @@ class Asset_Manager
 			return;
 		}
 
-		wp_enqueue_script('advanced-repeater-for-custom-fields-admin');
-		wp_enqueue_style('advanced-repeater-for-custom-fields-admin');
-		wp_enqueue_style('advanced-repeater-for-custom-fields-admin-2');
+		wp_enqueue_script('raeen-repeater-field-admin');
+		wp_enqueue_style('raeen-repeater-field-admin');
+		wp_enqueue_style('raeen-repeater-field-admin-2');
 
 		$this->localize_admin_script();
 	}
@@ -202,9 +202,9 @@ class Asset_Manager
 	public function enqueue_field_group_assets(): void
 	{
 		$this->register_with_wordpress();
-		wp_enqueue_script('advanced-repeater-for-custom-fields-admin');
-		wp_enqueue_style('advanced-repeater-for-custom-fields-admin');
-		wp_enqueue_style('advanced-repeater-for-custom-fields-admin-2');
+		wp_enqueue_script('raeen-repeater-field-admin');
+		wp_enqueue_style('raeen-repeater-field-admin');
+		wp_enqueue_style('raeen-repeater-field-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -216,9 +216,9 @@ class Asset_Manager
 	public function enqueue_input_assets(): void
 	{
 		$this->register_with_wordpress();
-		wp_enqueue_script('advanced-repeater-for-custom-fields-admin');
-		wp_enqueue_style('advanced-repeater-for-custom-fields-admin');
-		wp_enqueue_style('advanced-repeater-for-custom-fields-admin-2');
+		wp_enqueue_script('raeen-repeater-field-admin');
+		wp_enqueue_style('raeen-repeater-field-admin');
+		wp_enqueue_style('raeen-repeater-field-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -230,9 +230,9 @@ class Asset_Manager
 	public function enqueue_block_editor_assets(): void
 	{
 		$this->register_with_wordpress();
-		wp_enqueue_script('advanced-repeater-for-custom-fields-admin');
-		wp_enqueue_style('advanced-repeater-for-custom-fields-admin');
-		wp_enqueue_style('advanced-repeater-for-custom-fields-admin-2');
+		wp_enqueue_script('raeen-repeater-field-admin');
+		wp_enqueue_style('raeen-repeater-field-admin');
+		wp_enqueue_style('raeen-repeater-field-admin-2');
 		$this->localize_admin_script();
 	}
 
@@ -249,7 +249,7 @@ class Asset_Manager
 		// Only enqueue if ACF frontend form is being used on this page.
 		if (function_exists('acf_form_head') && did_action('acf_form_head')) {
 			// Only enqueue script — no standalone frontend CSS bundle is registered.
-			wp_enqueue_script('advanced-repeater-for-custom-fields-frontend');
+			wp_enqueue_script('raeen-repeater-field-frontend');
 		}
 	}
 
@@ -260,7 +260,7 @@ class Asset_Manager
 	 */
 	private function localize_admin_script(): void
 	{
-		$nonce = wp_create_nonce('acf_repeater_nonce');
+		$nonce = wp_create_nonce('raeen_repeater_nonce');
 
 		$data = array(
 			'ajax_url' => admin_url('admin-ajax.php'),
@@ -268,28 +268,29 @@ class Asset_Manager
 			'version' => $this->version,
 			'plugin_url' => $this->plugin_url,
 			'i18n' => array(
-				'add_row' => __('Add Row', 'advanced-repeater-for-custom-fields'),
-				'delete_row' => __('Delete Row', 'advanced-repeater-for-custom-fields'),
-				'duplicate_row' => __('Duplicate Row', 'advanced-repeater-for-custom-fields'),
-				'collapse_row' => __('Collapse Row', 'advanced-repeater-for-custom-fields'),
-				'expand_row' => __('Expand Row', 'advanced-repeater-for-custom-fields'),
-				'sort_rows' => __('Sort Rows', 'advanced-repeater-for-custom-fields'),
-				'confirm_delete' => __('Are you sure you want to delete this row?', 'advanced-repeater-for-custom-fields'),
+				'add_row' => __('Add Row', 'raeen-repeater-field-for-acf'),
+				'delete_row' => __('Delete Row', 'raeen-repeater-field-for-acf'),
+				'duplicate_row' => __('Duplicate Row', 'raeen-repeater-field-for-acf'),
+				'collapse_row' => __('Collapse Row', 'raeen-repeater-field-for-acf'),
+				'expand_row' => __('Expand Row', 'raeen-repeater-field-for-acf'),
+				'sort_rows' => __('Sort Rows', 'raeen-repeater-field-for-acf'),
+				'confirm_delete' => __('Are you sure you want to delete this row?', 'raeen-repeater-field-for-acf'),
 				/* translators: %d: minimum number of rows */
-				'min_rows_error' => __('Minimum number of rows required: %d', 'advanced-repeater-for-custom-fields'),
+				'min_rows_error' => __('Minimum number of rows required: %d', 'raeen-repeater-field-for-acf'),
 				/* translators: %d: maximum number of rows */
-				'max_rows_error' => __('Maximum number of rows exceeded: %d', 'advanced-repeater-for-custom-fields'),
-				'required_field' => __('This field is required', 'advanced-repeater-for-custom-fields'),
-				'loading' => __('Loading...', 'advanced-repeater-for-custom-fields'),
-				'no_rows' => __('No rows added yet. Click "Add Row" to get started.', 'advanced-repeater-for-custom-fields'),
-				'row_collapsed' => __('Row collapsed', 'advanced-repeater-for-custom-fields'),
-				'row_expanded' => __('Row expanded', 'advanced-repeater-for-custom-fields'),
-				'drag_to_reorder' => __('Drag to reorder', 'advanced-repeater-for-custom-fields'),
+				'max_rows_error' => __('Maximum number of rows exceeded: %d', 'raeen-repeater-field-for-acf'),
+				'required_field' => __('This field is required', 'raeen-repeater-field-for-acf'),
+				'loading' => __('Loading...', 'raeen-repeater-field-for-acf'),
+				'no_rows' => __('No rows added yet. Click "Add Row" to get started.', 'raeen-repeater-field-for-acf'),
+				'row_collapsed' => __('Row collapsed', 'raeen-repeater-field-for-acf'),
+				'row_expanded' => __('Row expanded', 'raeen-repeater-field-for-acf'),
+				'drag_to_reorder' => __('Drag to reorder', 'raeen-repeater-field-for-acf'),
 			),
-			'settings' => get_option('acf_repeater_settings', array()),
+			'settings' => get_option('raeen_repeater_settings', array()),
 		);
 
-		wp_localize_script('advanced-repeater-for-custom-fields-admin', 'acfRepeater', $data);
+		wp_localize_script('raeen-repeater-field-admin', 'raeenRepeater', $data);
+		wp_localize_script('raeen-repeater-field-admin', 'acfRepeater', $data);
 	}
 
 	/**
@@ -326,8 +327,9 @@ class Asset_Manager
 	{
 		return in_array($hook, array('post.php', 'post-new.php'), true)
 			&& isset($_GET['post_type']) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			&& 'acf-field-group' === $_GET['post_type']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			&& 'acf-field-group' === sanitize_text_field(wp_unslash($_GET['post_type']));
 	}
+
 
 	/**
 	 * Check if current page is post edit page.

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'repeater-field-for-acf/repeater-field-for-acf',
+        'name' => 'moha12351/raeen-repeater-field-for-acf',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '870a315bf00ea23caa76cf26c2b94e9ce474f84b',
+        'reference' => 'c529d696a8cf227fc21e9db5e4b9eec93d5bc860',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -27,6 +27,15 @@
             'install_path' => __DIR__ . '/../dealerdirect/phpcodesniffer-composer-installer',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'moha12351/raeen-repeater-field-for-acf' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'c529d696a8cf227fc21e9db5e4b9eec93d5bc860',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
             'pretty_version' => '1.13.4',
@@ -144,15 +153,6 @@
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
             'dev_requirement' => true,
-        ),
-        'repeater-field-for-acf/repeater-field-for-acf' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '870a315bf00ea23caa76cf26c2b94e9ce474f84b',
-            'type' => 'wordpress-plugin',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'sebastian/cli-parser' => array(
             'pretty_version' => '2.0.1',

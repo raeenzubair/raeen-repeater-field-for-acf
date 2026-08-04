@@ -63,6 +63,7 @@ describe( 'ACFRepeaterField', () => {
 			</div>
 		`;
 
+		global.acf = { get: jest.fn() };
 		fieldElement = document.querySelector( '.repeater-field-for-acf' );
 		fieldController = new ACFRepeaterField( fieldElement );
 	} );
@@ -109,15 +110,15 @@ describe( 'ACFRepeaterField', () => {
 	} );
 
 	test( 'updateEmptyState shows notice when no rows', () => {
-		fieldController.rowCount = 0;
+		fieldController._rows = [];
 		fieldController.updateEmptyState();
 
 		const notice = fieldElement.querySelector( '.repeater-field-for-acf-empty-notice' );
-		expect( notice.style.display ).toBe( '' );
+		expect( notice.style.display ).toBe( 'block' );
 	} );
 
 	test( 'updateEmptyState hides notice when rows exist', () => {
-		fieldController.rowCount = 2;
+		fieldController._rows = [ document.createElement( 'tr' ), document.createElement( 'tr' ) ];
 		fieldController.updateEmptyState();
 
 		const notice = fieldElement.querySelector( '.repeater-field-for-acf-empty-notice' );
@@ -131,14 +132,6 @@ describe( 'ACFRepeaterField', () => {
 
 	test( 'getPostId falls back to URL parameter', () => {
 		global.acf.get.mockReturnValue( null );
-		// Mock the URLSearchParams parse
-		const originalGet = global.acf.get;
-		global.acf.get = jest.fn( ( key ) => {
-			if ( key === 'post_id' ) return null;
-			return originalGet( key );
-		} );
-		// The getPostId function parses URL params, so we can't easily test
-		// this in jsdom. Just test that it returns 0 when no post_id.
 		expect( fieldController.getPostId() ).toBe( 0 );
 	} );
 } );

@@ -2,10 +2,10 @@
 /**
  * REST API integration for ACF Repeater.
  *
- * @package ACF_Repeater\Admin
+ * @package Raeen_Repeater\Admin
  */
 
-namespace ACF_Repeater\Admin;
+namespace Raeen_Repeater\Admin;
 
 if (!defined('ABSPATH')) {
 	exit;
@@ -24,7 +24,8 @@ class Rest_API
 	 *
 	 * @var string
 	 */
-	private const NAMESPACE = 'advanced-repeater-for-custom-fields/v1';
+	private const NAMESPACE = 'raeen-repeater-field-for-acf/v1';
+
 
 	/**
 	 * Settings instance.
@@ -601,12 +602,12 @@ class Rest_API
 		$post_id = $request->get_param('post_id') ?? 0;
 
 		if (!$field_key || !$post_id) {
-			return new \WP_Error('missing_params', __('Field key and post ID are required.', 'advanced-repeater-for-custom-fields'), array('status' => 400));
+			return new \WP_Error('missing_params', __('Field key and post ID are required.', 'raeen-repeater-field-for-acf'), array('status' => 400));
 		}
 
 		$field = acf_get_field($field_key);
 		if (!$field || $field['type'] !== 'repeater') {
-			return new \WP_Error('not_found', __('Repeater field not found.', 'advanced-repeater-for-custom-fields'), array('status' => 404));
+			return new \WP_Error('not_found', __('Repeater field not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
 		$value = get_field($field['name'], $post_id, false);
@@ -632,17 +633,17 @@ class Rest_API
 		$row_index = $request->get_param('row_index') ?? 0;
 
 		if (!$field_key || !$post_id) {
-			return new \WP_Error('missing_params', __('Field key and post ID are required.', 'advanced-repeater-for-custom-fields'), array('status' => 400));
+			return new \WP_Error('missing_params', __('Field key and post ID are required.', 'raeen-repeater-field-for-acf'), array('status' => 400));
 		}
 
 		$field = acf_get_field($field_key);
 		if (!$field || $field['type'] !== 'repeater') {
-			return new \WP_Error('not_found', __('Repeater field not found.', 'advanced-repeater-for-custom-fields'), array('status' => 404));
+			return new \WP_Error('not_found', __('Repeater field not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
 		$value = get_field($field['name'], $post_id, false);
 		if (!is_array($value) || !isset($value[$row_index])) {
-			return new \WP_Error('not_found', __('Row not found.', 'advanced-repeater-for-custom-fields'), array('status' => 404));
+			return new \WP_Error('not_found', __('Row not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
 		$formatted = $this->format_row_data($value[$row_index], $field, $row_index);
@@ -663,12 +664,12 @@ class Rest_API
 		$row_data = $request->get_param('row_data') ?? array();
 
 		if (!$field_key || !$post_id) {
-			return new \WP_Error('missing_params', __('Field key, post ID, and row data are required.', 'advanced-repeater-for-custom-fields'), array('status' => 400));
+			return new \WP_Error('missing_params', __('Field key, post ID, and row data are required.', 'raeen-repeater-field-for-acf'), array('status' => 400));
 		}
 
 		$field = acf_get_field($field_key);
 		if (!$field || $field['type'] !== 'repeater') {
-			return new \WP_Error('not_found', __('Repeater field not found.', 'advanced-repeater-for-custom-fields'), array('status' => 404));
+			return new \WP_Error('not_found', __('Repeater field not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
 		// Check max rows.
@@ -677,7 +678,7 @@ class Rest_API
 			$current_rows = get_field($field['name'], $post_id, false);
 			if (is_array($current_rows) && count($current_rows) >= $max_rows) {
 				/* translators: %d: maximum number of rows */
-				return new \WP_Error('max_rows', sprintf(__('Maximum number of rows (%d) reached.', 'advanced-repeater-for-custom-fields'), $max_rows), array('status' => 400));
+				return new \WP_Error('max_rows', sprintf(__('Maximum number of rows (%d) reached.', 'raeen-repeater-field-for-acf'), $max_rows), array('status' => 400));
 			}
 		}
 
@@ -703,7 +704,7 @@ class Rest_API
 			return rest_ensure_response($formatted);
 		}
 
-		return new \WP_Error('save_failed', __('Failed to save row.', 'advanced-repeater-for-custom-fields'), array('status' => 500));
+		return new \WP_Error('save_failed', __('Failed to save row.', 'raeen-repeater-field-for-acf'), array('status' => 500));
 	}
 
 	/**
@@ -720,17 +721,17 @@ class Rest_API
 		$row_data = $request->get_param('row_data') ?? array();
 
 		if (!$field_key || !$post_id) {
-			return new \WP_Error('missing_params', __('Field key, post ID, and row index are required.', 'advanced-repeater-for-custom-fields'), array('status' => 400));
+			return new \WP_Error('missing_params', __('Field key, post ID, and row index are required.', 'raeen-repeater-field-for-acf'), array('status' => 400));
 		}
 
 		$field = acf_get_field($field_key);
 		if (!$field || $field['type'] !== 'repeater') {
-			return new \WP_Error('not_found', __('Repeater field not found.', 'advanced-repeater-for-custom-fields'), array('status' => 404));
+			return new \WP_Error('not_found', __('Repeater field not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
 		$current_rows = get_field($field['name'], $post_id, false);
 		if (!is_array($current_rows) || !isset($current_rows[$row_index])) {
-			return new \WP_Error('not_found', __('Row not found.', 'advanced-repeater-for-custom-fields'), array('status' => 404));
+			return new \WP_Error('not_found', __('Row not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
 		// Sanitize and merge row data.
@@ -748,7 +749,7 @@ class Rest_API
 			return rest_ensure_response($formatted);
 		}
 
-		return new \WP_Error('save_failed', __('Failed to update row.', 'advanced-repeater-for-custom-fields'), array('status' => 500));
+		return new \WP_Error('save_failed', __('Failed to update row.', 'raeen-repeater-field-for-acf'), array('status' => 500));
 	}
 
 	/**
@@ -764,12 +765,12 @@ class Rest_API
 		$row_index = $request->get_param('row_index') ?? 0;
 
 		if (!$field_key || !$post_id) {
-			return new \WP_Error('missing_params', __('Field key, post ID, and row index are required.', 'advanced-repeater-for-custom-fields'), array('status' => 400));
+			return new \WP_Error('missing_params', __('Field key, post ID, and row index are required.', 'raeen-repeater-field-for-acf'), array('status' => 400));
 		}
 
 		$field = acf_get_field($field_key);
 		if (!$field || $field['type'] !== 'repeater') {
-			return new \WP_Error('not_found', __('Repeater field not found.', 'advanced-repeater-for-custom-fields'), array('status' => 404));
+			return new \WP_Error('not_found', __('Repeater field not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
 		// Check min rows.
@@ -778,13 +779,13 @@ class Rest_API
 			$current_rows = get_field($field['name'], $post_id, false);
 			if (is_array($current_rows) && count($current_rows) <= $min_rows) {
 				/* translators: %d: minimum number of rows */
-				return new \WP_Error('min_rows', sprintf(__('Minimum number of rows (%d) required.', 'advanced-repeater-for-custom-fields'), $min_rows), array('status' => 400));
+				return new \WP_Error('min_rows', sprintf(__('Minimum number of rows (%d) required.', 'raeen-repeater-field-for-acf'), $min_rows), array('status' => 400));
 			}
 		}
 
 		$current_rows = get_field($field['name'], $post_id, false);
 		if (!is_array($current_rows) || !isset($current_rows[$row_index])) {
-			return new \WP_Error('not_found', __('Row not found.', 'advanced-repeater-for-custom-fields'), array('status' => 404));
+			return new \WP_Error('not_found', __('Row not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
 		array_splice($current_rows, $row_index, 1);
@@ -798,7 +799,7 @@ class Rest_API
 			);
 		}
 
-		return new \WP_Error('delete_failed', __('Failed to delete row.', 'advanced-repeater-for-custom-fields'), array('status' => 500));
+		return new \WP_Error('delete_failed', __('Failed to delete row.', 'raeen-repeater-field-for-acf'), array('status' => 500));
 	}
 
 	/**
@@ -809,49 +810,49 @@ class Rest_API
 	public function get_repeater_schema(): array
 	{
 		return array(
-			'description' => __('Repeater field data.', 'advanced-repeater-for-custom-fields'),
+			'description' => __('Repeater field data.', 'raeen-repeater-field-for-acf'),
 			'type' => 'object',
 			'properties' => array(
 				'field_key' => array(
 					'type' => 'string',
-					'description' => __('ACF field key.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('ACF field key.', 'raeen-repeater-field-for-acf'),
 				),
 				'field_name' => array(
 					'type' => 'string',
-					'description' => __('ACF field name.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('ACF field name.', 'raeen-repeater-field-for-acf'),
 				),
 				'layout' => array(
 					'type' => 'string',
 					'enum' => array('table', 'block'),
-					'description' => __('Layout type.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('Layout type.', 'raeen-repeater-field-for-acf'),
 				),
 				'button_label' => array(
 					'type' => 'string',
-					'description' => __('Add row button label.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('Add row button label.', 'raeen-repeater-field-for-acf'),
 				),
 				'min_rows' => array(
 					'type' => 'integer',
-					'description' => __('Minimum rows.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('Minimum rows.', 'raeen-repeater-field-for-acf'),
 				),
 				'max_rows' => array(
 					'type' => 'integer',
-					'description' => __('Maximum rows.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('Maximum rows.', 'raeen-repeater-field-for-acf'),
 				),
 				'collapsed' => array(
 					'type' => 'string',
-					'description' => __('Collapsed field key.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('Collapsed field key.', 'raeen-repeater-field-for-acf'),
 				),
 				'sortable' => array(
 					'type' => 'boolean',
-					'description' => __('Rows sortable.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('Rows sortable.', 'raeen-repeater-field-for-acf'),
 				),
 				'duplicate' => array(
 					'type' => 'boolean',
-					'description' => __('Rows duplicatable.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('Rows duplicatable.', 'raeen-repeater-field-for-acf'),
 				),
 				'delete_confirm' => array(
 					'type' => 'boolean',
-					'description' => __('Delete confirmation.', 'advanced-repeater-for-custom-fields'),
+					'description' => __('Delete confirmation.', 'raeen-repeater-field-for-acf'),
 				),
 				'rows' => array(
 					'type' => 'array',

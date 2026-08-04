@@ -2,10 +2,11 @@
 /**
  * Sanitizer class for ACF Repeater.
  *
- * @package ACF_Repeater\Helpers
+ * @package Raeen_Repeater\Helpers
  */
 
-namespace ACF_Repeater\Helpers;
+namespace Raeen_Repeater\Helpers;
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

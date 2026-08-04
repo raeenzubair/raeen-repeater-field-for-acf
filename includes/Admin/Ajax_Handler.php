@@ -1,13 +1,13 @@
 <?php
 
-namespace ACF_Repeater\Admin;
+namespace Raeen_Repeater\Admin;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
-use ACF_Repeater\Helpers\Validator;
-use ACF_Repeater\Helpers\Sanitizer;
+use Raeen_Repeater\Helpers\Validator;
+use Raeen_Repeater\Helpers\Sanitizer;
 
 /**
  * Class Ajax_Handler
@@ -16,14 +16,15 @@ use ACF_Repeater\Helpers\Sanitizer;
  * Note: Add/remove/duplicate are now handled client-side via clone row.
  * Only sort_rows remains for optional AJAX sort persistence.
  */
-class Ajax_Handler {
+class Ajax_Handler
+{
 
 	/**
 	 * Nonce action.
 	 *
 	 * @var string
 	 */
-	private const NONCE_ACTION = 'acf_repeater_nonce';
+	private const NONCE_ACTION = 'raeen_repeater_nonce';
 
 	/**
 	 * Validator instance.
@@ -49,7 +50,8 @@ class Ajax_Handler {
 	/**
 	 * Constructor.
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		$this->validator = new Validator();
 		$this->sanitizer = new Sanitizer();
 
@@ -61,13 +63,14 @@ class Ajax_Handler {
 	 *
 	 * @return void
 	 */
-	public function register_ajax_actions(): void {
+	public function register_ajax_actions(): void
+	{
 		$this->ajax_actions = array(
-			'acf_repeater_sort_rows' => array( $this, 'ajax_sort_rows' ),
+			'raeen_repeater_sort_rows' => array($this, 'ajax_sort_rows'),
 		);
 
-		foreach ( $this->ajax_actions as $action => $callback ) {
-			add_action( 'wp_ajax_' . $action, $callback );
+		foreach ($this->ajax_actions as $action => $callback) {
+			add_action('wp_ajax_' . $action, $callback);
 		}
 	}
 
@@ -76,12 +79,13 @@ class Ajax_Handler {
 	 *
 	 * @return bool
 	 */
-	private function verify_request(): bool {
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), self::NONCE_ACTION ) ) {
+	private function verify_request(): bool
+	{
+		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), self::NONCE_ACTION)) {
 			return false;
 		}
 
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if (!current_user_can('edit_posts')) {
 			return false;
 		}
 
@@ -95,9 +99,10 @@ class Ajax_Handler {
 	 * @param int   $status HTTP status code.
 	 * @return void
 	 */
-	private function send_response( array $data, int $status = 200 ): void {
-		http_response_code( $status );
-		wp_send_json( $data );
+	private function send_response(array $data, int $status = 200): void
+	{
+		http_response_code($status);
+		wp_send_json($data);
 	}
 
 	/**
@@ -108,17 +113,18 @@ class Ajax_Handler {
 	 * @param mixed  $data Additional data.
 	 * @return void
 	 */
-	private function send_error( string $message, int $status = 400, mixed $data = null ): void {
+	private function send_error(string $message, int $status = 400, mixed $data = null): void
+	{
 		$response = array(
 			'success' => false,
 			'message' => $message,
 		);
 
-		if ( $data !== null ) {
+		if ($data !== null) {
 			$response['data'] = $data;
 		}
 
-		$this->send_response( $response, $status );
+		$this->send_response($response, $status);
 	}
 
 	/**
@@ -126,49 +132,50 @@ class Ajax_Handler {
 	 *
 	 * @return void
 	 */
-	public function ajax_sort_rows(): void {
-		if ( ! $this->verify_request() ) {
-			$this->send_error( __( 'Invalid request.', 'advanced-repeater-for-custom-fields' ), 403 );
+	public function ajax_sort_rows(): void
+	{
+		if (!$this->verify_request()) {
+			$this->send_error(__('Invalid request.', 'raeen-repeater-field-for-acf'), 403);
 			return;
 		}
 
-		$field_key = isset( $_POST['field_key'] ) ? sanitize_text_field( wp_unslash( $_POST['field_key'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$post_id   = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$field_key = isset($_POST['field_key']) ? sanitize_text_field(wp_unslash($_POST['field_key'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$post_id = isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$new_order = array();
-		$raw_order = isset( $_POST['new_order'] ) ? wp_unslash( $_POST['new_order'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
-		if ( ! empty( $raw_order ) ) {
-			$decoded = json_decode( $raw_order, true );
-			if ( is_array( $decoded ) ) {
-				$new_order = array_map( 'absint', $decoded );
+		$raw_order = isset($_POST['new_order']) ? sanitize_text_field(wp_unslash($_POST['new_order'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if (!empty($raw_order)) {
+			$decoded = json_decode($raw_order, true);
+			if (is_array($decoded)) {
+				$new_order = array_map('absint', $decoded);
 			}
 		}
 
-		if ( empty( $field_key ) || empty( $new_order ) ) {
-			$this->send_error( __( 'Invalid parameters.', 'advanced-repeater-for-custom-fields' ) );
+		if (empty($field_key) || empty($new_order)) {
+			$this->send_error(__('Invalid parameters.', 'raeen-repeater-field-for-acf'));
 			return;
 		}
 
-		$rows        = $this->get_field_rows( $field_key, $post_id );
+		$rows = $this->get_field_rows($field_key, $post_id);
 		$sorted_rows = array();
 
-		foreach ( $new_order as $index ) {
-			if ( isset( $rows[ $index ] ) ) {
-				$sorted_rows[] = $rows[ $index ];
+		foreach ($new_order as $index) {
+			if (isset($rows[$index])) {
+				$sorted_rows[] = $rows[$index];
 			}
 		}
 
-		foreach ( $rows as $index => $row ) {
-			if ( ! in_array( $index, $new_order, true ) ) {
+		foreach ($rows as $index => $row) {
+			if (!in_array($index, $new_order, true)) {
 				$sorted_rows[] = $row;
 			}
 		}
 
-		$this->save_field_rows( $field_key, $post_id, $sorted_rows );
+		$this->save_field_rows($field_key, $post_id, $sorted_rows);
 
 		$this->send_response(
 			array(
 				'success' => true,
-				'order'   => $new_order,
+				'order' => $new_order,
 			)
 		);
 	}
@@ -180,12 +187,13 @@ class Ajax_Handler {
 	 * @param int    $post_id Post ID.
 	 * @return array<int, array>
 	 */
-	private function get_field_rows( string $field_key, $post_id ): array {
-		if ( ! is_numeric( $post_id ) || (int) $post_id <= 0 ) {
+	private function get_field_rows(string $field_key, $post_id): array
+	{
+		if (!is_numeric($post_id) || (int) $post_id <= 0) {
 			return array();
 		}
-		$value = get_post_meta( (int) $post_id, $field_key, true );
-		if ( is_array( $value ) ) {
+		$value = get_post_meta((int) $post_id, $field_key, true);
+		if (is_array($value)) {
 			return $value;
 		}
 		return array();
@@ -199,10 +207,12 @@ class Ajax_Handler {
 	 * @param array<array> $rows Rows data.
 	 * @return bool
 	 */
-	private function save_field_rows( string $field_key, $post_id, array $rows ): bool {
-		if ( ! is_numeric( $post_id ) || (int) $post_id <= 0 ) {
+	private function save_field_rows(string $field_key, $post_id, array $rows): bool
+	{
+		if (!is_numeric($post_id) || (int) $post_id <= 0) {
 			return false;
 		}
-		return update_post_meta( (int) $post_id, $field_key, $rows );
+		return update_post_meta((int) $post_id, $field_key, $rows);
 	}
 }
+

@@ -1,6 +1,7 @@
 {
-  "name": "advanced-repeater-for-custom-fields",
+  "name": "raeen-repeater-field-for-acf",
   "version": "1.0.1",
+
   "description": "Advanced Repeater field for Advanced Custom Fields (Free version)",
   "type": "module",
   "scripts": {

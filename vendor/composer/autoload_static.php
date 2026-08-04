@@ -13,6 +13,11 @@ class ComposerStaticInit0eea426bbc901a1427cefc4231adb3a5
     );
 
     public static $prefixLengthsPsr4 = array (
+        'R' => 
+        array (
+            'Raeen_Repeater\\Tests\\' => 21,
+            'Raeen_Repeater\\' => 15,
+        ),
         'P' => 
         array (
             'PhpParser\\' => 10,
@@ -26,14 +31,17 @@ class ComposerStaticInit0eea426bbc901a1427cefc4231adb3a5
         array (
             'Composer\\Installers\\' => 20,
         ),
-        'A' => 
-        array (
-            'ACF_Repeater\\Tests\\' => 19,
-            'ACF_Repeater\\' => 13,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Raeen_Repeater\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests/php',
+        ),
+        'Raeen_Repeater\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -49,14 +57,6 @@ class ComposerStaticInit0eea426bbc901a1427cefc4231adb3a5
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
-        ),
-        'ACF_Repeater\\Tests\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests/php',
-        ),
-        'ACF_Repeater\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/includes',
         ),
     );
 

@@ -5,10 +5,10 @@
  * Lightweight settings store — no admin UI page.
  * Reads/writes from a single WordPress option with sensible defaults.
  *
- * @package ACF_Repeater\Admin
+ * @package Raeen_Repeater\Admin
  */
 
-namespace ACF_Repeater\Admin;
+namespace Raeen_Repeater\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,7 +24,8 @@ class Settings
 	 *
 	 * @var string
 	 */
-	private const OPTION_NAME = 'acf_repeater_settings';
+	private const OPTION_NAME = 'raeen_repeater_settings';
+
 
 	/**
 	 * Default settings.
