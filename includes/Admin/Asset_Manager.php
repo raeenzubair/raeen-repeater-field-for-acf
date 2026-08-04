@@ -325,8 +325,9 @@ class Asset_Manager
 	 */
 	private function is_field_group_page(string $hook): bool
 	{
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only admin screen check.
 		return in_array($hook, array('post.php', 'post-new.php'), true)
-			&& isset($_GET['post_type']) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			&& isset($_GET['post_type'])
 			&& 'acf-field-group' === sanitize_text_field(wp_unslash($_GET['post_type']));
 	}
 
