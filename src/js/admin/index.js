@@ -14,6 +14,36 @@ import '@css/admin/field-group.css';
 
 import ACFRepeaterField from './repeater-field';
 
+// ─── Unlocking Repeater Field in ACF Editor ─────────────────────────────────
+
+/**
+ * Unlock repeater field in ACF JS environment.
+ * Ensures ACF's field group editor allows selecting and editing the repeater field.
+ */
+function unlockRepeaterInACF() {
+	if ( typeof acf !== 'undefined' ) {
+		const proTypes = acf.get( 'PROFieldTypes' );
+		if ( proTypes && proTypes.repeater ) {
+			delete proTypes.repeater;
+			acf.set( 'PROFieldTypes', proTypes );
+		}
+
+		const fieldTypes = acf.get( 'fieldTypes' );
+		if ( fieldTypes && fieldTypes.repeater ) {
+			fieldTypes.repeater.pro = false;
+			acf.set( 'fieldTypes', fieldTypes );
+		}
+
+		document.querySelectorAll( 'select.field-type option[value="repeater"]' ).forEach( ( opt ) => {
+			opt.removeAttribute( 'disabled' );
+			opt.disabled = false;
+			opt.textContent = opt.textContent.replace( /\s*\(PRO Only\)/i, '' );
+		} );
+	}
+}
+
+unlockRepeaterInACF();
+
 // ─── Initialization ─────────────────────────────────────────────────────────
 
 /**
@@ -22,6 +52,7 @@ import ACFRepeaterField from './repeater-field';
  * The guard `el._acfRepeater` prevents double-initialization.
  */
 function initRepeaters() {
+	unlockRepeaterInACF();
 	document.querySelectorAll( '.repeater-field-for-acf' ).forEach( ( el ) => {
 		if ( ! el._acfRepeater ) {
 			el._acfRepeater = new ACFRepeaterField( el );
@@ -38,6 +69,9 @@ window.addEventListener( 'load', initRepeaters );
 // ─── ACF Action Hooks ────────────────────────────────────────────────────────
 
 if ( typeof acf !== 'undefined' ) {
+	acf.addAction( 'prepare', unlockRepeaterInACF );
+	acf.addAction( 'ready', unlockRepeaterInACF );
+
 	/**
 	 * ACF fires 'append' when new content is added to the page
 	 * (e.g. a new row inside a flexible content field, or a new
@@ -46,6 +80,7 @@ if ( typeof acf !== 'undefined' ) {
 	 * $el is a jQuery object containing the newly added content.
 	 */
 	acf.addAction( 'append', ( $el ) => {
+		unlockRepeaterInACF();
 		$el.find( '.repeater-field-for-acf' ).each( function () {
 			if ( ! this._acfRepeater ) {
 				this._acfRepeater = new ACFRepeaterField( this );

@@ -117,14 +117,16 @@ final class Raeen_Repeater_Bootstrap {
 		register_deactivation_hook( __FILE__, [ __CLASS__, 'deactivate' ] );
 
 		// ACF field type registration.
-		// Must use acf/include_field_types — fires during ACF's own init, guaranteeing
-		// acf_register_field_type() is available.
+		// Hook on acf/include_field_types, acf/init, and init to ensure registration.
 		add_action( 'acf/include_field_types', [ $this, 'register_repeater_field' ], 5 );
+		add_action( 'acf/init', [ $this, 'register_repeater_field' ], 5 );
+		add_action( 'init', [ $this, 'register_repeater_field' ], 5 );
 
 		// Remove 'repeater' from ACF's PRO field types so it's selectable in the
 		// field group editor without the "PRO Only" lock.
-		// Priority 1 ensures this runs before ACF outputs the localized JS data.
 		add_action( 'acf/field_group/admin_enqueue_scripts', [ $this, 'unlock_repeater_field_type' ], 1 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'unlock_repeater_field_type' ], 1 );
+		add_action( 'admin_head', [ $this, 'unlock_repeater_field_type' ], 1 );
 
 		// Admin assets.
 		add_action( 'admin_enqueue_scripts', [ $this->asset_manager, 'enqueue_admin_assets' ] );
