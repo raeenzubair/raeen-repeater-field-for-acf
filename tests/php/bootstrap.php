@@ -11,19 +11,21 @@ if ( ! defined( 'ABSPATH' ) && ! defined( 'PHPUNIT_COMPOSER_INSTALL' ) && ! gete
 }
 
 // Load WordPress test environment.
-$acf_repeater_tests_dir = getenv('WP_TESTS_DIR') ?: dirname(__DIR__, 3) . '/wordpress-tests-lib';
-require_once $acf_repeater_tests_dir . '/includes/functions.php';
+$raeen_repeater_tests_dir = getenv( 'WP_TESTS_DIR' ) ? getenv( 'WP_TESTS_DIR' ) : dirname( __DIR__, 3 ) . '/wordpress-tests-lib';
+require_once $raeen_repeater_tests_dir . '/includes/functions.php';
 
 // Load plugin.
-require_once dirname(__DIR__, 2) . '/raeen-repeater-field-for-acf.php';
+require_once dirname( __DIR__, 2 ) . '/raeen-repeater-field-for-acf.php';
 
-// Initialize test environment.
-function _acf_repeater_manually_load_plugin()
-{
-	require_once dirname(__DIR__, 2) . '/raeen-repeater-field-for-acf.php';
+/**
+ * Manually load plugin for test suite.
+ *
+ * @return void
+ */
+function _raeen_repeater_manually_load_plugin() {
+	require_once dirname( __DIR__, 2 ) . '/raeen-repeater-field-for-acf.php';
 }
-tests_add_filter('muplugins_loaded', '_acf_repeater_manually_load_plugin');
+tests_add_filter( 'muplugins_loaded', '_raeen_repeater_manually_load_plugin' );
 
 // Start WordPress.
-require_once $acf_repeater_tests_dir . '/includes/bootstrap.php';
-
+require_once $raeen_repeater_tests_dir . '/includes/bootstrap.php';
