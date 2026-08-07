@@ -265,11 +265,11 @@ final class Plugin {
 		?>
 		<div class="notice notice-error is-dismissible">
 			<p>
-				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'repeater-field-for-acf' ); ?></strong>
+				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'raeen-repeater-field-for-acf' ); ?></strong>
 				<?php
 				printf(
 					/* translators: %s: Plugin name */
-					esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'repeater-field-for-acf' ),
+					esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'raeen-repeater-field-for-acf' ),
 					'<strong>Advanced Repeater For Custom Fields</strong>'
 				);
 				?>
@@ -288,11 +288,11 @@ final class Plugin {
 		?>
 		<div class="notice notice-warning is-dismissible">
 			<p>
-				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'repeater-field-for-acf' ); ?></strong>
+				<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'raeen-repeater-field-for-acf' ); ?></strong>
 				<?php
 				printf(
 					/* translators: %s: ACF version */
-					esc_html__( 'Advanced Custom Fields version %s is installed. Version 5.8 or higher is required.', 'repeater-field-for-acf' ),
+					esc_html__( 'Advanced Custom Fields version %s is installed. Version 5.8 or higher is required.', 'raeen-repeater-field-for-acf' ),
 					'<strong>' . esc_html( $acf_version ) . '</strong>'
 				);
 				?>
@@ -312,11 +312,11 @@ final class Plugin {
 			?>
 			<div class="notice notice-error is-dismissible">
 				<p>
-					<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'repeater-field-for-acf' ); ?></strong>
+					<strong><?php esc_html_e( 'Advanced Repeater For Custom Fields', 'raeen-repeater-field-for-acf' ); ?></strong>
 					<?php
 					printf(
 						/* translators: %s: PHP version */
-						esc_html__( 'PHP version %1$s or higher is required. You are running %2$s.', 'repeater-field-for-acf' ),
+						esc_html__( 'PHP version %1$s or higher is required. You are running %2$s.', 'raeen-repeater-field-for-acf' ),
 						'<strong>7.4</strong>',
 						'<strong>' . esc_html( PHP_VERSION ) . '</strong>'
 					);
@@ -337,8 +337,8 @@ final class Plugin {
 		if ( version_compare( PHP_VERSION, '7.4', '<' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Advanced Repeater For Custom Fields requires PHP 7.4 or higher.', 'repeater-field-for-acf' ),
-				esc_html__( 'Plugin Activation Error', 'repeater-field-for-acf' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires PHP 7.4 or higher.', 'raeen-repeater-field-for-acf' ),
+				esc_html__( 'Plugin Activation Error', 'raeen-repeater-field-for-acf' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -348,8 +348,8 @@ final class Plugin {
 		if ( version_compare( $wp_version, '5.8', '<' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Advanced Repeater For Custom Fields requires WordPress 5.8 or higher.', 'repeater-field-for-acf' ),
-				esc_html__( 'Plugin Activation Error', 'repeater-field-for-acf' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires WordPress 5.8 or higher.', 'raeen-repeater-field-for-acf' ),
+				esc_html__( 'Plugin Activation Error', 'raeen-repeater-field-for-acf' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -358,8 +358,8 @@ final class Plugin {
 		if ( ! function_exists( 'acf_get_field_type' ) ) {
 			deactivate_plugins( plugin_basename( ACF_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Advanced Repeater For Custom Fields requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'repeater-field-for-acf' ),
-				esc_html__( 'Plugin Activation Error', 'repeater-field-for-acf' ),
+				esc_html__( 'Advanced Repeater For Custom Fields requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'raeen-repeater-field-for-acf' ),
+				esc_html__( 'Plugin Activation Error', 'raeen-repeater-field-for-acf' ),
 				array( 'response' => 500 )
 			);
 		}
@@ -376,7 +376,7 @@ final class Plugin {
 			'acf_repeater_settings',
 			array(
 				'default_layout'         => 'table',
-				'default_button_label'   => __( 'Add Row', 'repeater-field-for-acf' ),
+				'default_button_label'   => __( 'Add Row', 'raeen-repeater-field-for-acf' ),
 				'default_collapsed'      => '',
 				'default_sortable'       => true,
 				'default_duplicate'      => true,

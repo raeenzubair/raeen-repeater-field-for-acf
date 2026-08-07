@@ -75,17 +75,13 @@ class Ajax_Handler
 	}
 
 	/**
-	 * Verify AJAX request.
+	 * Verify AJAX nonce.
 	 *
 	 * @return bool
 	 */
-	private function verify_request(): bool
+	private function verify_nonce(): bool
 	{
 		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), self::NONCE_ACTION)) {
-			return false;
-		}
-
-		if (!current_user_can('edit_posts')) {
 			return false;
 		}
 
@@ -134,16 +130,28 @@ class Ajax_Handler
 	 */
 	public function ajax_sort_rows(): void
 	{
-		if (!$this->verify_request()) {
+		// 1. Verify nonce first.
+		if (!$this->verify_nonce()) {
 			wp_send_json_error(
-				array( 'message' => __('Invalid request.', 'repeater-field-for-acf') ),
+				array( 'message' => __('Invalid or missing nonce.', 'raeen-repeater-field-for-acf') ),
 				403
 			);
+			return;
 		}
 
-		// Nonce and capability already verified by verify_request() above.
+		// 2. Read and sanitize input.
 		$field_key = isset($_POST['field_key']) ? sanitize_text_field(wp_unslash($_POST['field_key'])) : '';
-		$post_id = isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : 0;
+		$post_id   = isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : 0;
+
+		// 3. Verify the user can edit this specific post.
+		if ($post_id <= 0 || !current_user_can('edit_post', $post_id)) {
+			wp_send_json_error(
+				array( 'message' => __('You do not have permission to edit this post.', 'raeen-repeater-field-for-acf') ),
+				403
+			);
+			return;
+		}
+
 		$new_order = array();
 		$raw_order = isset($_POST['new_order']) ? sanitize_text_field(wp_unslash($_POST['new_order'])) : '';
 		if (!empty($raw_order)) {
@@ -154,7 +162,7 @@ class Ajax_Handler
 		}
 
 		if (empty($field_key) || empty($new_order)) {
-			$this->send_error(__('Invalid parameters.', 'repeater-field-for-acf'));
+			$this->send_error(__('Invalid parameters.', 'raeen-repeater-field-for-acf'));
 			return;
 		}
 
