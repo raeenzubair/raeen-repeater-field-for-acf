@@ -135,14 +135,17 @@ class Ajax_Handler
 	public function ajax_sort_rows(): void
 	{
 		if (!$this->verify_request()) {
-			$this->send_error(__('Invalid request.', 'raeen-repeater-field-for-acf'), 403);
-			return;
+			wp_send_json_error(
+				array( 'message' => __('Invalid request.', 'repeater-field-for-acf') ),
+				403
+			);
 		}
 
-		$field_key = isset($_POST['field_key']) ? sanitize_text_field(wp_unslash($_POST['field_key'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$post_id = isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		// Nonce and capability already verified by verify_request() above.
+		$field_key = isset($_POST['field_key']) ? sanitize_text_field(wp_unslash($_POST['field_key'])) : '';
+		$post_id = isset($_POST['post_id']) ? absint(wp_unslash($_POST['post_id'])) : 0;
 		$new_order = array();
-		$raw_order = isset($_POST['new_order']) ? sanitize_text_field(wp_unslash($_POST['new_order'])) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$raw_order = isset($_POST['new_order']) ? sanitize_text_field(wp_unslash($_POST['new_order'])) : '';
 		if (!empty($raw_order)) {
 			$decoded = json_decode($raw_order, true);
 			if (is_array($decoded)) {
@@ -151,7 +154,7 @@ class Ajax_Handler
 		}
 
 		if (empty($field_key) || empty($new_order)) {
-			$this->send_error(__('Invalid parameters.', 'raeen-repeater-field-for-acf'));
+			$this->send_error(__('Invalid parameters.', 'repeater-field-for-acf'));
 			return;
 		}
 

@@ -28,7 +28,7 @@ Raeen Repeater Field for ACF adds a native-feeling Repeater field type to the **
 * **REST API Support**: Exposes repeater data through the WordPress REST API
 * **Gutenberg & Classic Editor**: Works in both editors
 * **Multisite Compatible**: Network activatable
-* **Internationalization Ready**: Full translation support (text domain: `raeen-repeater-field-for-acf`)
+* **Internationalization Ready**: Full translation support (text domain: `repeater-field-for-acf`)
 * **Accessibility Ready**: Proper ARIA labels and keyboard support
 
 **Data Storage (ACF Pro-compatible):**
@@ -110,7 +110,7 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 == Changelog ==
 
 = 1.0.1 =
-* Updated plugin display name to "Raeen Repeater Field for ACF" and text domain / slug to "raeen-repeater-field-for-acf" to respect third-party trademarks and directory guidelines.
+* Updated plugin display name to "Raeen Repeater Field for ACF" and changed text domain to "repeater-field-for-acf" to match the WordPress.org plugin slug.
 * Updated code namespaces to Raeen_Repeater to avoid prefix collisions.
 * Added nonce sanitization and hardened AJAX input handling.
 * Documented public source code repository and build instructions in readme.txt.

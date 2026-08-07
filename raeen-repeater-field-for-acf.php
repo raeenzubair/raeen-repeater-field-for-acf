@@ -11,7 +11,7 @@
  * Author URI: https://github.com/raeenzubair
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: raeen-repeater-field-for-acf
+ * Text Domain: repeater-field-for-acf
  * Domain Path: /languages
  */
 
@@ -28,7 +28,7 @@ define( 'RAEEN_REPEATER_DB_VERSION', '1.0.1' );
 define( 'RAEEN_REPEATER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RAEEN_REPEATER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'RAEEN_REPEATER_PLUGIN_FILE', __FILE__ );
-define( 'RAEEN_REPEATER_TEXT_DOMAIN', 'raeen-repeater-field-for-acf' );
+define( 'RAEEN_REPEATER_TEXT_DOMAIN', 'repeater-field-for-acf' );
 
 /**
  * Composer autoloader.
@@ -224,11 +224,11 @@ final class Raeen_Repeater_Bootstrap {
 			?>
 			<div class="notice notice-error is-dismissible">
 				<p>
-					<strong><?php esc_html_e( 'Raeen Repeater Field for ACF', 'raeen-repeater-field-for-acf' ); ?></strong>
+					<strong><?php esc_html_e( 'Raeen Repeater Field for ACF', 'repeater-field-for-acf' ); ?></strong>
 					<?php
 					printf(
 						/* translators: %s: plugin name */
-						esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'raeen-repeater-field-for-acf' ),
+						esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'repeater-field-for-acf' ),
 						'<strong>Raeen Repeater Field for ACF</strong>'
 					);
 					?>
@@ -247,7 +247,7 @@ final class Raeen_Repeater_Bootstrap {
 		if ( version_compare( PHP_VERSION, '7.4', '<' ) ) {
 			deactivate_plugins( plugin_basename( RAEEN_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Raeen Repeater Field for ACF requires PHP 7.4 or higher.', 'raeen-repeater-field-for-acf' ),
+				esc_html__( 'Raeen Repeater Field for ACF requires PHP 7.4 or higher.', 'repeater-field-for-acf' ),
 				'',
 				[ 'response' => 500 ]
 			);
@@ -257,7 +257,7 @@ final class Raeen_Repeater_Bootstrap {
 		if ( version_compare( $wp_version, '5.8', '<' ) ) {
 			deactivate_plugins( plugin_basename( RAEEN_REPEATER_PLUGIN_FILE ) );
 			wp_die(
-				esc_html__( 'Raeen Repeater Field for ACF requires WordPress 5.8 or higher.', 'raeen-repeater-field-for-acf' ),
+				esc_html__( 'Raeen Repeater Field for ACF requires WordPress 5.8 or higher.', 'repeater-field-for-acf' ),
 				'',
 				[ 'response' => 500 ]
 			);

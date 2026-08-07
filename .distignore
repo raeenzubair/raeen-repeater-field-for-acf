@@ -4,7 +4,6 @@
 .DS_Store
 node_modules
 tests
-composer.json
 composer.lock
 package-lock.json
 phpunit.xml
@@ -15,4 +14,3 @@ phpcs.xml
 .gitattributes
 *.map
 *.zip
-tes

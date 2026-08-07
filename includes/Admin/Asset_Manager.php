@@ -268,23 +268,23 @@ class Asset_Manager
 			'version' => $this->version,
 			'plugin_url' => $this->plugin_url,
 			'i18n' => array(
-				'add_row' => __('Add Row', 'raeen-repeater-field-for-acf'),
-				'delete_row' => __('Delete Row', 'raeen-repeater-field-for-acf'),
-				'duplicate_row' => __('Duplicate Row', 'raeen-repeater-field-for-acf'),
-				'collapse_row' => __('Collapse Row', 'raeen-repeater-field-for-acf'),
-				'expand_row' => __('Expand Row', 'raeen-repeater-field-for-acf'),
-				'sort_rows' => __('Sort Rows', 'raeen-repeater-field-for-acf'),
-				'confirm_delete' => __('Are you sure you want to delete this row?', 'raeen-repeater-field-for-acf'),
+				'add_row' => __('Add Row', 'repeater-field-for-acf'),
+				'delete_row' => __('Delete Row', 'repeater-field-for-acf'),
+				'duplicate_row' => __('Duplicate Row', 'repeater-field-for-acf'),
+				'collapse_row' => __('Collapse Row', 'repeater-field-for-acf'),
+				'expand_row' => __('Expand Row', 'repeater-field-for-acf'),
+				'sort_rows' => __('Sort Rows', 'repeater-field-for-acf'),
+				'confirm_delete' => __('Are you sure you want to delete this row?', 'repeater-field-for-acf'),
 				/* translators: %d: minimum number of rows */
-				'min_rows_error' => __('Minimum number of rows required: %d', 'raeen-repeater-field-for-acf'),
+				'min_rows_error' => __('Minimum number of rows required: %d', 'repeater-field-for-acf'),
 				/* translators: %d: maximum number of rows */
-				'max_rows_error' => __('Maximum number of rows exceeded: %d', 'raeen-repeater-field-for-acf'),
-				'required_field' => __('This field is required', 'raeen-repeater-field-for-acf'),
-				'loading' => __('Loading...', 'raeen-repeater-field-for-acf'),
-				'no_rows' => __('No rows added yet. Click "Add Row" to get started.', 'raeen-repeater-field-for-acf'),
-				'row_collapsed' => __('Row collapsed', 'raeen-repeater-field-for-acf'),
-				'row_expanded' => __('Row expanded', 'raeen-repeater-field-for-acf'),
-				'drag_to_reorder' => __('Drag to reorder', 'raeen-repeater-field-for-acf'),
+				'max_rows_error' => __('Maximum number of rows exceeded: %d', 'repeater-field-for-acf'),
+				'required_field' => __('This field is required', 'repeater-field-for-acf'),
+				'loading' => __('Loading...', 'repeater-field-for-acf'),
+				'no_rows' => __('No rows added yet. Click "Add Row" to get started.', 'repeater-field-for-acf'),
+				'row_collapsed' => __('Row collapsed', 'repeater-field-for-acf'),
+				'row_expanded' => __('Row expanded', 'repeater-field-for-acf'),
+				'drag_to_reorder' => __('Drag to reorder', 'repeater-field-for-acf'),
 			),
 			'settings' => get_option('raeen_repeater_settings', array()),
 		);
@@ -325,13 +325,16 @@ class Asset_Manager
 	 */
 	private function is_field_group_page(string $hook): bool
 	{
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only admin screen check.
-		$is_page = in_array($hook, array('post.php', 'post-new.php'), true)
-			&& isset($_GET['post_type'])
-			&& 'acf-field-group' === sanitize_text_field(wp_unslash($_GET['post_type']));
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		if (!in_array($hook, array('post.php', 'post-new.php'), true)) {
+			return false;
+		}
 
-		return $is_page;
+		$screen = get_current_screen();
+		if ($screen && 'acf-field-group' === $screen->post_type) {
+			return true;
+		}
+
+		return false;
 	}
 
 
