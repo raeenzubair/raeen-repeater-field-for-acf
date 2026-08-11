@@ -18,7 +18,6 @@ Raeen Repeater Field for ACF adds a native-feeling Repeater field type to the **
 
 **Key Features:**
 
-* **Three Layout Modes**: Table, Block (card), and Row (stacked) layouts
 * **Drag & Drop Reordering**: Intuitive row sorting powered by jQuery UI Sortable
 * **Row Operations**: Add, remove, duplicate rows
 * **All ACF Free field types**: Text, Textarea, Number, Email, URL, Image, File, WYSIWYG, Select, Radio, Checkbox, True/False, Date Picker, Color Picker, Link, and more
