@@ -1,6 +1,5 @@
 === Raeen Repeater Field for ACF ===
 Contributors: moha12351
-Donate link: https://wordpress.org/plugins/raeen-repeater-field-for-acf/
 Tags: acf, advanced-custom-fields, repeater, custom-fields, flexible-content
 Keywords: repeater, acf, advanced custom fields, wordpress plugin, free, multisite, rest api, gutenberg
 Requires at least: 5.8
@@ -73,15 +72,15 @@ This plugin is developed in the open. The complete source code and build tooling
 
 The unminified JavaScript and CSS sources used to generate the compiled assets under `assets/dist/` are bundled in the plugin under `src/`. To rebuild the compiled assets from source:
 
-    npm install
-    npm run build
+    ``npm install
+    ``npm run build
 
 Run the test suite and code quality checks with:
 
-    npm test            # JavaScript unit tests
-    composer test       # PHP unit tests
-    composer phpcs      # PHP coding standards
-    composer phpstan    # PHP static analysis
+    ``npm test            # JavaScript unit tests
+    ``composer test       # PHP unit tests
+    ``composer phpcs      # PHP coding standards
+    ``composer phpstan    # PHP static analysis
 
 == Frequently Asked Questions ==
 
