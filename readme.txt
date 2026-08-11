@@ -2,6 +2,7 @@
 Contributors: moha12351
 Donate link: https://wordpress.org/plugins/raeen-repeater-field-for-acf/
 Tags: acf, advanced-custom-fields, repeater, custom-fields, flexible-content
+Keywords: repeater, acf, advanced custom fields, wordpress plugin, free, multisite, rest api, gutenberg
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -10,7 +11,6 @@ Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Adds a fully functional Repeater field to the free version of Advanced Custom Fields. No ACF Pro required.
 
 == Description ==
 
@@ -18,7 +18,6 @@ Raeen Repeater Field for ACF adds a native-feeling Repeater field type to the **
 
 **Key Features:**
 
-* **Three Layout Modes**: Table, Block (card), and Row (stacked) layouts
 * **Drag & Drop Reordering**: Intuitive row sorting powered by jQuery UI Sortable
 * **Row Operations**: Add, remove, duplicate rows
 * **All ACF Free field types**: Text, Textarea, Number, Email, URL, Image, File, WYSIWYG, Select, Radio, Checkbox, True/False, Date Picker, Color Picker, Link, and more
@@ -50,6 +49,13 @@ if ( have_rows( 'my_repeater' ) ) {
     }
 }
 ```
+
+== Screenshots ==
+1. Field Group editor showing Repeater field configuration with sub-fields
+2. Table Layout mode — data displayed in a clean tabular format with drag handles
+3. Block Layout mode — collapsible card-style rows with rich field support
+4. Row Layout mode — stacked vertical rows with full-width fields
+5. Drag & Drop reordering — intuitive row sorting in action
 
 == Installation ==
 
@@ -114,6 +120,7 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 * Updated code namespaces to Raeen_Repeater to avoid prefix collisions.
 * Added nonce sanitization and hardened AJAX input handling.
 * Documented public source code repository and build instructions in readme.txt.
+* Added branding overhaul: new logo, banner, screenshots, and GIF demo.
 
 = 1.0.0 =
 * Initial release
@@ -130,9 +137,6 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 * Multisite compatible
 
 == Upgrade Notice ==
-
-= 1.0.1 =
-Rebranded plugin display name and slug to "Raeen Repeater Field for ACF".
 
 = 1.0.0 =
 Initial release. Requires Advanced Custom Fields (free) 5.8+ and PHP 7.4+.

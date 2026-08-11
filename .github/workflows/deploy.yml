@@ -1,0 +1,52 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: wporg-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to WordPress.org
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Composer production dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist --no-progress
+
+      - name: Build frontend assets
+        run: npm ci && npm run build
+
+      - name: Get version from readme.txt
+        id: version
+        run: echo "version=$(grep -i '^Stable tag:' readme.txt | awk '{print $3}')" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy to WordPress.org
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: raeen-repeater-field-for-acf
+          VERSION: ${{ steps.version.outputs.version }}
+          ASSETS_DIR: .wordpress-org
