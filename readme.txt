@@ -13,7 +13,43 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Description ==
-Powerful and premium repeater field for the free version of Advanced Custom Fields (ACF). Seamlessly integrates with ACF’s native API (`get_field`, `have_rows`, `the_row`, `get_sub_field`) and supports table, block, and row layouts, drag‑and‑drop ordering, nested repeaters, Gutenberg & classic editor, REST API, multisite, and full ACF JSON sync. Ideal for developers seeking a feature‑rich, free‑plugin solution with a sleek modern UI matching ACF’s visual style.
+
+Raeen Repeater Field for ACF adds a native-feeling Repeater field type to the **free** version of Advanced Custom Fields (ACF). It stores data in the same flat postmeta format used by ACF Pro, so all standard template functions work out of the box.
+
+**Key Features:**
+
+* **Three Layout Modes**: Table, Block (card), and Row (stacked) layouts
+* **Drag & Drop Reordering**: Intuitive row sorting powered by jQuery UI Sortable
+* **Row Operations**: Add, remove, duplicate rows
+* **All ACF Free field types**: Text, Textarea, Number, Email, URL, Image, File, WYSIWYG, Select, Radio, Checkbox, True/False, Date Picker, Color Picker, Link, and more
+* **Nested Repeaters**: Repeater fields can contain other repeater fields
+* **get_field() compatible**: Uses ACF Pro-compatible flat meta storage — `get_field()`, `have_rows()`, `the_row()`, and `get_sub_field()` all work natively
+* **ACF JSON Sync**: Full compatibility with ACF's field group JSON export/import
+* **REST API Support**: Exposes repeater data through the WordPress REST API
+* **Gutenberg & Classic Editor**: Works in both editors
+* **Multisite Compatible**: Network activatable
+* **Internationalization Ready**: Full translation support (text domain: `repeater-field-for-acf`)
+* **Accessibility Ready**: Proper ARIA labels and keyboard support
+
+**Data Storage (ACF Pro-compatible):**
+
+Data is stored using ACF Pro's flat postmeta format:
+
+* `{field_name}` → row count (integer)
+* `{field_name}_{i}_{sub_field_name}` → sub-field value for row `i`
+* `_{field_name}_{i}_{sub_field_name}` → sub-field key reference
+
+This means all ACF template functions work without modification:
+
+```php
+$rows = get_field( 'my_repeater' );
+if ( have_rows( 'my_repeater' ) ) {
+    while ( have_rows( 'my_repeater' ) ) {
+        the_row();
+        $name = get_sub_field( 'name' );
+    }
+}
+```
 
 == Screenshots ==
 1. Field Group editor showing Repeater field configuration with sub-fields
