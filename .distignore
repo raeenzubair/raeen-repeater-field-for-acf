@@ -2,6 +2,9 @@
 .gitignore
 .distignore
 .DS_Store
+.github
+.wordpress-org
+scripts
 node_modules
 tests
 composer.lock
