@@ -162,17 +162,17 @@ GET /wp-json/wp/v2/posts/123?fields=acf_repeater
 
 ### Get specific repeater field
 ```
-GET /wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123?post_id=123
+GET /wp-json/raeen-repeater-field-for-acf/v1/repeater/field_abc123?post_id=123
 ```
 
 ### Get specific row
 ```
-GET /wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123/rows/0?post_id=123
+GET /wp-json/raeen-repeater-field-for-acf/v1/repeater/field_abc123/rows/0?post_id=123
 ```
 
 ### Add row
 ```
-POST /wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123/rows
+POST /wp-json/raeen-repeater-field-for-acf/v1/repeater/field_abc123/rows
 Content-Type: application/json
 
 {
@@ -186,7 +186,7 @@ Content-Type: application/json
 
 ### Update row
 ```
-PUT /wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123/rows/0
+PUT /wp-json/raeen-repeater-field-for-acf/v1/repeater/field_abc123/rows/0
 Content-Type: application/json
 
 {
@@ -199,7 +199,7 @@ Content-Type: application/json
 
 ### Delete row
 ```
-DELETE /wp-json/advanced-repeater-for-custom-fields/v1/repeater/field_abc123/rows/0?post_id=123
+DELETE /wp-json/raeen-repeater-field-for-acf/v1/repeater/field_abc123/rows/0?post_id=123
 ```
 
 ## Development

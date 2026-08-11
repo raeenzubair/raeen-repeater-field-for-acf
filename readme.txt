@@ -1,6 +1,5 @@
 === Raeen Repeater Field for ACF ===
 Contributors: moha12351
-Donate link: https://wordpress.org/plugins/raeen-repeater-field-for-acf/
 Tags: acf, advanced-custom-fields, repeater, custom-fields, flexible-content
 Keywords: repeater, acf, advanced custom fields, wordpress plugin, free, multisite, rest api, gutenberg
 Requires at least: 5.8
@@ -11,6 +10,7 @@ Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
+Adds a native-feeling Repeater field to the free version of Advanced Custom Fields. No ACF Pro required.
 
 == Description ==
 
@@ -18,6 +18,7 @@ Raeen Repeater Field for ACF adds a native-feeling Repeater field type to the **
 
 **Key Features:**
 
+* **Three Layout Modes**: Table, Block (card), and Row (stacked) layouts
 * **Drag & Drop Reordering**: Intuitive row sorting powered by jQuery UI Sortable
 * **Row Operations**: Add, remove, duplicate rows
 * **All ACF Free field types**: Text, Textarea, Number, Email, URL, Image, File, WYSIWYG, Select, Radio, Checkbox, True/False, Date Picker, Color Picker, Link, and more
@@ -40,15 +41,13 @@ Data is stored using ACF Pro's flat postmeta format:
 
 This means all ACF template functions work without modification:
 
-```php
-$rows = get_field( 'my_repeater' );
-if ( have_rows( 'my_repeater' ) ) {
-    while ( have_rows( 'my_repeater' ) ) {
-        the_row();
-        $name = get_sub_field( 'name' );
-    }
-}
-```
+    `$rows = get_field( 'my_repeater' );
+    if ( have_rows( 'my_repeater' ) ) {
+        while ( have_rows( 'my_repeater' ) ) {
+            the_row();
+            $name = get_sub_field( 'name' );
+        }
+    }`
 
 == Screenshots ==
 1. Field Group editor showing Repeater field configuration with sub-fields
@@ -69,23 +68,19 @@ if ( have_rows( 'my_repeater' ) ) {
 
 This plugin is developed in the open. The complete source code and build tooling are available at:
 
-* GitHub repository: https://github.com/raeenzubair/repeater-field-for-acf
+* GitHub repository: https://github.com/raeenzubair/raeen-repeater-field-for-acf
 
 The unminified JavaScript and CSS sources used to generate the compiled assets under `assets/dist/` are bundled in the plugin under `src/`. To rebuild the compiled assets from source:
 
-```bash
-npm install
-npm run build
-```
+    `npm install`
+    `npm run build`
 
 Run the test suite and code quality checks with:
 
-```bash
-npm test            # JavaScript unit tests
-composer test       # PHP unit tests
-composer phpcs      # PHP coding standards
-composer phpstan    # PHP static analysis
-```
+    `npm test`            # JavaScript unit tests
+    `composer test`       # PHP unit tests
+    `composer phpcs`      # PHP coding standards
+    `composer phpstan`    # PHP static analysis
 
 == Frequently Asked Questions ==
 
