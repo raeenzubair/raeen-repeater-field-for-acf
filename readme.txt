@@ -111,33 +111,30 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 == Changelog ==
 
 = 1.0.2 =
-* Fixed fatal autoloader exception by explicitly requiring built-in PSR-4 autoloader.
-* Fixed triple field registration issue when plugin is initialized across multiple hooks.
-* Fixed nested repeater add-row functionality and scoped clone template lookup to direct parent repeater.
-* Fixed UI overlap between drag handle dots and row numbers by widening handle column width.
-* Enqueued frontend stylesheet for acf_form() compatibility.
-* Updated WordPress.org assets with animated GIF logo.
+* Fix: Resolved fatal autoloader exception by explicitly loading built-in PSR-4 autoloader.
+* Fix: Resolved duplicate field registration causing repeater field to render multiple times on edit screens.
+* Fix: Resolved nested repeater add-row functionality by scoping clone template lookups and index replacements to parent repeaters.
+* Fix: Resolved drag handle UI overlap with row numbers by increasing left column width.
+* Enhancement: Enqueued frontend stylesheet for full acf_form() compatibility.
+* Enhancement: Updated WordPress.org branding assets with animated GIF logo.
 
 = 1.0.1 =
-* Updated plugin display name to "Raeen Repeater Field for ACF" and changed text domain to "repeater-field-for-acf" to match the WordPress.org plugin slug.
-* Updated code namespaces to Raeen_Repeater to avoid prefix collisions.
-* Added nonce sanitization and hardened AJAX input handling.
-* Documented public source code repository and build instructions in readme.txt.
-* Added branding overhaul: new logo, banner, screenshots, and GIF demo.
+* Enhancement: Updated plugin display name to "Raeen Repeater Field for ACF" and text domain to repeater-field-for-acf to match WordPress.org plugin slug.
+* Enhancement: Refactored code namespaces to Raeen_Repeater to prevent conflicts.
+* Security: Hardened AJAX input handling and added strict nonce verification.
+* Documentation: Documented open source repository and build instructions in readme.txt.
+* Enhancement: Added full branding assets including logo, banner, screenshots, and GIF demo.
 
 = 1.0.0 =
-* Initial release
-* Full Repeater field implementation compatible with ACF Free 5.8+
-* Three layout modes: Table, Block, Row
-* Drag-and-drop row sorting
-* Add, remove, duplicate rows
-* WYSIWYG / TinyMCE editor support with proper clone/remove handling
-* ACF Pro-compatible flat meta storage (get_field, have_rows, get_sub_field)
-* Settings page under Custom Fields menu
-* REST API integration
-* ACF JSON/PHP export support
-* Nested repeater support
-* Multisite compatible
+* Feature: Initial release of Repeater field for free Advanced Custom Fields (ACF 5.8+).
+* Feature: Added three layout modes: Table, Block (card), and Row (stacked).
+* Feature: Added drag-and-drop row sorting powered by jQuery UI Sortable.
+* Feature: Added row operations (add, remove, duplicate, collapse/expand).
+* Feature: Added WYSIWYG / TinyMCE editor support with automatic lifecycle management.
+* Feature: ACF Pro-compatible flat meta storage (get_field, have_rows, the_row, get_sub_field).
+* Feature: Added REST API endpoint integration.
+* Feature: Added ACF JSON/PHP export and auto-sync support.
+* Feature: Added nested repeater support and multisite compatibility.
 
 == Upgrade Notice ==
 
