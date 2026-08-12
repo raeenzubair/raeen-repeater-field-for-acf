@@ -238,6 +238,10 @@ final class Plugin {
 			return;
 		}
 
+		if ( function_exists( 'acf_is_field_type' ) && acf_is_field_type( 'repeater' ) ) {
+			return;
+		}
+
 		// Load the field class and register.
 		require_once ACF_REPEATER_PLUGIN_DIR . 'includes/Field/Repeater_Field.php';
 
