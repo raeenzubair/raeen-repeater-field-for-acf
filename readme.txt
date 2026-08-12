@@ -110,7 +110,7 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 
 == Changelog ==
 
-= 1.0.2 =
+= 1.0.2 - August 12, 2026 =
 * Fix: Resolved fatal autoloader exception by explicitly loading built-in PSR-4 autoloader.
 * Fix: Resolved duplicate field registration causing repeater field to render multiple times on edit screens.
 * Fix: Resolved nested repeater add-row functionality by scoping clone template lookups and index replacements to parent repeaters.
@@ -118,14 +118,14 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 * Enhancement: Enqueued frontend stylesheet for full acf_form() compatibility.
 * Enhancement: Updated WordPress.org branding assets with animated GIF logo.
 
-= 1.0.1 =
+= 1.0.1 - August 11, 2026 =
 * Enhancement: Updated plugin display name to "Raeen Repeater Field for ACF" and text domain to repeater-field-for-acf to match WordPress.org plugin slug.
 * Enhancement: Refactored code namespaces to Raeen_Repeater to prevent conflicts.
 * Security: Hardened AJAX input handling and added strict nonce verification.
 * Documentation: Documented open source repository and build instructions in readme.txt.
 * Enhancement: Added full branding assets including logo, banner, screenshots, and GIF demo.
 
-= 1.0.0 =
+= 1.0.0 - August 10, 2026 =
 * Feature: Initial release of Repeater field for free Advanced Custom Fields (ACF 5.8+).
 * Feature: Added three layout modes: Table, Block (card), and Row (stacked).
 * Feature: Added drag-and-drop row sorting powered by jQuery UI Sortable.
