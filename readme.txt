@@ -1,7 +1,7 @@
 === Raeen Repeater Field for ACF ===
 Contributors: moha12351
-Tags: acf, advanced-custom-fields, repeater, custom-fields, flexible-content
-Keywords: repeater, acf, advanced custom fields, wordpress plugin, free, multisite, rest api, gutenberg
+Tags: acf repeater, acf, advanced-custom-fields, repeater, custom-fields
+Keywords: repeater, acf, advanced custom fields, wordpress plugin, free, multisite, rest api, acf repeater
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
