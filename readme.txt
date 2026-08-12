@@ -6,7 +6,7 @@ Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
 Requires Plugins: advanced-custom-fields
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,14 @@ Yes. Full support for ACF's field group JSON export, import, and auto-sync.
 The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and switches to the stacked Row layout to prevent display issues. TinyMCE editors are properly initialized, duplicated, and cleaned up when rows are added, duplicated, or removed.
 
 == Changelog ==
+
+= 1.0.2 =
+* Fixed fatal autoloader exception by explicitly requiring built-in PSR-4 autoloader.
+* Fixed triple field registration issue when plugin is initialized across multiple hooks.
+* Fixed nested repeater add-row functionality and scoped clone template lookup to direct parent repeater.
+* Fixed UI overlap between drag handle dots and row numbers by widening handle column width.
+* Enqueued frontend stylesheet for acf_form() compatibility.
+* Updated WordPress.org assets with animated GIF logo.
 
 = 1.0.1 =
 * Updated plugin display name to "Raeen Repeater Field for ACF" and changed text domain to "repeater-field-for-acf" to match the WordPress.org plugin slug.
