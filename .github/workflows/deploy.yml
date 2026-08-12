@@ -37,9 +37,19 @@ jobs:
       - name: Build frontend assets
         run: npm ci && npm run build
 
-      - name: Get version from readme.txt
-        id: version
-        run: echo "version=$(grep -i '^Stable tag:' readme.txt | awk '{print $3}')" >> "$GITHUB_OUTPUT"
+      - name: Get version and check if version tag exists
+        id: version_check
+        run: |
+          VERSION=$(grep -i '^Stable tag:' readme.txt | awk '{print $3}')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          
+          if git rev-parse "refs/tags/v$VERSION" >/dev/null 2>&1 || git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
+            echo "tag_version=false" >> "$GITHUB_OUTPUT"
+            echo "Version $VERSION tag already exists. Updating trunk & assets only without releasing new tag."
+          else
+            echo "tag_version=true" >> "$GITHUB_OUTPUT"
+            echo "New version $VERSION detected. Creating new release tag."
+          fi
 
       - name: Deploy to WordPress.org
         id: deploy
@@ -48,5 +58,6 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: raeen-repeater-field-for-acf
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{ steps.version_check.outputs.version }}
+          TAG_VERSION: ${{ steps.version_check.outputs.tag_version }}
           ASSETS_DIR: .wordpress-org
