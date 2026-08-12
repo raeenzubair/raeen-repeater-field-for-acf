@@ -3,7 +3,6 @@
 .distignore
 .DS_Store
 .github
-.wordpress-org
 assets/branding
 scripts
 node_modules
