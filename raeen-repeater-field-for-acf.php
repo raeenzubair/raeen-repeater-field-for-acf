@@ -3,7 +3,7 @@
  * Plugin Name: Raeen Repeater Field for ACF
  * Plugin URI: https://github.com/raeenzubair/repeater-field-for-acf
  * Description: Adds a fully functional Repeater field type to the free version of Advanced Custom Fields. Supports table/block/row layouts, drag-and-drop sorting, nested repeaters, and full ACF JSON sync.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Requires Plugins: advanced-custom-fields
@@ -23,16 +23,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Plugin metadata constants.
  */
-define( 'RAEEN_REPEATER_VERSION', '1.0.1' );
-define( 'RAEEN_REPEATER_DB_VERSION', '1.0.1' );
+define( 'RAEEN_REPEATER_VERSION', '1.0.2' );
+define( 'RAEEN_REPEATER_DB_VERSION', '1.0.2' );
 define( 'RAEEN_REPEATER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RAEEN_REPEATER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'RAEEN_REPEATER_PLUGIN_FILE', __FILE__ );
 define( 'RAEEN_REPEATER_TEXT_DOMAIN', 'raeen-repeater-field-for-acf' );
 
 /**
- * Composer autoloader.
+ * Autoloader bootstrap.
+ *
+ * 1. Load the built-in PSR-4 autoloader shipped with the plugin.
+ *    This handles all Raeen_Repeater\* classes from the includes/ directory.
+ * 2. Optionally load Composer's autoloader for dev dependencies (phpunit, phpcs, etc.).
  */
+require_once RAEEN_REPEATER_PLUGIN_DIR . 'includes/Core/Autoloader.php';
+
 if ( file_exists( RAEEN_REPEATER_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 	require_once RAEEN_REPEATER_PLUGIN_DIR . 'vendor/autoload.php';
 }
@@ -117,15 +123,12 @@ final class Raeen_Repeater_Bootstrap {
 		register_deactivation_hook( __FILE__, [ __CLASS__, 'deactivate' ] );
 
 		// ACF field type registration.
-		// Hook on acf/include_field_types, acf/init, and init to ensure registration.
 		add_action( 'acf/include_field_types', [ $this, 'register_repeater_field' ], 5 );
 		add_action( 'acf/init', [ $this, 'register_repeater_field' ], 5 );
-		add_action( 'init', [ $this, 'register_repeater_field' ], 5 );
 
 		// Remove 'repeater' from ACF's PRO field types so it's selectable in the
 		// field group editor without the "PRO Only" lock.
 		add_action( 'acf/field_group/admin_enqueue_scripts', [ $this, 'unlock_repeater_field_type' ], 1 );
-		add_action( 'admin_enqueue_scripts', [ $this, 'unlock_repeater_field_type' ], 1 );
 		add_action( 'admin_head', [ $this, 'unlock_repeater_field_type' ], 1 );
 
 		// Admin assets.
@@ -163,6 +166,17 @@ final class Raeen_Repeater_Bootstrap {
 	 * @return void
 	 */
 	public function register_repeater_field(): void {
+		// Check if repeater field type is already registered in ACF.
+		if ( function_exists( 'acf_is_field_type' ) && acf_is_field_type( 'repeater' ) ) {
+			return;
+		}
+
+		// Prevent registering more than once across multiple hooks.
+		static $registered = false;
+		if ( $registered ) {
+			return;
+		}
+
 		// If ACF PRO is providing its own repeater, don't override it.
 		if ( $this->is_acf_pro_active() ) {
 			return;
@@ -172,6 +186,7 @@ final class Raeen_Repeater_Bootstrap {
 
 		if ( class_exists( '\Raeen_Repeater\Field\Repeater_Field' ) ) {
 			acf_register_field_type( '\Raeen_Repeater\Field\Repeater_Field' );
+			$registered = true;
 		}
 	}
 

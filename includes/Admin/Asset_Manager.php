@@ -106,6 +106,14 @@ class Asset_Manager
 			'version' => $this->version,
 			'media' => 'all',
 		);
+
+		// Frontend stylesheet (for acf_form() on the frontend).
+		$this->styles['raeen-repeater-field-frontend'] = array(
+			'src' => 'assets/dist/css/index2.css',
+			'deps' => array(),
+			'version' => $this->version,
+			'media' => 'all',
+		);
 	}
 
 	/**
@@ -248,8 +256,8 @@ class Asset_Manager
 
 		// Only enqueue if ACF frontend form is being used on this page.
 		if (function_exists('acf_form_head') && did_action('acf_form_head')) {
-			// Only enqueue script — no standalone frontend CSS bundle is registered.
 			wp_enqueue_script('raeen-repeater-field-frontend');
+			wp_enqueue_style('raeen-repeater-field-frontend');
 		}
 	}
 

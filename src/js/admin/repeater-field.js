@@ -154,11 +154,21 @@ class ACFRepeaterField {
 	 * Cache references to live (non-clone) rows.
 	 */
 	cacheRows() {
-		this._rows = Array.from(
+		const scopeRows = Array.from(
 			this.element.querySelectorAll(
-				':scope > .repeater-field-for-acf-rows > .acf-row, :scope > table > .repeater-field-for-acf-rows > .acf-row, :scope > .repeater-field-for-acf-rows > .repeater-field-for-acf-row, :scope > table > .repeater-field-for-acf-rows > .repeater-field-for-acf-row, .repeater-field-for-acf-rows > .repeater-field-for-acf-row, .repeater-field-for-acf-rows > .acf-row'
+				':scope > .repeater-field-for-acf-rows > .acf-row, :scope > table > .repeater-field-for-acf-rows > .acf-row'
 			)
-		).filter( ( r ) => ! r.classList.contains( 'acf-clone' ) );
+		);
+		if ( scopeRows.length > 0 ) {
+			this._rows = scopeRows.filter( ( r ) => ! r.classList.contains( 'acf-clone' ) );
+		} else {
+			const allRows = Array.from(
+				this.element.querySelectorAll(
+					'.repeater-field-for-acf-rows > .acf-row, .repeater-field-for-acf-rows > .repeater-field-for-acf-row'
+				)
+			);
+			this._rows = allRows.filter( ( r ) => this.ownsRow( r ) && ! r.classList.contains( 'acf-clone' ) );
+		}
 		return this._rows.length;
 	}
 
@@ -168,10 +178,14 @@ class ACFRepeaterField {
 	}
 
 	/**
-	 * Get the hidden clone/template row.
+	 * Get the hidden clone/template row for THIS repeater instance.
 	 */
 	getCloneRow() {
-		return this.element.querySelector( '.acf-row.acf-clone' );
+		const scopeClone = this.element.querySelector( ':scope > .repeater-field-for-acf-rows > .acf-row.acf-clone' );
+		if ( scopeClone ) return scopeClone;
+
+		const clones = Array.from( this.element.querySelectorAll( '.acf-row.acf-clone' ) );
+		return clones.find( ( c ) => this.ownsRow( c ) ) || null;
 	}
 
 	/**
@@ -485,22 +499,47 @@ class ACFRepeaterField {
 	 * @param {number}        newIdx  New integer index.
 	 */
 	replaceIndex( el, oldIdx, newIdx ) {
-		const oldStr    = String( oldIdx );
-		const newStr    = String( newIdx );
-		// Matches [acfcloneindex] or [0] etc. in input names.
-		const bracketRe = new RegExp( '\\[' + this.escapeRe( oldStr ) + '\\]', 'g' );
-		// Matches bare acfcloneindex or plain number in data-id / other attrs.
-		const bareRe    = new RegExp( '(?<![\\w])' + this.escapeRe( oldStr ) + '(?![\\w])', 'g' );
+		const oldStr = String( oldIdx );
+		const newStr = String( newIdx );
+		const oldEsc = this.escapeRe( oldStr );
+
+		const keys = [ this.fieldName, this.fieldKey ].filter( Boolean ).map( ( k ) => this.escapeRe( k ) );
+		let targetedBracketRe;
+		if ( keys.length > 0 ) {
+			// Matches [parent_name][oldIdx] or [parent_key][oldIdx]
+			targetedBracketRe = new RegExp( '(\\[(?:' + keys.join( '|' ) + ')\\])\\[(?:' + oldEsc + ')\\]', 'g' );
+		}
+
+		const fallbackBracketRe = new RegExp( '\\[' + oldEsc + '\\]', 'g' );
+		const bareRe            = new RegExp( '(?<![\\w])' + oldEsc + '(?![\\w])', 'g' );
 
 		// Update all descendant elements with name, id, for attributes.
 		el.querySelectorAll( '[name], [id], [for], [data-key]' ).forEach( ( node ) => {
-			if ( node.name )    node.name    = node.name.replace( bracketRe, `[${newStr}]` );
-			if ( node.id )      node.id      = node.id.replace( bracketRe, `[${newStr}]` ).replace( bareRe, newStr );
-			if ( node.htmlFor ) node.htmlFor = node.htmlFor.replace( bracketRe, `[${newStr}]` ).replace( bareRe, newStr );
+			if ( node.name ) {
+				if ( targetedBracketRe ) {
+					node.name = node.name.replace( targetedBracketRe, `$1[${newStr}]` );
+				} else {
+					node.name = node.name.replace( fallbackBracketRe, `[${newStr}]` );
+				}
+			}
+			if ( node.id ) {
+				if ( targetedBracketRe ) {
+					node.id = node.id.replace( targetedBracketRe, `$1_${newStr}` );
+				} else {
+					node.id = node.id.replace( fallbackBracketRe, `_${newStr}` ).replace( bareRe, newStr );
+				}
+			}
+			if ( node.htmlFor ) {
+				if ( targetedBracketRe ) {
+					node.htmlFor = node.htmlFor.replace( targetedBracketRe, `$1_${newStr}` );
+				} else {
+					node.htmlFor = node.htmlFor.replace( fallbackBracketRe, `_${newStr}` ).replace( bareRe, newStr );
+				}
+			}
 		} );
 
 		// Update the row's own data-id.
-		if ( el.dataset ) {
+		if ( el.dataset && String( el.dataset.id ) === oldStr ) {
 			el.dataset.id = newStr;
 		}
 	}
