@@ -100,20 +100,7 @@ class Rest_API
 				'methods' => \WP_REST_Server::READABLE,
 				'callback' => array($this, 'get_repeater_field'),
 				'permission_callback' => array($this, 'check_read_permission'),
-				'args' => array(
-					'field_key' => array(
-						'validate_callback' => function ($param) {
-							return preg_match('/^field_[a-zA-Z0-9_]+$/', $param);
-						},
-						'sanitize_callback' => 'sanitize_text_field',
-					),
-					'post_id' => array(
-						'validate_callback' => function ($param) {
-							return is_numeric($param);
-						},
-						'sanitize_callback' => 'absint',
-					),
-				),
+				'args' => $this->get_route_args(array('field_key', 'post_id')),
 			)
 		);
 
@@ -124,26 +111,7 @@ class Rest_API
 				'methods' => \WP_REST_Server::CREATABLE,
 				'callback' => array($this, 'add_repeater_row'),
 				'permission_callback' => array($this, 'check_edit_permission'),
-				'args' => array(
-					'field_key' => array(
-						'validate_callback' => function ($param) {
-							return preg_match('/^field_[a-zA-Z0-9_]+$/', $param);
-						},
-						'sanitize_callback' => 'sanitize_text_field',
-					),
-					'post_id' => array(
-						'validate_callback' => function ($param) {
-							return is_numeric($param);
-						},
-						'sanitize_callback' => 'absint',
-					),
-					'row_data' => array(
-						'validate_callback' => function ($param) {
-							return is_array($param);
-						},
-						'sanitize_callback' => array($this, 'sanitize_row_data'),
-					),
-				),
+				'args' => $this->get_route_args(array('field_key', 'post_id', 'row_data')),
 			)
 		);
 
@@ -155,85 +123,60 @@ class Rest_API
 					'methods' => \WP_REST_Server::READABLE,
 					'callback' => array($this, 'get_repeater_row'),
 					'permission_callback' => array($this, 'check_read_permission'),
-					'args' => array(
-						'field_key' => array(
-							'validate_callback' => function ($param) {
-								return preg_match('/^field_[a-zA-Z0-9_]+$/', $param);
-							},
-							'sanitize_callback' => 'sanitize_text_field',
-						),
-						'post_id' => array(
-							'validate_callback' => function ($param) {
-								return is_numeric($param);
-							},
-							'sanitize_callback' => 'absint',
-						),
-						'row_index' => array(
-							'validate_callback' => function ($param) {
-								return is_numeric($param) && $param >= 0;
-							},
-							'sanitize_callback' => 'absint',
-						),
-					),
+					'args' => $this->get_route_args(array('field_key', 'post_id', 'row_index')),
 				),
 				array(
 					'methods' => \WP_REST_Server::EDITABLE,
 					'callback' => array($this, 'update_repeater_row'),
 					'permission_callback' => array($this, 'check_edit_permission'),
-					'args' => array(
-						'field_key' => array(
-							'validate_callback' => function ($param) {
-								return preg_match('/^field_[a-zA-Z0-9_]+$/', $param);
-							},
-							'sanitize_callback' => 'sanitize_text_field',
-						),
-						'post_id' => array(
-							'validate_callback' => function ($param) {
-								return is_numeric($param);
-							},
-							'sanitize_callback' => 'absint',
-						),
-						'row_index' => array(
-							'validate_callback' => function ($param) {
-								return is_numeric($param) && $param >= 0;
-							},
-							'sanitize_callback' => 'absint',
-						),
-						'row_data' => array(
-							'validate_callback' => function ($param) {
-								return is_array($param);
-							},
-							'sanitize_callback' => array($this, 'sanitize_row_data'),
-						),
-					),
+					'args' => $this->get_route_args(array('field_key', 'post_id', 'row_index', 'row_data')),
 				),
 				array(
 					'methods' => \WP_REST_Server::DELETABLE,
 					'callback' => array($this, 'delete_repeater_row'),
 					'permission_callback' => array($this, 'check_edit_permission'),
-					'args' => array(
-						'field_key' => array(
-							'validate_callback' => function ($param) {
-								return preg_match('/^field_[a-zA-Z0-9_]+$/', $param);
-							},
-							'sanitize_callback' => 'sanitize_text_field',
-						),
-						'post_id' => array(
-							'validate_callback' => function ($param) {
-								return is_numeric($param);
-							},
-							'sanitize_callback' => 'absint',
-						),
-						'row_index' => array(
-							'validate_callback' => function ($param) {
-								return is_numeric($param) && $param >= 0;
-							},
-							'sanitize_callback' => 'absint',
-						),
-					),
+					'args' => $this->get_route_args(array('field_key', 'post_id', 'row_index')),
 				),
 			)
 		);
+	}
+
+	/**
+	 * Get route arguments.
+	 *
+	 * @param array $keys Array of argument keys to return.
+	 * @return array
+	 */
+	private function get_route_args(array $keys): array
+	{
+		$args = array(
+			'field_key' => array(
+				'validate_callback' => function ($param) {
+					return preg_match('/^field_[a-zA-Z0-9_]+$/', $param);
+				},
+				'sanitize_callback' => 'sanitize_text_field',
+			),
+			'post_id' => array(
+				'validate_callback' => function ($param) {
+					return is_numeric($param);
+				},
+				'sanitize_callback' => 'absint',
+			),
+			'row_index' => array(
+				'validate_callback' => function ($param) {
+					return is_numeric($param) && $param >= 0;
+				},
+				'sanitize_callback' => 'absint',
+			),
+			'row_data' => array(
+				'validate_callback' => function ($param) {
+					return is_array($param);
+				},
+				'sanitize_callback' => array($this, 'sanitize_row_data'),
+			),
+		);
+
+		return array_intersect_key($args, array_flip($keys));
 	}
 
 	/**
