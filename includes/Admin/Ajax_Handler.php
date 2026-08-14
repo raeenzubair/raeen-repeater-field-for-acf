@@ -152,6 +152,16 @@ class Ajax_Handler
 			return;
 		}
 
+		// 4. Verify that the field actually exists and is a repeater field (prevents IDOR / writing to arbitrary meta)
+		$field = acf_get_field($field_key);
+		if (!$field || $field['type'] !== 'repeater') {
+			wp_send_json_error(
+				array( 'message' => __('Invalid or missing repeater field.', 'raeen-repeater-field-for-acf') ),
+				403
+			);
+			return;
+		}
+
 		$new_order = array();
 		$raw_order = isset($_POST['new_order']) ? sanitize_text_field(wp_unslash($_POST['new_order'])) : '';
 		if (!empty($raw_order)) {
