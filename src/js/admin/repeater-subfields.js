@@ -1,7 +1,9 @@
 /**
- * ACF Repeater Sub-fields - Sub-field initialization and management
+ * Raeen Repeater Field for ACF Sub-fields - Sub-field initialization and management
  *
- * @package ACF_Repeater
+ * @package    Raeen_Repeater
+ * @repository https://github.com/raeenzubair/repeater-field-for-acf
+ * @license    GPL-2.0-or-later
  */
 
 class ACFRepeaterSubFields {

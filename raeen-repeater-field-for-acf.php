@@ -3,7 +3,7 @@
  * Plugin Name: Raeen Repeater Field for ACF
  * Plugin URI: https://github.com/raeenzubair/repeater-field-for-acf
  * Description: Adds a fully functional Repeater field type to the free version of Advanced Custom Fields. Supports table/block/row layouts, drag-and-drop sorting, nested repeaters, and full ACF JSON sync.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Requires Plugins: advanced-custom-fields
@@ -11,24 +11,29 @@
  * Author URI: https://github.com/raeenzubair
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: repeater-field-for-acf
+ * Text Domain: raeen-repeater-field-for-acf
  * Domain Path: /languages
+ *
+ * Source code & build instructions:
+ * Repository: https://github.com/raeenzubair/repeater-field-for-acf
+ * Unminified JavaScript and CSS sources are located in `src/`.
+ * To rebuild production assets: `npm install && npm run build`.
  */
 
 // Prevent direct access.
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
 /**
  * Plugin metadata constants.
  */
-define( 'RAEEN_REPEATER_VERSION', '1.0.2' );
-define( 'RAEEN_REPEATER_DB_VERSION', '1.0.2' );
-define( 'RAEEN_REPEATER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'RAEEN_REPEATER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'RAEEN_REPEATER_PLUGIN_FILE', __FILE__ );
-define( 'RAEEN_REPEATER_TEXT_DOMAIN', 'raeen-repeater-field-for-acf' );
+define('RAEEN_REPEATER_VERSION', '1.0.3');
+define('RAEEN_REPEATER_DB_VERSION', '1.0.3');
+define('RAEEN_REPEATER_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('RAEEN_REPEATER_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('RAEEN_REPEATER_PLUGIN_FILE', __FILE__);
+define('RAEEN_REPEATER_TEXT_DOMAIN', 'raeen-repeater-field-for-acf');
 
 /**
  * Autoloader bootstrap.
@@ -39,7 +44,7 @@ define( 'RAEEN_REPEATER_TEXT_DOMAIN', 'raeen-repeater-field-for-acf' );
  */
 require_once RAEEN_REPEATER_PLUGIN_DIR . 'includes/Core/Autoloader.php';
 
-if ( file_exists( RAEEN_REPEATER_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+if (file_exists(RAEEN_REPEATER_PLUGIN_DIR . 'vendor/autoload.php')) {
 	require_once RAEEN_REPEATER_PLUGIN_DIR . 'vendor/autoload.php';
 }
 
@@ -51,7 +56,8 @@ use Raeen_Repeater\Admin\Rest_API;
 /**
  * Main plugin bootstrap class.
  */
-final class Raeen_Repeater_Bootstrap {
+final class Raeen_Repeater_Bootstrap
+{
 
 	/**
 	 * Plugin instance.
@@ -93,8 +99,9 @@ final class Raeen_Repeater_Bootstrap {
 	 *
 	 * @return self
 	 */
-	public static function instance(): self {
-		if ( null === self::$instance ) {
+	public static function instance(): self
+	{
+		if (null === self::$instance) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -103,11 +110,12 @@ final class Raeen_Repeater_Bootstrap {
 	/**
 	 * Private constructor.
 	 */
-	private function __construct() {
+	private function __construct()
+	{
 		$this->asset_manager = new Asset_Manager();
-		$this->settings      = new Settings();
-		$this->ajax_handler  = new Ajax_Handler();
-		$this->rest_api      = new Rest_API();
+		$this->settings = new Settings();
+		$this->ajax_handler = new Ajax_Handler();
+		$this->rest_api = new Rest_API();
 
 		$this->init_hooks();
 	}
@@ -117,42 +125,43 @@ final class Raeen_Repeater_Bootstrap {
 	 *
 	 * @return void
 	 */
-	private function init_hooks(): void {
+	private function init_hooks(): void
+	{
 		// Plugin lifecycle.
-		register_activation_hook( __FILE__, [ __CLASS__, 'activate' ] );
-		register_deactivation_hook( __FILE__, [ __CLASS__, 'deactivate' ] );
+		register_activation_hook(__FILE__, [__CLASS__, 'activate']);
+		register_deactivation_hook(__FILE__, [__CLASS__, 'deactivate']);
 
 		// ACF field type registration.
-		add_action( 'acf/include_field_types', [ $this, 'register_repeater_field' ], 5 );
-		add_action( 'acf/init', [ $this, 'register_repeater_field' ], 5 );
+		add_action('acf/include_field_types', [$this, 'register_repeater_field'], 5);
+		add_action('acf/init', [$this, 'register_repeater_field'], 5);
 
 		// Remove 'repeater' from ACF's PRO field types so it's selectable in the
 		// field group editor without the "PRO Only" lock.
-		add_action( 'acf/field_group/admin_enqueue_scripts', [ $this, 'unlock_repeater_field_type' ], 1 );
-		add_action( 'admin_head', [ $this, 'unlock_repeater_field_type' ], 1 );
+		add_action('acf/field_group/admin_enqueue_scripts', [$this, 'unlock_repeater_field_type'], 1);
+		add_action('admin_head', [$this, 'unlock_repeater_field_type'], 1);
 
 		// Admin assets.
-		add_action( 'admin_enqueue_scripts', [ $this->asset_manager, 'enqueue_admin_assets' ] );
+		add_action('admin_enqueue_scripts', [$this->asset_manager, 'enqueue_admin_assets']);
 
 		// ACF-specific asset hooks (field group editor + post edit screens).
-		add_action( 'acf/field_group/admin_enqueue_scripts', [ $this->asset_manager, 'enqueue_field_group_assets' ] );
-		add_action( 'acf/input/admin_enqueue_scripts', [ $this->asset_manager, 'enqueue_input_assets' ] );
+		add_action('acf/field_group/admin_enqueue_scripts', [$this->asset_manager, 'enqueue_field_group_assets']);
+		add_action('acf/input/admin_enqueue_scripts', [$this->asset_manager, 'enqueue_input_assets']);
 
 		// Gutenberg / Block Editor.
-		add_action( 'enqueue_block_editor_assets', [ $this->asset_manager, 'enqueue_block_editor_assets' ] );
+		add_action('enqueue_block_editor_assets', [$this->asset_manager, 'enqueue_block_editor_assets']);
 
 		// Frontend ACF forms.
-		add_action( 'wp_enqueue_scripts', [ $this->asset_manager, 'enqueue_frontend_assets' ] );
+		add_action('wp_enqueue_scripts', [$this->asset_manager, 'enqueue_frontend_assets']);
 
 		// REST API.
-		add_action( 'rest_api_init', [ $this->rest_api, 'register_routes' ] );
+		add_action('rest_api_init', [$this->rest_api, 'register_routes']);
 
 		// ACF JSON sync.
-		add_filter( 'acf/settings/save_json', [ $this->settings, 'modify_save_json_path' ] );
-		add_filter( 'acf/settings/load_json', [ $this->settings, 'modify_load_json_paths' ] );
+		add_filter('acf/settings/save_json', [$this->settings, 'modify_save_json_path']);
+		add_filter('acf/settings/load_json', [$this->settings, 'modify_load_json_paths']);
 
 		// Admin notices.
-		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
+		add_action('admin_notices', [$this, 'admin_notices']);
 	}
 
 	/**
@@ -165,27 +174,28 @@ final class Raeen_Repeater_Bootstrap {
 	 *
 	 * @return void
 	 */
-	public function register_repeater_field(): void {
+	public function register_repeater_field(): void
+	{
 		// Check if repeater field type is already registered in ACF.
-		if ( function_exists( 'acf_is_field_type' ) && acf_is_field_type( 'repeater' ) ) {
+		if (function_exists('acf_is_field_type') && acf_is_field_type('repeater')) {
 			return;
 		}
 
 		// Prevent registering more than once across multiple hooks.
 		static $registered = false;
-		if ( $registered ) {
+		if ($registered) {
 			return;
 		}
 
 		// If ACF PRO is providing its own repeater, don't override it.
-		if ( $this->is_acf_pro_active() ) {
+		if ($this->is_acf_pro_active()) {
 			return;
 		}
 
 		require_once RAEEN_REPEATER_PLUGIN_DIR . 'includes/Field/Repeater_Field.php';
 
-		if ( class_exists( '\Raeen_Repeater\Field\Repeater_Field' ) ) {
-			acf_register_field_type( '\Raeen_Repeater\Field\Repeater_Field' );
+		if (class_exists('\Raeen_Repeater\Field\Repeater_Field')) {
+			acf_register_field_type('\Raeen_Repeater\Field\Repeater_Field');
 			$registered = true;
 		}
 	}
@@ -199,22 +209,23 @@ final class Raeen_Repeater_Bootstrap {
 	 *
 	 * @return void
 	 */
-	public function unlock_repeater_field_type(): void {
-		if ( $this->is_acf_pro_active() ) {
+	public function unlock_repeater_field_type(): void
+	{
+		if ($this->is_acf_pro_active()) {
 			return;
 		}
 
-		if ( ! function_exists( 'acf_get_pro_field_types' ) ) {
+		if (!function_exists('acf_get_pro_field_types')) {
 			return;
 		}
 
 		$pro_types = acf_get_pro_field_types();
 
-		if ( isset( $pro_types['repeater'] ) ) {
-			unset( $pro_types['repeater'] );
+		if (isset($pro_types['repeater'])) {
+			unset($pro_types['repeater']);
 			// Override the JS-localized PROFieldTypes array so the editor
 			// doesn't show the repeater as locked.
-			acf_localize_data( array( 'PROFieldTypes' => $pro_types ) );
+			acf_localize_data(array('PROFieldTypes' => $pro_types));
 		}
 	}
 
@@ -223,9 +234,10 @@ final class Raeen_Repeater_Bootstrap {
 	 *
 	 * @return bool
 	 */
-	private function is_acf_pro_active(): bool {
+	private function is_acf_pro_active(): bool
+	{
 		// ACF PRO sets ACF_PRO constant when active.
-		return defined( 'ACF_PRO' );
+		return defined('ACF_PRO');
 	}
 
 	/**
@@ -233,17 +245,18 @@ final class Raeen_Repeater_Bootstrap {
 	 *
 	 * @return void
 	 */
-	public function admin_notices(): void {
+	public function admin_notices(): void
+	{
 		// Show notice if ACF is missing.
-		if ( ! function_exists( 'acf' ) && ! function_exists( 'acf_get_field_type' ) ) {
+		if (!function_exists('acf') && !function_exists('acf_get_field_type')) {
 			?>
 			<div class="notice notice-error is-dismissible">
 				<p>
-					<strong><?php esc_html_e( 'Raeen Repeater Field for ACF', 'raeen-repeater-field-for-acf' ); ?></strong>
+					<strong><?php esc_html_e('Raeen Repeater Field for ACF', 'raeen-repeater-field-for-acf'); ?></strong>
 					<?php
 					printf(
 						/* translators: %s: plugin name */
-						esc_html__( '%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'raeen-repeater-field-for-acf' ),
+						esc_html__('%s requires Advanced Custom Fields (free version 5.8 or higher) to be installed and activated.', 'raeen-repeater-field-for-acf'),
 						'<strong>Raeen Repeater Field for ACF</strong>'
 					);
 					?>
@@ -258,28 +271,29 @@ final class Raeen_Repeater_Bootstrap {
 	 *
 	 * @return void
 	 */
-	public static function activate(): void {
-		if ( version_compare( PHP_VERSION, '7.4', '<' ) ) {
-			deactivate_plugins( plugin_basename( RAEEN_REPEATER_PLUGIN_FILE ) );
+	public static function activate(): void
+	{
+		if (version_compare(PHP_VERSION, '7.4', '<')) {
+			deactivate_plugins(plugin_basename(RAEEN_REPEATER_PLUGIN_FILE));
 			wp_die(
-				esc_html__( 'Raeen Repeater Field for ACF requires PHP 7.4 or higher.', 'raeen-repeater-field-for-acf' ),
+				esc_html__('Raeen Repeater Field for ACF requires PHP 7.4 or higher.', 'raeen-repeater-field-for-acf'),
 				'',
-				[ 'response' => 500 ]
+				['response' => 500]
 			);
 		}
 
 		global $wp_version;
-		if ( version_compare( $wp_version, '5.8', '<' ) ) {
-			deactivate_plugins( plugin_basename( RAEEN_REPEATER_PLUGIN_FILE ) );
+		if (version_compare($wp_version, '5.8', '<')) {
+			deactivate_plugins(plugin_basename(RAEEN_REPEATER_PLUGIN_FILE));
 			wp_die(
-				esc_html__( 'Raeen Repeater Field for ACF requires WordPress 5.8 or higher.', 'raeen-repeater-field-for-acf' ),
+				esc_html__('Raeen Repeater Field for ACF requires WordPress 5.8 or higher.', 'raeen-repeater-field-for-acf'),
 				'',
-				[ 'response' => 500 ]
+				['response' => 500]
 			);
 		}
 
-		update_option( 'raeen_repeater_version', RAEEN_REPEATER_VERSION );
-		update_option( 'raeen_repeater_db_version', RAEEN_REPEATER_DB_VERSION );
+		update_option('raeen_repeater_version', RAEEN_REPEATER_VERSION);
+		update_option('raeen_repeater_db_version', RAEEN_REPEATER_DB_VERSION);
 		flush_rewrite_rules();
 	}
 
@@ -288,7 +302,8 @@ final class Raeen_Repeater_Bootstrap {
 	 *
 	 * @return void
 	 */
-	public static function deactivate(): void {
+	public static function deactivate(): void
+	{
 		flush_rewrite_rules();
 	}
 
@@ -297,28 +312,32 @@ final class Raeen_Repeater_Bootstrap {
 	/**
 	 * @return Asset_Manager
 	 */
-	public function get_asset_manager(): Asset_Manager {
+	public function get_asset_manager(): Asset_Manager
+	{
 		return $this->asset_manager;
 	}
 
 	/**
 	 * @return Settings
 	 */
-	public function get_settings(): Settings {
+	public function get_settings(): Settings
+	{
 		return $this->settings;
 	}
 
 	/**
 	 * @return Ajax_Handler
 	 */
-	public function get_ajax_handler(): Ajax_Handler {
+	public function get_ajax_handler(): Ajax_Handler
+	{
 		return $this->ajax_handler;
 	}
 
 	/**
 	 * @return Rest_API
 	 */
-	public function get_rest_api(): Rest_API {
+	public function get_rest_api(): Rest_API
+	{
 		return $this->rest_api;
 	}
 }
@@ -328,7 +347,8 @@ final class Raeen_Repeater_Bootstrap {
  *
  * @return Raeen_Repeater_Bootstrap
  */
-function raeen_repeater(): Raeen_Repeater_Bootstrap {
+function raeen_repeater(): Raeen_Repeater_Bootstrap
+{
 	return Raeen_Repeater_Bootstrap::instance();
 }
 

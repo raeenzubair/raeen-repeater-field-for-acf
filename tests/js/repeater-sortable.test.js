@@ -1,7 +1,7 @@
 /**
  * Tests for ACFRepeaterSortable class.
  *
- * @package ACF_Repeater\Tests
+ * @package Raeen_Repeater\Tests
  */
 
 import ACFRepeaterSortable from '@admin/repeater-sortable';

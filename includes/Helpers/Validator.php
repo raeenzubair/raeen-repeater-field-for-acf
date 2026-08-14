@@ -94,7 +94,16 @@ class Validator {
 		}
 
 		$value     = $row[ $name ] ?? null;
+		$type      = $sub_field['type'] ?? 'text';
 		$has_value = $this->has_value( $value );
+
+		// Repeater sub-fields must validate min_rows / subfields even when empty.
+		if ( 'repeater' === $type ) {
+			if ( is_array( $value ) ) {
+				$this->validate_by_type( $value, $type, $sub_field, $row_index, $name );
+			}
+			return;
+		}
 
 		// Required validation.
 		if ( $required && ! $has_value ) {
@@ -115,7 +124,6 @@ class Validator {
 		}
 
 		// Type-specific validation.
-		$type = $sub_field['type'] ?? 'text';
 		$this->validate_by_type( $value, $type, $sub_field, $row_index, $name );
 	}
 

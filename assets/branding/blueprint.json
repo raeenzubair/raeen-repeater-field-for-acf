@@ -5,25 +5,15 @@
     "php": "8.2",
     "wp": "latest"
   },
+  "plugins": [
+    "advanced-custom-fields",
+    "raeen-repeater-field-for-acf"
+  ],
   "steps": [
     {
       "step": "login",
       "username": "admin",
       "password": "password"
-    },
-    {
-      "step": "installPlugin",
-      "pluginData": {
-        "resource": "wordpress.org/plugins",
-        "slug": "advanced-custom-fields"
-      },
-      "options": {
-        "activate": true
-      }
-    },
-    {
-      "step": "activatePlugin",
-      "pluginPath": "raeen-repeater-field-for-acf/raeen-repeater-field-for-acf.php"
     }
   ]
 }

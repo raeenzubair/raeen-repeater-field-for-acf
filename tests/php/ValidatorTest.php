@@ -1,13 +1,13 @@
 <?php
 /**
- * Validator Tests for ACF Repeater.
+ * Validator Tests for Raeen Repeater Field for ACF.
  *
- * @package ACF_Repeater\Tests
+ * @package Raeen_Repeater\Tests
  */
 
-namespace ACF_Repeater\Tests;
+namespace Raeen_Repeater\Tests;
 
-use ACF_Repeater\Helpers\Validator;
+use Raeen_Repeater\Helpers\Validator;
 use PHPUnit\Framework\TestCase;
 
 /**

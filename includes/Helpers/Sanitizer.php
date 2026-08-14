@@ -47,12 +47,12 @@ class Sanitizer {
 			return array_map( array( $this, 'sanitize_value' ), $value );
 		}
 
-		if ( is_string( $value ) ) {
-			return sanitize_text_field( $value );
-		}
-
 		if ( is_numeric( $value ) ) {
 			return $value + 0;
+		}
+
+		if ( is_string( $value ) ) {
+			return sanitize_text_field( $value );
 		}
 
 		if ( is_bool( $value ) ) {
@@ -83,15 +83,19 @@ class Sanitizer {
 		switch ( $type ) {
 			case 'text':
 			case 'textarea':
-			case 'email':
-			case 'url':
 			case 'password':
 			case 'search':
 				return is_string( $value ) ? sanitize_text_field( $value ) : $value;
 
+			case 'email':
+				return is_string( $value ) ? sanitize_email( $value ) : $value;
+
+			case 'url':
+				return is_string( $value ) ? esc_url_raw( trim( $value ) ) : $value;
+
 			case 'number':
 			case 'range':
-				return is_numeric( $value ) ? (float) $value : 0;
+				return is_numeric( $value ) ? ( $value + 0 ) : 0;
 
 			case 'wysiwyg':
 				return is_string( $value ) ? wp_kses_post( $value ) : '';
@@ -117,7 +121,7 @@ class Sanitizer {
 				return is_string( $value ) ? sanitize_text_field( $value ) : '';
 
 			case 'color_picker':
-				return is_string( $value ) ? sanitize_hex_color( $value ) : '';
+				return is_string( $value ) ? sanitize_hex_color( trim( $value ) ) : '';
 
 			case 'link':
 				return is_array( $value ) ? $this->sanitize_link( $value ) : array();
@@ -164,7 +168,7 @@ class Sanitizer {
 		$sub_fields = $field['sub_fields'] ?? array();
 		$sanitized  = array();
 
-		foreach ( $value as $row ) {
+		foreach ( $value as $index => $row ) {
 			if ( ! is_array( $row ) ) {
 				continue;
 			}
@@ -178,12 +182,8 @@ class Sanitizer {
 			}
 
 			// Preserve row metadata.
-			if ( isset( $row['acf_repeater_row_id'] ) ) {
-				$sanitized_row['acf_repeater_row_id'] = sanitize_text_field( $row['acf_repeater_row_id'] );
-			}
-			if ( isset( $row['acf_repeater_row_index'] ) ) {
-				$sanitized_row['acf_repeater_row_index'] = (int) $row['acf_repeater_row_index'];
-			}
+			$sanitized_row['acf_repeater_row_id']    = isset( $row['acf_repeater_row_id'] ) ? sanitize_text_field( $row['acf_repeater_row_id'] ) : ( 'row_' . ( $index + 1 ) );
+			$sanitized_row['acf_repeater_row_index'] = isset( $row['acf_repeater_row_index'] ) ? (int) $row['acf_repeater_row_index'] : $index;
 
 			$sanitized[] = $sanitized_row;
 		}
@@ -442,7 +442,7 @@ class Sanitizer {
 	 * @param array $sub_fields Raw sub fields.
 	 * @return array Sanitized sub fields.
 	 */
-	private function sanitize_sub_fields( array $sub_fields ): array {
+	public function sanitize_sub_fields( array $sub_fields ): array {
 		$sanitized = array();
 
 		foreach ( $sub_fields as $index => $sub_field ) {
