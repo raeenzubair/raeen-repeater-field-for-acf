@@ -1,7 +1,7 @@
 /**
  * Tests for ACFRepeaterField class.
  *
- * @package ACF_Repeater\Tests
+ * @package Raeen_Repeater\Tests
  */
 
 import ACFRepeaterField from '@admin/repeater-field';

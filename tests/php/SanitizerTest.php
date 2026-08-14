@@ -1,13 +1,13 @@
 <?php
 /**
- * Sanitizer Tests for ACF Repeater.
+ * Sanitizer Tests for Raeen Repeater Field for ACF.
  *
- * @package ACF_Repeater\Tests
+ * @package Raeen_Repeater\Tests
  */
 
-namespace ACF_Repeater\Tests;
+namespace Raeen_Repeater\Tests;
 
-use ACF_Repeater\Helpers\Sanitizer;
+use Raeen_Repeater\Helpers\Sanitizer;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -246,7 +246,7 @@ class SanitizerTest extends TestCase {
 		$sanitized = $this->sanitizer->sanitize_row( $row, $field );
 
 		$this->assertSame( 'Hello', $sanitized['text_field'] );
-		$this->assertSame( 'USER@EXAMPLE.COM', $sanitized['email_field'] );
+		$this->assertSame( 'user@example.com', $sanitized['email_field'] );
 		$this->assertSame( 42, $sanitized['number_field'] );
 		$this->assertSame( 'row_123', $sanitized['acf_repeater_row_id'] );
 	}

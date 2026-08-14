@@ -1,12 +1,14 @@
 /**
- * ACF Repeater — Admin JavaScript Entry Point
+ * Raeen Repeater Field for ACF — Admin JavaScript Entry Point
  *
  * Initializes repeater field instances for:
  * 1. Fields already in the DOM on page load
  * 2. Fields added dynamically (Gutenberg, flexible content, nested repeaters)
  *    via ACF's 'append' action and a MutationObserver fallback.
  *
- * @package ACF_Repeater
+ * @package    Raeen_Repeater
+ * @repository https://github.com/raeenzubair/repeater-field-for-acf
+ * @license    GPL-2.0-or-later
  */
 
 import '@css/admin/repeater.css';

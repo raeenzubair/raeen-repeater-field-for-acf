@@ -1,12 +1,14 @@
 /**
- * ACF Repeater Field — Core field controller.
+ * Raeen Repeater Field for ACF — Core field controller.
  *
  * Manages row add/remove/duplicate/sort operations for the repeater field.
  * Works with ACF Free's form submission format: input names are generated
  * by ACF's own acf_render_field() using prefix + _name, resulting in:
  *   acf[{field_name}][{row_index}][{sub_field_name}]
  *
- * @package ACF_Repeater
+ * @package    Raeen_Repeater
+ * @repository https://github.com/raeenzubair/repeater-field-for-acf
+ * @license    GPL-2.0-or-later
  */
 
 class ACFRepeaterField {

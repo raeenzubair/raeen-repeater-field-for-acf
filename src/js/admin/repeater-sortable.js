@@ -1,7 +1,9 @@
 /**
- * ACF Repeater Sortable - Drag and drop row sorting
+ * Raeen Repeater Field for ACF Sortable - Drag and drop row sorting
  *
- * @package ACF_Repeater
+ * @package    Raeen_Repeater
+ * @repository https://github.com/raeenzubair/repeater-field-for-acf
+ * @license    GPL-2.0-or-later
  */
 
 class ACFRepeaterSortable {

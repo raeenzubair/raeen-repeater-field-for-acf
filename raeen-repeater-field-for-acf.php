@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Raeen Repeater Field for ACF
- * Plugin URI: https://github.com/raeenzubair/raeen-repeater-field-for-acf
+ * Plugin URI: https://github.com/raeenzubair/repeater-field-for-acf
  * Description: Adds a fully functional Repeater field type to the free version of Advanced Custom Fields. Supports table/block/row layouts, drag-and-drop sorting, nested repeaters, and full ACF JSON sync.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Requires Plugins: advanced-custom-fields
@@ -11,8 +11,13 @@
  * Author URI: https://github.com/raeenzubair
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: repeater-field-for-acf
+ * Text Domain: raeen-repeater-field-for-acf
  * Domain Path: /languages
+ *
+ * Source code & build instructions:
+ * Repository: https://github.com/raeenzubair/repeater-field-for-acf
+ * Unminified JavaScript and CSS sources are located in `src/`.
+ * To rebuild production assets: `npm install && npm run build`.
  */
 
 // Prevent direct access.
@@ -23,8 +28,8 @@ if (!defined('ABSPATH')) {
 /**
  * Plugin metadata constants.
  */
-define('RAEEN_REPEATER_VERSION', '1.0.2');
-define('RAEEN_REPEATER_DB_VERSION', '1.0.2');
+define('RAEEN_REPEATER_VERSION', '1.0.3');
+define('RAEEN_REPEATER_DB_VERSION', '1.0.3');
 define('RAEEN_REPEATER_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('RAEEN_REPEATER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('RAEEN_REPEATER_PLUGIN_FILE', __FILE__);

@@ -1,7 +1,9 @@
 /**
- * ACF Repeater Modal - Confirmation dialogs
+ * Raeen Repeater Field for ACF Modal - Confirmation dialogs
  *
- * @package ACF_Repeater
+ * @package    Raeen_Repeater
+ * @repository https://github.com/raeenzubair/repeater-field-for-acf
+ * @license    GPL-2.0-or-later
  */
 
 class ACFRepeaterModal {

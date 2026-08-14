@@ -1,7 +1,9 @@
 /**
- * ACF Repeater Row - Row-level functionality
+ * Raeen Repeater Field for ACF Row - Row-level functionality
  *
- * @package ACF_Repeater
+ * @package    Raeen_Repeater
+ * @repository https://github.com/raeenzubair/repeater-field-for-acf
+ * @license    GPL-2.0-or-later
  */
 
 class ACFRepeaterRow {

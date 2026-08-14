@@ -1,9 +1,13 @@
 {
   "name": "raeen-repeater-field-for-acf",
-  "version": "1.0.2",
-
-  "description": "Advanced Repeater field for Advanced Custom Fields (Free version)",
+  "version": "1.0.3",
+  "description": "Raeen Repeater Field for Advanced Custom Fields (Free version)",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raeenzubair/repeater-field-for-acf.git"
+  },
+  "homepage": "https://github.com/raeenzubair/repeater-field-for-acf#readme",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

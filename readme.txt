@@ -6,7 +6,7 @@ Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
 Requires Plugins: advanced-custom-fields
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,7 +28,7 @@ Raeen Repeater Field for ACF adds a native-feeling Repeater field type to the **
 * **REST API Support**: Exposes repeater data through the WordPress REST API
 * **Gutenberg & Classic Editor**: Works in both editors
 * **Multisite Compatible**: Network activatable
-* **Internationalization Ready**: Full translation support (text domain: `repeater-field-for-acf`)
+* **Internationalization Ready**: Full translation support (text domain: `raeen-repeater-field-for-acf`)
 * **Accessibility Ready**: Proper ARIA labels and keyboard support
 
 **Data Storage (ACF Pro-compatible):**
@@ -64,23 +64,34 @@ This means all ACF template functions work without modification:
 4. Go to **Custom Fields → Field Groups**, edit a field group, and add a new **Repeater** field (under the Layout category).
 5. Add sub-fields to the repeater and save.
 
-== Source Code & Development ==
+== Source Code & Build Instructions ==
 
-This plugin is developed in the open. The complete source code and build tooling are available at:
+This plugin is free, open source software developed in the open according to WordPress.org Guideline 4 (human-readable code).
 
-* GitHub repository: https://github.com/raeenzubair/raeen-repeater-field-for-acf
+* **Public Source Repository**: https://github.com/raeenzubair/repeater-field-for-acf
+* **Source Code Directory**: The complete, unminified JavaScript and CSS source files are bundled inside the plugin in the `src/` directory:
+    * `src/js/admin/index.js` — Admin entry point & ACF integration
+    * `src/js/admin/repeater-field.js` — Core field controller & row operations
+    * `src/js/admin/repeater-modal.js` — Confirmation dialogs & accessibility
+    * `src/js/admin/repeater-row.js` — Row DOM management
+    * `src/js/admin/repeater-sortable.js` — Drag-and-drop sortable controller
+    * `src/js/admin/repeater-subfields.js` — Sub-field lifecycle & editor integration
+    * `src/js/public/index.js` — Frontend ACF form initialization
+    * `src/css/admin/repeater.css` — Admin repeater field styling
+    * `src/css/admin/field-group.css` — Field group editor setting styles
+    * `src/css/public/index.css` — Frontend display stylesheet
+* **Compiled Assets**: Production bundles located in `assets/dist/` are generated from `src/` with Vite and PostCSS. Each compiled file includes a source header banner linking back to the unminified source code and repository.
 
-The unminified JavaScript and CSS sources used to generate the compiled assets under `assets/dist/` are bundled in the plugin under `src/`. To rebuild the compiled assets from source:
+To build compiled assets from source:
 
     npm install
     npm run build
 
-Run the test suite and code quality checks with:
+To run the automated test suites:
 
-    npm test            # JavaScript unit tests
-    composer test       # PHP unit tests
-    composer phpcs      # PHP coding standards
-    composer phpstan    # PHP static analysis
+    npm test            # Run JavaScript unit tests (Jest)
+    composer test       # Run PHP unit tests (PHPUnit)
+    composer phpcs      # Check WordPress PHP coding standards
 
 == Frequently Asked Questions ==
 
@@ -110,6 +121,13 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 
 == Changelog ==
 
+= 1.0.3 - August 15, 2026 =
+* Compliance: Resolved WordPress.org Guideline 4 compliance by providing detailed public repository documentation, build instructions, and embedding license & source file banners into all compiled JavaScript and CSS assets.
+* Compliance: Corrected GitHub repository link to point to https://github.com/raeenzubair/repeater-field-for-acf.
+* Enhancement: Standardized text domain to `raeen-repeater-field-for-acf` across all plugin headers and translation functions.
+* Fix: Updated PHPUnit test suite namespaces to `Raeen_Repeater\Tests` and added standalone polyfills for local and CI testing.
+* Build: Updated Vite build pipeline to automatically prepend source metadata banners to generated distribution assets in `assets/dist/`.
+
 = 1.0.2 - August 12, 2026 =
 * Fix: Resolved fatal autoloader exception by explicitly loading built-in PSR-4 autoloader.
 * Fix: Resolved duplicate field registration causing repeater field to render multiple times on edit screens.
@@ -137,6 +155,9 @@ The plugin automatically detects rich field types (WYSIWYG, Gallery, etc.) and s
 * Feature: Added nested repeater support and multisite compatibility.
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+Maintenance and compliance release with updated documentation, build system banners, and test suite improvements.
 
 = 1.0.0 =
 Initial release. Requires Advanced Custom Fields (free) 5.8+ and PHP 7.4+.

@@ -1,9 +1,11 @@
 /**
- * ACF Repeater — Frontend JavaScript
+ * Raeen Repeater Field for ACF — Frontend JavaScript
  *
  * Initializes repeater fields on frontend ACF forms (acf_form()).
  *
- * @package ACF_Repeater
+ * @package    Raeen_Repeater
+ * @repository https://github.com/raeenzubair/repeater-field-for-acf
+ * @license    GPL-2.0-or-later
  */
 
 import '@css/public/index.css';

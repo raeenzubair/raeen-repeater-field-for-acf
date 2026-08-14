@@ -257,11 +257,28 @@ GPL-2.0-or-later
 
 ## Changelog
 
-### 1.0.0
-- Initial release
-- Full Repeater field implementation
-- Table and Block layouts
-- Drag-and-drop sorting
-- Nested repeater support
-- REST API integration
-- ACF JSON/PHP export support
+### 1.0.3 (August 15, 2026)
+- Compliance: Resolved WordPress.org Guideline 4 compliance by documenting public source repository URL, build tooling, and embedding license & source file banners into all compiled JS/CSS assets.
+- Compliance: Corrected GitHub repository link to point to https://github.com/raeenzubair/repeater-field-for-acf.
+- Enhancement: Standardized text domain to `raeen-repeater-field-for-acf` across all files.
+- Fix: Updated PHPUnit test suite namespaces and added standalone polyfills for test execution.
+- Build: Updated Vite build pipeline to automatically prepend source metadata banners to generated distribution assets in `assets/dist/`.
+
+### 1.0.2 (August 12, 2026)
+- Fix: Resolved fatal autoloader exception by explicitly loading built-in PSR-4 autoloader.
+- Fix: Resolved duplicate field registration causing repeater field to render multiple times on edit screens.
+- Fix: Resolved nested repeater add-row functionality by scoping clone template lookups and index replacements to parent repeaters.
+- Fix: Resolved drag handle UI overlap with row numbers by increasing left column width.
+
+### 1.0.1 (August 11, 2026)
+- Enhancement: Updated plugin display name to "Raeen Repeater Field for ACF" and text domain to repeater-field-for-acf.
+- Enhancement: Refactored code namespaces to Raeen_Repeater to prevent conflicts.
+- Security: Hardened AJAX input handling and added strict nonce verification.
+- Documentation: Documented open source repository and build instructions in readme.txt.
+
+### 1.0.0 (August 10, 2026)
+- Initial release of Repeater field for free Advanced Custom Fields (ACF 5.8+).
+- Three layout modes: Table, Block, and Row.
+- Drag-and-drop sorting and row operations.
+- ACF Pro-compatible flat postmeta format.
+- REST API and ACF JSON sync support.
