@@ -1,0 +1,4 @@
+## 2024-05-20 - ACF IDOR / Protected Meta Bypass
+**Vulnerability:** IDOR (Insecure Direct Object Reference) leading to protected meta bypass. In `includes/Admin/Ajax_Handler.php`, an AJAX action allowed arbitrary user input for `$field_key` to be passed directly to `get_post_meta()` and `update_post_meta()` without verifying it was a valid ACF field key. This allowed users with `edit_post` capability to modify or corrupt arbitrary array-based meta keys, including protected ones like `_wp_attachment_metadata`.
+**Learning:** Never assume inputs specifying meta keys or IDs correspond to the intended object type, even when the user has edit capabilities for the parent post. WordPress `update_post_meta` natively bypasses `is_protected_meta()` when called directly.
+**Prevention:** Always validate that a provided key/ID maps to the expected domain object (e.g., verifying `acf_get_field($field_key)['type'] === 'repeater'`) before acting on it.
