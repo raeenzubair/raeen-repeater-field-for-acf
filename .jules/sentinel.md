@@ -1,0 +1,4 @@
+## 2024-05-24 - Fix Arbitrary Post Meta IDOR
+**Vulnerability:** Found an Insecure Direct Object Reference (IDOR) vulnerability in the `ajax_sort_rows` function where any user with `edit_post` capabilities could pass an arbitrary `$field_key` and overwrite any protected array post meta (e.g. `_wp_attachment_metadata`).
+**Learning:** The code verified the user could edit the post and sanitized the input strings, but failed to logically verify that the user-provided meta key actually corresponded to a valid Advanced Custom Fields (ACF) repeater field before passing it to `update_post_meta`.
+**Prevention:** Always validate that user-provided keys correspond to the expected object types (e.g. using `acf_get_field()` and checking `$field[\"type\"] === \"repeater\"`) before using them as keys in database update operations.
