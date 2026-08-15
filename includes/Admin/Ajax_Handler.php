@@ -166,6 +166,15 @@ class Ajax_Handler
 			return;
 		}
 
+		// Security Enhancement: Validate that the field is actually a repeater field.
+		if (function_exists('acf_get_field')) {
+			$field = acf_get_field($field_key);
+			if (!$field || $field['type'] !== 'repeater') {
+				$this->send_error(__('Invalid field specified.', 'raeen-repeater-field-for-acf'), 403);
+				return;
+			}
+		}
+
 		$rows = $this->get_field_rows($field_key, $post_id);
 		$sorted_rows = array();
 
