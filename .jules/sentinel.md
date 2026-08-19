@@ -1,0 +1,4 @@
+## 2024-05-18 - Insecure Direct Object Reference in AJAX Handler
+**Vulnerability:** The `ajax_sort_rows` method in `includes/Admin/Ajax_Handler.php` lacked validation to verify if the provided `field_key` was actually an ACF repeater field. It directly updated post meta based on the `$field_key` from user input if the user had `edit_post` permission.
+**Learning:** Even if a user has permission to edit a specific post, an AJAX handler that accepts arbitrary post meta keys can act as an IDOR, allowing users to reorder or manipulate post meta arrays that are not intended to be sorted by this specific functionality.
+**Prevention:** Always validate that external identifiers (like field keys) correspond to the expected type of object (e.g., an ACF repeater field) before using them in database operations.
