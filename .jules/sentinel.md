@@ -1,0 +1,5 @@
+## Sentinel Journal
+## 2024-05-24 - Rest API Incomplete Field Sanitization (XSS)
+**Vulnerability:** The `update_repeater_fields` REST API callback contained a custom subset of field sanitization (`sanitize_repeater_value` and `sanitize_field_value`) that missed validation and improperly handled fallback/custom field types. Specifically, if a non-numeric string was passed for an image or file field (or any non-standard type hitting default), it would be returned raw without sanitization, leading to a Stored XSS vulnerability.
+**Learning:** Reimplementing a custom subset of a core system logic (Sanitizer) often leads to missing protections. In this codebase, `prepare_for_database` in the central `Sanitizer` class was designed to handle all these edge cases securely, but was incorrectly bypassed by the REST API.
+**Prevention:** Avoid redundant or partial implementations of security logic. When a robust data validation/sanitization class exists (`Helpers\Sanitizer`), reuse its methods (e.g., `prepare_for_database`) rather than trying to recreate it in the specific entrypoint (like the REST API).
