@@ -452,104 +452,14 @@ class Rest_API
 		}
 
 		// Sanitize and validate.
-		$sanitized = $this->sanitize_repeater_value($value, $field);
+		if (!is_array($value)) {
+			$value = array();
+		}
+		$sanitizer = new \Raeen_Repeater\Helpers\Sanitizer();
+		$sanitized = $sanitizer->prepare_for_database($value, $field);
 
 		// Update the field.
 		return update_field($field['key'], $sanitized, $post_id);
-	}
-
-	/**
-	 * Sanitize repeater value.
-	 *
-	 * @param mixed $value Value to sanitize.
-	 * @param array $field Field config.
-	 * @return array
-	 */
-	private function sanitize_repeater_value(mixed $value, array $field): array
-	{
-		if (!is_array($value)) {
-			return array();
-		}
-
-		$sub_fields = $field['sub_fields'] ?? array();
-		$sanitized = array();
-
-		foreach ($value as $index => $row) {
-			if (!is_array($row)) {
-				continue;
-			}
-
-			$sanitized_row = array();
-			foreach ($sub_fields as $sub_field) {
-				$name = $sub_field['name'] ?? '';
-				if ($name && isset($row[$name])) {
-					$sanitized_row[$name] = $this->sanitize_field_value($row[$name], $sub_field);
-				}
-			}
-
-			// Preserve row ID.
-			if (isset($row['acf_repeater_row_id'])) {
-				$sanitized_row['acf_repeater_row_id'] = sanitize_text_field($row['acf_repeater_row_id']);
-			}
-
-			$sanitized[] = $sanitized_row;
-		}
-
-		return $sanitized;
-	}
-
-	/**
-	 * Sanitize field value based on type.
-	 *
-	 * @param mixed $value Value to sanitize.
-	 * @param array $field Field config.
-	 * @return mixed
-	 */
-	private function sanitize_field_value(mixed $value, array $field): mixed
-	{
-		$type = $field['type'] ?? 'text';
-
-		switch ($type) {
-			case 'text':
-			case 'textarea':
-			case 'email':
-			case 'url':
-			case 'number':
-			case 'password':
-				return is_string($value) ? sanitize_text_field($value) : $value;
-
-			case 'wysiwyg':
-				return is_string($value) ? wp_kses_post($value) : $value;
-
-			case 'select':
-			case 'radio':
-			case 'checkbox':
-				if (is_array($value)) {
-					return array_map('sanitize_text_field', $value);
-				}
-				return sanitize_text_field($value);
-
-			case 'true_false':
-				return (bool) $value;
-
-			case 'image':
-			case 'file':
-				return is_numeric($value) ? (int) $value : $value;
-
-			case 'date_picker':
-			case 'time_picker':
-			case 'datetime_picker':
-				return is_string($value) ? sanitize_text_field($value) : $value;
-
-			case 'color_picker':
-				return is_string($value) ? sanitize_hex_color($value) : $value;
-
-			case 'link':
-				return is_array($value) ? $value : array();
-
-			default:
-				return $value;
-		}
 	}
 
 	/**
