@@ -141,7 +141,6 @@ class Rest_API
 						'validate_callback' => function ($param) {
 							return is_array($param);
 						},
-						'sanitize_callback' => array($this, 'sanitize_row_data'),
 					),
 				),
 			)
@@ -203,7 +202,6 @@ class Rest_API
 							'validate_callback' => function ($param) {
 								return is_array($param);
 							},
-							'sanitize_callback' => array($this, 'sanitize_row_data'),
 						),
 					),
 				),
@@ -452,142 +450,14 @@ class Rest_API
 		}
 
 		// Sanitize and validate.
-		$sanitized = $this->sanitize_repeater_value($value, $field);
+		$sanitizer = new \Raeen_Repeater\Helpers\Sanitizer();
+		if (!is_array($value)) {
+			$value = array();
+		}
+		$sanitized = $sanitizer->prepare_for_database($value, $field);
 
 		// Update the field.
 		return update_field($field['key'], $sanitized, $post_id);
-	}
-
-	/**
-	 * Sanitize repeater value.
-	 *
-	 * @param mixed $value Value to sanitize.
-	 * @param array $field Field config.
-	 * @return array
-	 */
-	private function sanitize_repeater_value(mixed $value, array $field): array
-	{
-		if (!is_array($value)) {
-			return array();
-		}
-
-		$sub_fields = $field['sub_fields'] ?? array();
-		$sanitized = array();
-
-		foreach ($value as $index => $row) {
-			if (!is_array($row)) {
-				continue;
-			}
-
-			$sanitized_row = array();
-			foreach ($sub_fields as $sub_field) {
-				$name = $sub_field['name'] ?? '';
-				if ($name && isset($row[$name])) {
-					$sanitized_row[$name] = $this->sanitize_field_value($row[$name], $sub_field);
-				}
-			}
-
-			// Preserve row ID.
-			if (isset($row['acf_repeater_row_id'])) {
-				$sanitized_row['acf_repeater_row_id'] = sanitize_text_field($row['acf_repeater_row_id']);
-			}
-
-			$sanitized[] = $sanitized_row;
-		}
-
-		return $sanitized;
-	}
-
-	/**
-	 * Sanitize field value based on type.
-	 *
-	 * @param mixed $value Value to sanitize.
-	 * @param array $field Field config.
-	 * @return mixed
-	 */
-	private function sanitize_field_value(mixed $value, array $field): mixed
-	{
-		$type = $field['type'] ?? 'text';
-
-		switch ($type) {
-			case 'text':
-			case 'textarea':
-			case 'email':
-			case 'url':
-			case 'number':
-			case 'password':
-				return is_string($value) ? sanitize_text_field($value) : $value;
-
-			case 'wysiwyg':
-				return is_string($value) ? wp_kses_post($value) : $value;
-
-			case 'select':
-			case 'radio':
-			case 'checkbox':
-				if (is_array($value)) {
-					return array_map('sanitize_text_field', $value);
-				}
-				return sanitize_text_field($value);
-
-			case 'true_false':
-				return (bool) $value;
-
-			case 'image':
-			case 'file':
-				return is_numeric($value) ? (int) $value : $value;
-
-			case 'date_picker':
-			case 'time_picker':
-			case 'datetime_picker':
-				return is_string($value) ? sanitize_text_field($value) : $value;
-
-			case 'color_picker':
-				return is_string($value) ? sanitize_hex_color($value) : $value;
-
-			case 'link':
-				return is_array($value) ? $value : array();
-
-			default:
-				return $value;
-		}
-	}
-
-	/**
-	 * Sanitize row data from REST request.
-	 *
-	 * @param array $data Row data.
-	 * @return array
-	 */
-	public function sanitize_row_data(array $data): array
-	{
-		$sanitized = array();
-		foreach ($data as $key => $value) {
-			$sanitized[sanitize_key($key)] = $this->sanitize_value_recursive($value);
-		}
-		return $sanitized;
-	}
-
-	/**
-	 * Recursively sanitize value.
-	 *
-	 * @param mixed $value Value to sanitize.
-	 * @return mixed
-	 */
-	private function sanitize_value_recursive(mixed $value): mixed
-	{
-		if (is_array($value)) {
-			return array_map(array($this, 'sanitize_value_recursive'), $value);
-		}
-		if (is_string($value)) {
-			return sanitize_text_field($value);
-		}
-		if (is_numeric($value)) {
-			return $value + 0;
-		}
-		if (is_bool($value)) {
-			return $value;
-		}
-		return $value;
 	}
 
 	/**
@@ -682,11 +552,8 @@ class Rest_API
 			}
 		}
 
-		// Sanitize row data.
-		$sanitized_row = $this->sanitize_row_data($row_data);
-
 		// Add row ID.
-		$sanitized_row['acf_repeater_row_id'] = uniqid('row_');
+		$row_data['acf_repeater_row_id'] = uniqid('row_');
 
 		// Get current rows and append.
 		$current_rows = get_field($field['name'], $post_id, false);
@@ -694,12 +561,15 @@ class Rest_API
 			$current_rows = array();
 		}
 
-		$current_rows[] = $sanitized_row;
+		$current_rows[] = $row_data;
+
+		$sanitizer = new \Raeen_Repeater\Helpers\Sanitizer();
+		$sanitized_rows = $sanitizer->prepare_for_database($current_rows, $field);
 
 		// Save.
-		if (update_field($field['key'], $current_rows, $post_id)) {
-			$new_index = count($current_rows) - 1;
-			$formatted = $this->format_row_data($sanitized_row, $field, $new_index);
+		if (update_field($field['key'], $sanitized_rows, $post_id)) {
+			$new_index = count($sanitized_rows) - 1;
+			$formatted = $this->format_row_data($sanitized_rows[$new_index], $field, $new_index);
 
 			return rest_ensure_response($formatted);
 		}
@@ -734,18 +604,13 @@ class Rest_API
 			return new \WP_Error('not_found', __('Row not found.', 'raeen-repeater-field-for-acf'), array('status' => 404));
 		}
 
-		// Sanitize and merge row data.
-		$sanitized_row = $this->sanitize_row_data($row_data);
+		$current_rows[$row_index] = array_merge($current_rows[$row_index], $row_data);
 
-		// Preserve row ID.
-		if (isset($current_rows[$row_index]['acf_repeater_row_id'])) {
-			$sanitized_row['acf_repeater_row_id'] = $current_rows[$row_index]['acf_repeater_row_id'];
-		}
+		$sanitizer = new \Raeen_Repeater\Helpers\Sanitizer();
+		$sanitized_rows = $sanitizer->prepare_for_database($current_rows, $field);
 
-		$current_rows[$row_index] = array_merge($current_rows[$row_index], $sanitized_row);
-
-		if (update_field($field['key'], $current_rows, $post_id)) {
-			$formatted = $this->format_row_data($current_rows[$row_index], $field, $row_index);
+		if (update_field($field['key'], $sanitized_rows, $post_id)) {
+			$formatted = $this->format_row_data($sanitized_rows[$row_index], $field, $row_index);
 			return rest_ensure_response($formatted);
 		}
 
