@@ -310,6 +310,25 @@ class Sanitizer {
 	}
 
 	/**
+	 * Format an attachment ID into an array.
+	 *
+	 * @param int $attachment_id The attachment ID.
+	 * @return array|int The formatted array or the original ID if attachment not found.
+	 */
+	private function format_attachment( int $attachment_id ) {
+		$attachment = get_post( $attachment_id );
+		if ( $attachment ) {
+			return array(
+				'id'    => $attachment_id,
+				'url'   => wp_get_attachment_url( $attachment_id ),
+				'alt'   => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
+				'title' => $attachment->post_title,
+			);
+		}
+		return $attachment_id;
+	}
+
+	/**
 	 * Format value for display.
 	 *
 	 * @param mixed $value Field value.
@@ -326,15 +345,7 @@ class Sanitizer {
 			case 'image':
 			case 'file':
 				if ( is_numeric( $value ) ) {
-					$attachment = get_post( (int) $value );
-					if ( $attachment ) {
-						return array(
-							'id'    => (int) $value,
-							'url'   => wp_get_attachment_url( $value ),
-							'alt'   => get_post_meta( $value, '_wp_attachment_image_alt', true ),
-							'title' => $attachment->post_title,
-						);
-					}
+					return $this->format_attachment( (int) $value );
 				}
 				return $value;
 
@@ -342,16 +353,7 @@ class Sanitizer {
 				if ( is_array( $value ) ) {
 					return array_map(
 						function ( $id ) {
-							$attachment = get_post( (int) $id );
-							if ( $attachment ) {
-									return array(
-										'id'    => (int) $id,
-										'url'   => wp_get_attachment_url( $id ),
-										'alt'   => get_post_meta( $id, '_wp_attachment_image_alt', true ),
-										'title' => $attachment->post_title,
-									);
-							}
-							return $id;
+							return $this->format_attachment( (int) $id );
 						},
 						$value
 					);
