@@ -166,6 +166,12 @@ class Ajax_Handler
 			return;
 		}
 
+		$field = function_exists('acf_get_field') ? acf_get_field($field_key) : null;
+		if (!$field || $field['type'] !== 'repeater') {
+			$this->send_error(__('Invalid repeater field.', 'raeen-repeater-field-for-acf'));
+			return;
+		}
+
 		$rows = $this->get_field_rows($field_key, $post_id);
 		$sorted_rows = array();
 
