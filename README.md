@@ -282,3 +282,6 @@ GPL-2.0-or-later
 - Drag-and-drop sorting and row operations.
 - ACF Pro-compatible flat postmeta format.
 - REST API and ACF JSON sync support.
+
+
+<!-- Security scan triggered at 2026-08-31 18:23:53 -->
